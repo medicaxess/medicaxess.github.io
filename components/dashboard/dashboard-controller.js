@@ -250,7 +250,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/partials/dashboard-area.html'
+            templateUrl: '/views/partials/dashboard-area.html'
         }
     })
     .directive('patientArea',function(){
@@ -258,7 +258,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/partials/patient-area.html'
+            templateUrl: '/views/partials/patient-area.html'
         }
     })
     .directive('chartsArea',function(){
@@ -266,7 +266,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/partials/charts-area.html'
+            templateUrl: '/views/partials/charts-area.html'
         }
     })
     .directive('conferenceArea',function(){
@@ -274,7 +274,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/partials/conference-area.html'
+            templateUrl: '/views/partials/conference-area.html'
         }
     })
     .directive('patientInfoWidget',function(){
@@ -282,7 +282,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/widgets/patient-info-widget.html'
+            templateUrl: '/views/widgets/patient-info-widget.html'
         }
     })
     .directive('patientVitalsWidget',function(){
@@ -290,7 +290,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/widgets/patient-vitals-widget.html'
+            templateUrl: '/views/widgets/patient-vitals-widget.html'
         }
     })
     .directive('patientCustomFieldEditorWidget',function(){
@@ -298,7 +298,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/widgets/patient-custom-field-editor-widget.html'
+            templateUrl: '/views/widgets/patient-custom-field-editor-widget.html'
         }
     })
     .directive('patientRecordsWidget',function(){
@@ -306,7 +306,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/widgets/patient-records-widget.html'
+            templateUrl: '/views/widgets/patient-records-widget.html'
         }
     })
     .directive('patientRecordDetailWidget',function(){
@@ -314,7 +314,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/widgets/patient-record-detail-widget.html'
+            templateUrl: '/views/widgets/patient-record-detail-widget.html'
         }
     })
     .directive('videoConferenceWidget',function(){
@@ -322,7 +322,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/widgets/video-conference-widget.html'
+            templateUrl: '/views/widgets/video-conference-widget.html'
         }
     })
     .directive('complaintsWidget',function(){
@@ -330,7 +330,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/widgets/complaints-widget.html'
+            templateUrl: '/views/widgets/complaints-widget.html'
         }
     })
     .directive('observationsWidget',function(){
@@ -338,7 +338,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/widgets/observations-widget.html'
+            templateUrl: '/views/widgets/observations-widget.html'
         }
     })
     .directive('ordersWidget',function(){
@@ -346,7 +346,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/widgets/orders-widget.html'
+            templateUrl: '/views/widgets/orders-widget.html'
         }
     })
     .directive('studiesWidget',function(){
@@ -354,7 +354,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/widgets/studies-widget.html'
+            templateUrl: '/views/widgets/studies-widget.html'
         }
     })
     .directive('prescriptionWidget',function(){
@@ -362,7 +362,7 @@ angular.module('dashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/widgets/prescription-widget.html'
+            templateUrl: '/views/widgets/prescription-widget.html'
         }
     });
 

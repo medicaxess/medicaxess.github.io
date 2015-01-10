@@ -124,7 +124,7 @@ angular.module('login',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/partials/login-area.html'
+            templateUrl: '/views/partials/login-area.html'
         }
     })
     .directive('signupArea',function(){
@@ -132,7 +132,7 @@ angular.module('login',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/app/views/partials/signup-area.html'
+            templateUrl: '/views/partials/signup-area.html'
         }
     })
 ;
