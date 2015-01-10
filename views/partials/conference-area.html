@@ -1,0 +1,23 @@
+<section ng-show="app.state=='conferenceview'">
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="span7">
+                        <video-conference-widget></video-conference-widget>
+                        <patient-vitals-widget></patient-vitals-widget>
+                    </div>
+                    <!-- /span6 -->
+                    <div class="span5">
+                        <patient-info-widget></patient-info-widget>
+                        <patient-records-widget></patient-records-widget>
+                        <patient-record-detail-widget ng-show="currentRecord"></patient-record-detail-widget>
+                    </div>
+                </div>
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /main-inner -->
+    </div>
+    <!-- /main -->
+</section>

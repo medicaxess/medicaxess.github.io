@@ -1,0 +1,10 @@
+<div class="widget">
+    <div class="widget-header"><i class="icon-umbrella"></i>
+        <h3> Complaints</h3></div>
+    <div class="widget-content">
+        <ul>
+            <li ng-repeat="complaint in currentRecord.complaints">{{complaint}}</li>
+        </ul>
+        <input type="text" ng-model="newComplaint"><button class="btn btn-default" ng-click="appendComplaint(currentRecord)">Add</button>
+    </div>
+</div>

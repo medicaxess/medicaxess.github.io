@@ -1,0 +1,50 @@
+<section ng-show="app.state=='providerview'">
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="span4">
+                        <div class="widget widget-nopad">
+                            <div class="widget-header"> <i class="icon-list-alt"></i>
+                                <h3> Today's Patients</h3>
+                            </div>
+                            <!-- /widget-header -->
+                            <div class="widget-content">
+                                <div class="widget big-stats-container">
+                                    <div class="widget-content">
+                                        <h6 class="bigstats">
+                                            <i class="icon-ambulance"></i> Emergency &nbsp;&nbsp;
+                                            <i class="icon-thumbs-up"></i> Scheduled Appointment &nbsp;&nbsp;
+                                            <i class="icon-asterisk"></i> Walk in &nbsp;&nbsp;
+                                        </h6>
+                                        <div id="big_stats" class="cf">
+                                            <div class="stat"> <i class="icon-asterisk"></i> <span class="value" ng-click="showPatient(0)">Victor Vargas</span> </div>
+                                            <div class="stat"> <i class="icon-ambulance"></i> <span class="value" ng-click="showPatient(1)">Faye King</span> </div>
+                                            <div class="stat"> <i class="icon-thumbs-up"></i> <span class="value" ng-click="showPatient(2)">Antonia Malsalud</span> </div>
+                                        </div>
+                                    </div>
+                                    <!-- /widget-content -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /widget -->
+                    </div>
+                    <!-- /span6 -->
+                    <div class="span7">
+                        <div class="widget">
+                            <div class="widget-header"><i class="icon-calendar"></i>
+                                <h3> Calendar</h3></div>
+                            <div class="widget-content">
+                                <iframe src="https://www.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=en.mexican%23holiday%40group.v.calendar.google.com&amp;color=%23182C57&amp;ctz=America%2FTijuana" style=" border-width:0 " width="640" height="480" frameborder="0" scrolling="no"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /main-inner -->
+    </div>
+    <!-- /main -->
+</section>

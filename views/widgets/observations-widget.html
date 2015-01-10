@@ -1,0 +1,15 @@
+<div class="widget">
+    <div class="widget-header"><i class="icon-stethoscope"></i>
+        <h3> Observations</h3></div>
+    <div class="widget-content">
+        <ul>
+            <li ng-repeat="ob in currentRecord.obs">{{ob.name}} | {{ob.status}} | {{ob.notes}}</li>
+        </ul>
+        <form>
+            <label>Name / Type</label><input type="text" ng-model="newOb.name"><br>
+            <label>Status</label><input type="text" ng-model="newOb.status"><br>
+            <label>Notes</label><input type="text" ng-model="newOb.notes"><br>
+            <button class="btn btn-default" ng-click="appendObservation(currentRecord)">Add</button>
+        </form>
+    </div>
+</div>

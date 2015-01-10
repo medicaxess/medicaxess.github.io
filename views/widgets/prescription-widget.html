@@ -1,0 +1,9 @@
+<div class="widget">
+    <div class="widget-header"><i class="icon-shield"></i>
+        <h3> Prescriptions</h3></div>
+    <div class="widget-content">
+        <ul>
+            <li ng-repeat="rx in currentRecord.rx">{{rx.drug}} | {{rx.dose}} | {{rx.frequency}} | {{rx.duration}} | {{rx.refillsallowed}} | {{rx.reason}}</li>
+        </ul>
+    </div>
+</div>

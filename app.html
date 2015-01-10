@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Login - MedicAxess</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="assets/css/font-awesome.css" rel="stylesheet">
+
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/pages/signin.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+
+    <!--<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>-->
+
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui/build/angular-ui.js"></script>
+    <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+
+    <script src="components/login/login-controller.js"></script>
+    <script src="components/dashboard/dashboard-controller.js"></script>
+    <script src="app.js"></script>
+
+</head>
+
+<body ng-app="myApp" ng-controller="LoginController">
+<div class="navbar navbar-fixed-top">
+
+    <div class="navbar-inner">
+
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="index.html">
+                MedicAxess
+            </a>
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="" ng-show="!userData.isLoggedIn">
+                        <a class="" ng-click="app.state='register'">
+                            Don't have an account?
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="index.html" class="">
+                            <i class="icon-chevron-left"></i>
+                            Back to Homepage
+                        </a>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+
+        </div> <!-- /container -->
+
+    </div> <!-- /navbar-inner -->
+
+</div> <!-- /navbar -->
+<div class="subnavbar" ng-show="userData.isLoggedIn">
+    <div class="subnavbar-inner">
+        <div class="container">
+            <ul class="mainnav">
+                <li><a ng-click="app.state='providerview'"><i class="icon-dashboard"></i><span>Dashboard</span> </a> </li>
+                <!--<li><a ng-click="app.state='reportsview'"><i class="icon-list-alt"></i><span>Reports</span> </a> </li>-->
+                <!--<li><a href="guidely.html"><i class="icon-facetime-video"></i><span>App Tour</span> </a></li>-->
+                <li><a ng-click="app.state='providerview-search'"><i class="icon-group"></i><span>Patients</span> </a> </li>
+                <!-- <li><a ng-click="app.state='messageview'"><i class="icon-envelope"></i><span>Messages</span> </a> </li> -->
+                <li><a ng-click="app.state='conferenceview'"><i class="icon-comments"></i><span>Conferencing</span> </a> </li>
+            </ul>
+        </div><!-- /container -->
+    </div><!-- /subnavbar-inner -->
+</div><!-- /subnavbar -->
+<login-area></login-area>
+<signup-area></signup-area>
+<section ng-controller="DashboardController">
+    <dashboard-area></dashboard-area>
+    <patient-area></patient-area>
+    <charts-area></charts-area>
+    <conference-area></conference-area>
+</section>
+</body>
+
+<script src="//static.opentok.com/webrtc/v2.2/js/opentok.min.js"></script>
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['gauge']}]}"></script>
+
+<script>
+    google.setOnLoadCallback(drawChart);
+
+    function initVideo(){
+        var apiKey = "45126422";
+        var sessionId = "2_MX40NTEyNjQyMn5-MTQyMDkyNDY0NjQxM35lcTc1bUJOUFRvSTdpTlkyYXZOYnJrbVV-fg";
+        var token = "T1==cGFydG5lcl9pZD00NTEyNjQyMiZzaWc9NjllZTgyYmQ1MGIxZTlmM2IyNjRmM2NjYWQ5MDUzNGJiY2VkYjM0ZTpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5URXlOalF5TW41LU1UUXlNRGt5TkRZME5qUXhNMzVsY1RjMWJVSk9VRlJ2U1RkcFRsa3lZWFpPWW5KcmJWVi1mZyZjcmVhdGVfdGltZT0xNDIwOTI1NDAyJm5vbmNlPTAuMzc0MjM3OTgxNDQ3MDI4MTM=";
+
+        // Initialize session, set up event listeners, and connect
+        var session = OT.initSession(apiKey, sessionId);
+
+        session.on("streamCreated", function(event) {
+            session.subscribe(event.stream);
+        });
+
+        session.connect(token, function(error) {
+            var publisher = OT.initPublisher();
+            session.publish(publisher);
+        });
+
+    }
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Label', 'Value'],
+            ['Temp', 98.6],
+            ['SpO2',100],
+            ['Heart Rate', 101],
+            ['Systolic', 136],
+            ['Diastolic',95]
+        ]);
+
+        var options = {
+            width: 400, height: 120,
+            redFrom: 90, redTo: 100,
+            yellowFrom:75, yellowTo: 90,
+            minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+
+        setInterval(function() {
+            data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+            chart.draw(data, options);
+        }, 13000);
+        setInterval(function() {
+            data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+            chart.draw(data, options);
+        }, 5000);
+        setInterval(function() {
+            data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
+            chart.draw(data, options);
+        }, 26000);
+    }
+</script>
+</html>

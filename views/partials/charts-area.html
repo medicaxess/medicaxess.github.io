@@ -1,0 +1,37 @@
+<section ng-show="app.state=='providerview-search'" >
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="widget">
+                        <div class="widget-header"><i class="icon-search"></i>
+                            <h3> Patient Search</h3></div>
+                            <div class="widget-content">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th>Name</th>
+                                        <th>DOB</th>
+                                        <th>Gender</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input class="form-control" type="text" ng-model="search.name" ng-change="searchPatients('name')"></td>
+                                            <td><input class="form-control" type="text" ng-model="search.dob" ng-change="searchPatients('dob')"></td>
+                                            <td><input class="form-control" type="text" ng-model="search.gender" ng-change="searchPatients('gender')"></td>
+                                            <td><button class="btn btn-info btn-block" ng-click="createPatient()">Create</button></td>
+                                        </tr>
+                                        <tr class="animate-repeat" ng-repeat="patient in matches" ng-click="setCurrentPatient(patient)">
+                                            <td>{{patient.name}}</td>
+                                            <td>{{patient.dob}}</td>
+                                            <td>{{patient.gender}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

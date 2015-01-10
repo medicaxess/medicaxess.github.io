@@ -1,0 +1,15 @@
+<div class="widget">
+    <div class="widget-header"><i class="icon-user"></i>
+        <h3> {{currentPatient.name}}</h3></div>
+    <div class="widget-content">
+        <div class="span4">
+            <span><label>Gender: </label>&nbsp;&nbsp;{{currentPatient.gender}}</span>&nbsp;&nbsp;
+            <span><label>DOB: </label>&nbsp;&nbsp;{{currentPatient.dob}}</span>
+        </div>
+        <div class="span4">
+            <fieldset>
+                <span ng-repeat="(key, value) in currentPatient.extraInfo"><label>{{key}}:</label>&nbsp;&nbsp;{{value}}</span>
+            </fieldset>
+        </div>
+    </div>
+</div>
