@@ -32,7 +32,9 @@
 </head>
 
 <body ng-app="myApp" ng-controller="LoginController">
-<div class="navbar navbar-fixed-top">
+<header id="header">
+<h1><a href="#" id="node" name="node">Medicaxess</a> by IMAXESS</h1>
+<nav id="nav" class="navbar navbar-fixed-top">
 
     <div class="navbar-inner">
 
@@ -41,9 +43,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </a>
-            <a class="brand" href="index.html">
-                MedicAxess
             </a>
             <div class="nav-collapse">
                 <ul class="nav pull-right">
@@ -64,8 +63,8 @@
         </div> <!-- /container -->
 
     </div> <!-- /navbar-inner -->
-
-</div> <!-- /navbar -->
+</nav> <!-- /navbar -->
+</header>
 <div class="subnavbar" ng-show="userData.isLoggedIn">
     <div class="subnavbar-inner">
         <div class="container">
