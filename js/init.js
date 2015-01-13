@@ -9,20 +9,20 @@
 	skel.init({
 		reset: 'full',
 		breakpoints: {
-			global:		{ range: '*', href: '/assets/css/style.css', containers: '60em', grid: { gutters: { vertical: '2em', horizontal: 0 } } },
-			wide:		{ range: '-1680', href: '/assets/css/style-wide.css' },
-			normal:		{ range: '-1280', href: '/assets/css/style-normal.css', grid: { gutters: { vertical: '1.5em' } }, viewport: { scalable: false } },
-			narrow:		{ range: '-980', href: '/assets/css/style-narrow.css', containers: '90%' },
-			narrower:	{ range: '-840', href: '/assets/css/style-narrower.css', grid: { collapse: 1 } },
-			mobile:		{ range: '-640', href: '/assets/css/style-mobile.css', containers: '100%', grid: { gutters: { vertical: '1em' } } },
-			mobilep:	{ range: '-480', href: '/assets/css/style-mobilep.css', grid: { collapse: 2 } }
+			global:		{ range: '*', href: '/css/style.css', containers: '60em', grid: { gutters: { vertical: '2em', horizontal: 0 } } },
+			wide:		{ range: '-1680', href: '/css/style-wide.css' },
+			normal:		{ range: '-1280', href: '/css/style-normal.css', grid: { gutters: { vertical: '1.5em' } }, viewport: { scalable: false } },
+			narrow:		{ range: '-980', href: '/css/style-narrow.css', containers: '90%' },
+			narrower:	{ range: '-840', href: '/css/style-narrower.css', grid: { collapse: 1 } },
+			mobile:		{ range: '-640', href: '/css/style-mobile.css', containers: '100%', grid: { gutters: { vertical: '1em' } } },
+			mobilep:	{ range: '-480', href: '/css/style-mobilep.css', grid: { collapse: 2 } }
 		}
 	}, {
 		layers: {
 			transformTest: function() { return skel.vars.isMobile; },
 			layers: {
 				
-				// Navigation Panel.
+				/ Navigation Panel.
 					navPanel: {
 						animation: 'pushX',
 						breakpoints: 'narrower',
@@ -36,7 +36,7 @@
 						width: 250
 					},
 
-				// Navigation Button.
+				/ Navigation Button.
 					navButton: {
 						breakpoints: 'narrower',
 						height: '4em',
@@ -57,7 +57,7 @@
 			$header = $('#header'),
 			$banner = $('#banner');
 
-		// Forms (IE<10).
+		/ Forms (IE<10).
 			var $form = $('form');
 			if ($form.length > 0) {
 				
@@ -74,15 +74,15 @@
 
 			}
 		
-		// Dropdowns.
+		/ Dropdowns.
 			$('#nav > ul').dropotron({
 				alignment: 'right'
 			});
 
-		// Header.
-		// If the header is using "alt" styling and #banner is present, use scrollwatch
-		// to revert it back to normal styling once the user scrolls past the banner.
-		// Note: This is disabled on mobile devices.
+		/ Header.
+		/ If the header is using "alt" styling and #banner is present, use scrollwatch
+		/ to revert it back to normal styling once the user scrolls past the banner.
+		/ Note: This is disabled on mobile devices.
 			if (!skel.vars.isMobile
 			&&	$header.hasClass('alt')
 			&&	$banner.length > 0) {
