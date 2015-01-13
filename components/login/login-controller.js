@@ -13,7 +13,7 @@ var loginController = function($rootScope, $scope, $http) {
         window.alert("Welcome to MedicAxess, you have successfully logged in as a Provider, you will now be taken to the Provider Dashboard");
         $scope.userData.isLoggedIn = true;
         $scope.app.state='providerview';
-        window.document.title = $scope.userData.email + "'s Dashboard";
+        window.document.title = $scope.userData.username + "'s Dashboard";
     };
 
     $scope.registerUser = function(){
