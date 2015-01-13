@@ -8,6 +8,8 @@
 	
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
+
+
 <!--
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
@@ -21,48 +23,45 @@
     <script type="text/javascript" src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
 -->
         
-	
-
-	<!--[if lte IE 8]><script src="/css/ie/html5shiv.js"></script><![endif]-->
-	<script src="/js/jquery.min.js"></script>
-	<script src="/js/jquery.dropotron.min.js"></script>
-	<script src="/js/jquery.scrollgress.min.js"></script>
-	<script src="/js/skel.min.js"></script>
-	<script src="/js/skel-layers.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/init.js"></script>
-
 	<!-- Bootstrap -->
-	<link href="/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/pages/signin.css">
+	<link rel="stylesheet" href="/css/style.css">
+    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	
-
-	<noscript>
-		<link rel="stylesheet" href="/css/skel.css" />
-		<link rel="stylesheet" href="/css/style.css" />
-		<link rel="stylesheet" href="/css/style-wide.css" />
-		</noscript>
-		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-
-
     <style>
         .glyphicon { margin-right:10px; }
         .panel-body { padding:0px; }
         .panel-body table tr td { padding-left: 15px }
         .panel-body .table {margin-bottom: 0px; }
         .a { text-decoration: none; }
+        
+        #mainnav li
+        {
+            display: inline;
+            list-style-type: none;
+            padding-right: 20px;
+            color:#DADADA;
+            
+        }
+        
+        #mainnav li a:hover
+        {
+            background-color: #6D6D6D;
+        }
+        #mainnav li i
+        {
+            padding-right: 5px;
+        }
+        #header h1 { font-size: 12pt; color:#DADADA; }
+        #header h1 a { font-size: 12pt; }
+    </style>	
 
-        #header h1 { font-size: 9pt; color:#DADADA; }
-        #header h1 a { font-size: 9pt; }
-    </style>
-    <!--<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>-->
 
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="bower_components/angular-ui/build/angular-ui.js"></script>
-    <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
-    <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
-    <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
-
     <script src="/components/login/login-controller.js"></script>
     <script src="/components/dashboard/dashboard-controller.js"></script>
     <script src="app.js"></script>
@@ -72,37 +71,40 @@
 <body ng-app="myApp" ng-controller="LoginController">
 	<header id="header">
 		<h1><a href="#" id="node" name="node">Medicaxess</a> by IMAXESS</h1>
-		<nav id="nav">    
-			<ul>
-	             <li id="node" name="node" ng-show="!userData.isLoggedIn">
-	                 <a class="" ng-click="app.state='register'">
-	                     Don't have an account?
-	                 </a>
-	             </li>
-	             <li id="node" name="node">
-	                 <a href="index.html" class="">
-	                     <i class="icon-chevron-left"></i>
-	                     Back to Homepage
-	                 </a>
-	             </li>
-	        </ul>
-		</nav> <!-- /navbar -->
-		<div class="subnavbar" ng-show="userData.isLoggedIn">
+		    <!-- Fixed navbar -->
+        <nav class="navbar  navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <!--<a class="navbar-brand" href="#">Bootstrap theme</a>-->
+            </div>
+            <!--
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav"></ul>
+              </ul>
+            </div>--><!--/.nav-collapse -->
+          </div>
+        </nav>
+		<div class="subnavbar" >
 		    <div class="subnavbar-inner">
 		        <div class="container">
-		            <ul class="mainnav">
-		                <li><a ng-click="app.state='providerview'"><i class="icon-dashboard"></i><span>Dashboard</span> </a> </li>
-		                <!--<li><a ng-click="app.state='reportsview'"><i class="icon-list-alt"></i><span>Reports</span> </a> </li>-->
-		                <!--<li><a href="guidely.html"><i class="icon-facetime-video"></i><span>App Tour</span> </a></li>-->
-		                <li><a ng-click="app.state='providerview-search'"><i class="icon-group"></i><span>Patients</span> </a> </li>
-		                <!-- <li><a ng-click="app.state='messageview'"><i class="icon-envelope"></i><span>Messages</span> </a> </li> -->
-		                <li><a ng-click="app.state='conferenceview'"><i class="icon-comments"></i><span>Conferencing</span> </a> </li>
+		            <ul id="mainnav">
+		                <li><a ng-click="app.state='providerview'"><i class="fa fa-dashboard fa-lg fa-fw"></i><span>Dashboard</span> </a> </li>
+		                <li><a ng-click="app.state='reportsview'"><i class="fa fa-list-alt fa-lg fa-fw"></i><span>Reports</span> </a> </li>
+		                <li><a ng-click="app.state='providerview-search'"><i class="fa fa-group fa-lg fa-fw"></i><span>Patients</span> </a> </li>
+		                <li><a ng-click="app.state='messageview'"><i class="fa fa-envelope fa-lg fa-fw"></i><span>Messages</span> </a> </li>
+		                <li><a ng-click="app.state='conferenceview'"><i class="fa fa-comments fa-lg fa-fw"></i><span>Conferencing</span> </a> </li>
 		            </ul>
-		        </div><!-- /container -->
-		    </div><!-- /subnavbar-inner -->
-		</div><!-- /subnavbar -->
+		        </div>
+		    </div>
+		</div>
 	</header>
-<!--
+
 	<login-area></login-area>
 	<signup-area></signup-area>
 	<section ng-controller="DashboardController">
@@ -113,7 +115,7 @@
 	</section>
 
 	<script src="/js/opentok.min.js"></script>
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+	
 	<script src="/js/gauges.min.js"></script>
 	
 	<script>
@@ -173,6 +175,5 @@
 	        }, 26000);
 	    }
 	</script>
-	-->
 </body>    
 </html>
