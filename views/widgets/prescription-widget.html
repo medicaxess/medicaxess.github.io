@@ -1,9 +1,22 @@
-<div class="widget">
-    <div class="widget-header"><i class="icon-shield"></i>
-        <h3> Prescriptions</h3></div>
-    <div class="widget-content">
-        <ul>
-            <li ng-repeat="rx in currentRecord.rx">{{rx.drug}} | {{rx.dose}} | {{rx.frequency}} | {{rx.duration}} | {{rx.refillsallowed}} | {{rx.reason}}</li>
-        </ul>
-    </div>
+<div class="panel-body">
+    <fieldset>
+        <legend><i class="fa fa-shield"></i>&nbsp;&nbsp;Prescriptions</legend>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Drug</td><td>Dose</td><td>Frequency</td><td>Duration</td><td>Refills</td><td>Reason</td></tr>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="rx in currentPatient.rx">
+                    <td>{{rx.drug}}</td>
+                    <td>{{rx.dose}}</td>
+                    <td>{{rx.frequency}}</td>
+                    <td>{{rx.duration}}</td>
+                    <td>{{rx.refillsallowed}}</td>
+                    <td>{{rx.reason}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
 </div>

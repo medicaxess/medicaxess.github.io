@@ -14,6 +14,17 @@ var dashboardController = function($rootScope, $scope, $http){
             gender: "M",
             dob: "19760704",
             photo: "/img/victor_vargas.png",
+
+             rx : [
+                 {
+                     drug :  'Albuterol Inhaler',
+                     dose : '10mg',
+                     frequency : 'PRN',
+                     duration : '3m',
+                     refillsallowed : '10',
+                     reason : 'Shortness of breath'
+                 }
+             ],
             records:[
                 {
                     date: Date.now(),
@@ -42,17 +53,6 @@ var dashboardController = function($rootScope, $scope, $http){
                             status: 'on-order',
                             studytype: 'xray chest',
                             reason: 'Rule out blockage'
-                        }
-                    ],
-
-                    rx : [
-                        {
-                            drug:  'Albuterol Inhaler',
-                            dose :'10mg',
-                            frequency: 'PRN',
-                            duration: '3m',
-                            refillsallowed: '10',
-                            reason : 'Shortness of breath'
                         }
                     ]
                 }
@@ -164,7 +164,7 @@ var dashboardController = function($rootScope, $scope, $http){
 
 
     $scope.searchPatients = function(fieldname){
-        //TODO: This needs to query a live DB somewhere
+
       $scope.matches = [];
        $scope.patients.forEach(function(patient){
            //console.log("Looking at: ",patient);
@@ -243,6 +243,11 @@ var dashboardController = function($rootScope, $scope, $http){
     $scope.startVideo = function(){
         initVideo();
         $scope.chatstate = "started";
+    }
+
+    $scope.viewStudy = function(patient){
+        var url = "http://pacs.medicaxess.com:8080/plugin-dwv/explorer.html#patient?name="+escape(patient.name);
+        window.open(url);
     }
 };
 

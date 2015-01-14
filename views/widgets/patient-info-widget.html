@@ -4,8 +4,8 @@
     <div class="panel-body">
         <div class="row">&nbsp;&nbsp;</div>
         <div class="row">
-            <div class="col-md-4"><img ng-src="{{currentPatient.photo}}"></div>
-            <div class="col-md-5">
+            <div class="col-md-3"><img ng-src="{{currentPatient.photo}}"></div>
+            <div class="col-md-6">
                 <table class="table">
                     <tr>
                         <td><b>Name:</b></td><td>{{currentPatient.name}}</td>
@@ -17,6 +17,7 @@
                         <td><b>DOB:</b></td><td>{{currentPatient.dob}}</td>
                     </tr>
                 </table>
+                <prescription-widget></prescription-widget>
             </div>
             <div class="col-md-3">
                 <table class="table">

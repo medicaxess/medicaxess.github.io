@@ -1,15 +1,15 @@
 <div class="panel-body">
     <form>
         <fieldset>
-            <legend><i class="fa fa-puzzle-piece"></i>&nbsp;&nbsp;Studies</legend>
+            <legend><i class="fa fa-puzzle-piece"></i>&nbsp;&nbsp;Tests &amp; Studies</legend>
 
             <table class="table">
                 <thead>
-                    <tr><th>Type</th><th>Status</th><th>Notes</th></tr>
+                    <tr><th>Type</th><th>Status</th><th>Notes</th><th>More</th></tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="study in currentRecord.studies">
-                        <td>{{study.name}}</td><td>{{study.status}}</td><td>{{study.notes}}</td>
+                        <td>{{study.name}}</td><td>{{study.status}}</td><td>{{study.notes}}</td><td><button ng-click="viewStudy(currentPatient)">View</button></td>
                     </tr>
                 </tbody>
                 <tfoot><tr>
