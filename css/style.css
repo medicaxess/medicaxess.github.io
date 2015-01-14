@@ -1218,7 +1218,11 @@
 /* Banner */
 
 	#banner {
-		background: #666 url("../img/overlay.png"), url("../img/banner.jpg") repeat, no-repeat scroll, fixed top left, center center;
+		background-attachment: scroll,							fixed;
+		background-color: #666;
+		background-image: url("../img/overlay.png"), url("../img/banner.jpg");
+		background-position: top left,						center center;
+		background-repeat: repeat,							no-repeat;
 		background-size: auto,							cover;
 		color: #fff;
 		padding: 12em 0 20em 0;
