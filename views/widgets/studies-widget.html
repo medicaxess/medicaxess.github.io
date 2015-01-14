@@ -1,15 +1,24 @@
-<div class="widget">
-    <div class="widget-header"><i class="icon-beaker"></i>
-        <h3> Studies</h3></div>
-    <div class="widget-content">
-        <ul>
-            <li ng-repeat="study in currentRecord.studies">{{study.name}} | {{study.status}} | {{study.notes}}</li>
-        </ul>
-        <form>
-            <label>Name / Type</label><input type="text" ng-model="newStudy.name"><br>
-            <label>Status</label><input type="text" ng-model="newStudy.status"><br>
-            <label>Notes</label><input type="text" ng-model="newStudy.notes"><br>
-            <button class="btn btn-default" ng-click="appendStudy(currentRecord)">Add</button>
-        </form>
-    </div>
+<div class="panel-body">
+    <form>
+        <fieldset>
+            <legend><i class="fa fa-puzzle-piece"></i>&nbsp;&nbsp;Studies</legend>
+
+            <table class="table">
+                <thead>
+                    <tr><th>Type</th><th>Status</th><th>Notes</th></tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="study in currentRecord.studies">
+                        <td>{{study.name}}</td><td>{{study.status}}</td><td>{{study.notes}}</td>
+                    </tr>
+                </tbody>
+                <tfoot><tr>
+                    <td><input type="text" ng-model="newStudy.name" placeholder="Type"></td>
+                    <td><input type="text" ng-model="newStudy.status" placeholder="status"></td>
+                    <td><input type="text" ng-model="newStudy.notes" placeholder="notes"></td>
+                    <td><button class="btn btn-default btn-block" ng-click="appendStudy(currentRecord)">Add</button></td>
+                </tr></tfoot>
+            </table>
+        </fieldset>
+    </form>
 </div>

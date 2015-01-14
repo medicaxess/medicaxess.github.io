@@ -1,15 +1,24 @@
-<div class="widget">
-    <div class="widget-header"><i class="icon-stethoscope"></i>
-        <h3> Observations</h3></div>
-    <div class="widget-content">
-        <ul>
-            <li ng-repeat="ob in currentRecord.obs">{{ob.name}} | {{ob.status}} | {{ob.notes}}</li>
-        </ul>
-        <form>
-            <label>Name / Type</label><input type="text" ng-model="newOb.name"><br>
-            <label>Status</label><input type="text" ng-model="newOb.status"><br>
-            <label>Notes</label><input type="text" ng-model="newOb.notes"><br>
-            <button class="btn btn-default" ng-click="appendObservation(currentRecord)">Add</button>
-        </form>
-    </div>
+<div class="panel-body">
+    <form>
+        <fieldset>
+            <legend><i class="fa fa-stethoscope"></i>&nbsp;&nbsp;Observations</legend>
+            <table class="table">
+                <thead>
+                    <tr><th>Type</th><th>Result</th><th>Notes</th></tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="ob in currentRecord.obs"><td>{{ob.name}}</td><td>{{ob.status}}</td><td>{{ob.notes}}</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th><input type="text" ng-model="newOb.name" placeholder="Type"></td>
+                        <th><input type="text" ng-model="newOb.status" placeholder="Observation"></th>
+                        <th><input type="text" ng-model="newOb.notes" placeholder="Notes"></th>
+                        <th><button class="btn btn-default btn-block" ng-click="appendObservation(currentRecord)">Add</button></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </fieldset>
+    </form>
+
 </div>

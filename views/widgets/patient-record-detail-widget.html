@@ -1,12 +1,12 @@
-<div class="widget">
-    <div class="widget-header"><i class="icon-file"></i>
-        <h3> {{currentRecord.date}} : {{currentRecord.provider}} : {{currentRecord.location}}</h3></div>
-    <div class="widget-content">
-        <complaints-widget></complaints-widget>
-        <observations-widget></observations-widget>
-        <studies-widget></studies-widget>
-        <orders-widget></orders-widget>
-        <prescription-widget></prescription-widget>
-        <button class="btn btn-success btn-block">Close Record</button>
+<div class="panel panel-primary">
+    <span class="panel-heading"><i class="fa fa-file"></i>&nbsp;&nbsp;{{currentPatient.name}} on {{currentRecord.date | date:'medium'}} with {{currentRecord.provider}} at {{currentRecord.location}}</span>
+    <div class="panel-body">
+
+            <complaints-widget></complaints-widget>
+            <observations-widget></observations-widget>
+            <studies-widget></studies-widget>
+            <orders-widget></orders-widget>
+            <prescription-widget></prescription-widget>
+            <button class="btn btn-success btn-block">Close Record</button>
     </div>
 </div>

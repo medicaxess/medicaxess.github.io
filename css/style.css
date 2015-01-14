@@ -984,7 +984,7 @@
 	@keyframes reveal-header { 0% { top: -5em; } 100% { top: 0; } }
 
 	#header {
-		background: #0F9ABD;
+		background: #337ab7;
 		color: #bbb;
 		cursor: default;
 		height: 3.25em;
@@ -1218,11 +1218,7 @@
 /* Banner */
 
 	#banner {
-		background-attachment: scroll,							fixed;
-		background-color: #666;
-		background-image: url("/img/overlay.png"), url("/img/banner.jpg");
-		background-position: top left,						center center;
-		background-repeat: repeat,							no-repeat;
+		background: #666 url("../img/overlay.png"), url("../img/banner.jpg") repeat, no-repeat scroll, fixed top left, center center;
 		background-size: auto,							cover;
 		color: #fff;
 		padding: 12em 0 20em 0;
@@ -1446,13 +1442,9 @@
 		width: 100%;
 	    height: 780px;
 	    min-height: 100%;
-	    background-color: none;
+	    background-color: white;
 	}
 
-.iframeload{
-	height: 790px;
-	width: 100%;
-}
 
 .paddingRight{
 	padding-right: 15px;

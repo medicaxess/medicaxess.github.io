@@ -1,8 +1,8 @@
-<div class="widget">
-    <div class="widget-header"><i class="icon-folder-open"></i>
-        <h3> Records</h3> <span class="pull-right"><button class="btn btn-default" ng-click="appendRecord(currentPatient)">New</button>&nbsp;&nbsp;</span>&nbsp;&nbsp;</div>
-    <div class="widget-content">
-        <table class="table table-striped widget-table">
+<div class="panel panel-primary">
+    <span class="panel-heading"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;Encounters
+        <span class="pull-right"><button class="btn btn-default" ng-click="appendRecord(currentPatient)">New</button>&nbsp;&nbsp;</span>&nbsp;&nbsp;</span>
+    <div class="panel-body">
+        <table class="table table-striped">
             <thead>
             <th>Date</th>
             <th>Provider</th>
@@ -11,7 +11,7 @@
             </thead>
             <tbody>
             <tr class="animate-repeat" ng-repeat="record in currentPatient.records">
-                <td>{{record.date}}</td>
+                <td>{{record.date | date:'medium'}}</td>
                 <td>{{record.provider}}</td>
                 <td>{{record.location}}</td>
                 <td><button class="btn btn-info btn-block" ng-click="showRecordDetail(record)">Details</button></td>

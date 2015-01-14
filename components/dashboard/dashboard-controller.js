@@ -13,10 +13,10 @@ var dashboardController = function($rootScope, $scope, $http){
             name: "Victor Vargas",
             gender: "M",
             dob: "19760704",
-
+            photo: "/img/victor_vargas.png",
             records:[
                 {
-                    date: 'today',
+                    date: Date.now(),
                     provider: 'Dr Morales',
                     location: 'Consultorio Web',
                     complaints: [
@@ -64,7 +64,7 @@ var dashboardController = function($rootScope, $scope, $http){
             dob: "19870630",
             records:[
                 {
-                    date: 'today',
+                    date: Date.now(),
                     provider: 'Dr Morales',
                     location: 'Consultorio Web',
                     complaints: [
@@ -102,7 +102,7 @@ var dashboardController = function($rootScope, $scope, $http){
             complaint: "Annual Checkup",
             records:[
                 {
-                    date: 'today',
+                    date: Date.now(),
                     provider: 'Dr Morales',
                     location: 'Consultorio Web',
                     complaints: [
@@ -219,6 +219,7 @@ var dashboardController = function($rootScope, $scope, $http){
             }
         }
         record.complaints.push($scope.newComplaint);
+        $scope.newComplaint={};
     };
 
     $scope.appendObservation = function(record){
@@ -227,6 +228,7 @@ var dashboardController = function($rootScope, $scope, $http){
         observation.status = $scope.newOb.status;
         observation.notes = $scope.newOb.notes;
         record.obs.push(observation);
+        $scope.newOb = {};
     };
 
     $scope.appendStudy = function(record){
@@ -235,6 +237,7 @@ var dashboardController = function($rootScope, $scope, $http){
         study.status = $scope.newStudy.status;
         study.notes = $scope.newStudy.notes;
         record.studies.push(study);
+        $scope.newStudy = {}
     }
 
     $scope.startVideo = function(){
@@ -301,12 +304,12 @@ angular.module('dashboard',[])
             templateUrl: '/views/widgets/patient-custom-field-editor-widget.html'
         }
     })
-    .directive('patientRecordsWidget',function(){
+    .directive('patientEncountersWidget',function(){
         console.log("Loading directive patient-records-widget");
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/views/widgets/patient-records-widget.html'
+            templateUrl: '/views/widgets/patient-encounters-widget.html'
         }
     })
     .directive('patientRecordDetailWidget',function(){

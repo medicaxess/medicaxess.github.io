@@ -1,15 +1,28 @@
-<div class="panel panel-primary">
-    <span class="panel-heading"><i class="fa fa-user"></i>&nbsp;&nbsp;<h3>{{currentPatient.name}}</h3></span>
+<div class="col-md-10 panel panel-primary">
+    <span class="panel-heading"><i class="fa fa-user"></i>&nbsp;&nbsp;{{currentPatient.name}}</span>
+
     <div class="panel-body">
-        <div class="col-md-4"><img src="/img/message_avatar2.png"></div>
-        <div class="col-md-4">
-            <span><label>Gender: </label>&nbsp;&nbsp;{{currentPatient.gender}}</span>&nbsp;&nbsp;
-            <span><label>DOB: </label>&nbsp;&nbsp;{{currentPatient.dob}}</span>
-        </div>
-        <div class="col-md-4">
-            <fieldset>
-                <span ng-repeat="(key, value) in currentPatient.extraInfo"><label>{{key}}:</label>&nbsp;&nbsp;{{value}}</span>
-            </fieldset>
+        <div class="row">&nbsp;&nbsp;</div>
+        <div class="row">
+            <div class="col-md-4"><img ng-src="{{currentPatient.photo}}"></div>
+            <div class="col-md-5">
+                <table class="table">
+                    <tr>
+                        <td><b>Name:</b></td><td>{{currentPatient.name}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Gender:</b></td><td>{{currentPatient.gender}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>DOB:</b></td><td>{{currentPatient.dob}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-3">
+                <table class="table">
+                    <tr ng-repeat="(key, value) in currentPatient.extraInfo"><td><b>{{key}}:</b></td><td>{{value}}</td></tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>

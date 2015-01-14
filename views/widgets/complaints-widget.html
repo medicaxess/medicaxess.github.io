@@ -1,10 +1,11 @@
-<div class="widget">
-    <div class="widget-header"><i class="icon-umbrella"></i>
-        <h3> Complaints</h3></div>
-    <div class="widget-content">
-        <ul>
-            <li ng-repeat="complaint in currentRecord.complaints">{{complaint}}</li>
-        </ul>
-        <input type="text" ng-model="newComplaint"><button class="btn btn-default" ng-click="appendComplaint(currentRecord)">Add</button>
-    </div>
+<div class="panel-body">
+    <form>
+        <fieldset>
+            <legend><span class="panel-heading"><i class="fa fa-umbrella"></i>&nbsp;&nbsp;Complaints</span></legend>
+            <ul class="list-group">
+                <li class="list-group-item-info" ng-repeat="complaint in currentRecord.complaints"><a href="https://www.google.com/?q={{complaint}}" target="new">{{complaint}}</a></li>
+            </ul>
+            <span><input type="text" ng-model="newComplaint"><button class="btn btn-default" ng-click="appendComplaint(currentRecord)">Add</button></span>
+        </fieldset>
+    </form>
 </div>
