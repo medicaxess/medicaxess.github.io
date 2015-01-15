@@ -30,12 +30,18 @@ A provider is anyone who interacts with the patient in a "consultation", if your
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/provider.view.css">
 
+    <!--
         <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
+-->
+        <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
+        <script src="/components/login/login-controller.js"></script>
+        <script src="/components/dashboard/dashboard-controller.js"></script>
+        <script src="angular/modules/app.js"></script>
     </head>
     <body onload="doUiTease()">
-        <main class="main">
+        <main ng-app="myApp">
 
            <header class="navbar navbar-inverse navbar-fixed-top gradient-area" role="navigation">
 
@@ -48,56 +54,62 @@ A provider is anyone who interacts with the patient in a "consultation", if your
 
                <h1 style="float: right;">Provider View</h1>
            </header>
-
-            <nav id="nav" class="onePxWide">
-                    <ul class="gradient-area">
-                        <li><button class="flat-btn gradient-area nav-btn" onclick="showMessage('Dashboard')"><i class="fa fa-dashboard fa-lg fa-fw"></i></button></li>
-                        <li><button class="flat-btn gradient-area nav-btn" onclick="showMessage('Patients')"><i class="fa fa-group fa-lg fa-fw"></i></button></li>
-                        <li><button class="flat-btn gradient-area nav-btn" onclick="showMessage('Reports')"><i class="fa fa-list-alt fa-lg fa-fw"></i></button></li>
-                        <li><button class="flat-btn gradient-area nav-btn" onclick="showMessage('Messages')"><i class="fa fa-envelope fa-lg fa-fw"></i></button></li>
-                        <li><button class="flat-btn gradient-area nav-btn" onclick="showMessage('Conferencing')"><i class="fa fa-comments fa-lg fa-fw"></i></button></li>
-                    </ul>
-                </nav>
-            </div>
-            <div id="page-content" class="container">
+            <nav id="nav" class="transitions onePxWide">
+                <ul class="gradient-area">
+                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='providerview'"><i class="fa fa-dashboard fa-lg fa-fw"></i></button></li>
+                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='providerview-search'"><i class="fa fa-group fa-lg fa-fw"></i></button></li>
+                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='reportsview'"><i class="fa fa-list-alt fa-lg fa-fw"></i></button></li>
+                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='messageview'"><i class="fa fa-envelope fa-lg fa-fw"></i></button></li>
+                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='conferenceview'"><i class="fa fa-comments fa-lg fa-fw"></i></button></li>
+                </ul>
+            </nav>
+            <div id="page-content" class="container transitions content-wide">
                 <div class="row">
-                    <div class="col-sm-2">
-                        Lorum Ipsum etc
-                    </div>
+                    <login-area></login-area>
+                    <signup-area></signup-area>
+                    <section ng-controller="DashboardController">
+                        <dashboard-area></dashboard-area>
+                        <patient-area></patient-area>
+                        <charts-area></charts-area>
+                        <conference-area></conference-area>
+                    </section>
                 </div>
             </div>
-
         </main>
         <footer>&copy; 2015 - Medicaxess.com</footer>
     </body>
+
 <script>
     var navShowing = false;
     var navArea = document.getElementById("nav");
+    var contentArea = document.getElementById("page-content");
     navArea.onmouseover = showNav;
     navArea.onmouseout = hideNav;
 
     function doUiTease(){
         toggleNav();
         setTimeout(function(){
-            alert("Welcome to Medicaxess!\nTo show/hide the navigation bar, hover your mouse (or press your finger) to the upper left of the window, or click on our logo.");
+            alert("Welcome to Medicaxess!\nTo show/hide the navigation bar, hover your mouse (or press your finger) to the left of the window, or click on our logo.");
             toggleNav();
         }, 3000);
     };
 
     function showNav(){
-        console.log("showNav was called!");
+        //console.log("showNav was called!");
         //navArea.className = navArea.className + " oneHundredPxWide";
+        contentArea.className = contentArea.className.replace(/\bcontent-wide\b/,'content-narrow');
         navArea.className = navArea.className.replace(/\bonePxWide\b/,'oneHundredPxWide');
         navShowing = true;
     }
     function hideNav(){
-        console.log("hideNav was called!");
+        //console.log("hideNav was called!");
         navArea.className = navArea.className.replace(/\boneHundredPxWide\b/,'onePxWide');
+        contentArea.className = contentArea.className.replace(/\bcontent-narrow\b/,'content-wide');
         navShowing= false;
     }
 
     function toggleNav(){
-        console.log("toggleNav was called!");
+        //console.log("toggleNav was called!");
         if(navShowing){
             hideNav();
         }else{
@@ -106,10 +118,11 @@ A provider is anyone who interacts with the patient in a "consultation", if your
     }
 
     function showMessage(msg){
-        console.log("showMessage was called!");
+        //console.log("showMessage was called!");
         window.alert(msg);
     }
 </script>
+
 </html>
 
 
