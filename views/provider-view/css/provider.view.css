@@ -57,7 +57,7 @@ nav{
     transition: all 1.5s ease-in-out;
 }
 nav:hover{
-    width: 50px;
+    width: 100px;
 }
 nav ul{
     padding: 0;
@@ -88,6 +88,8 @@ nav ul li button {
     font-family: Georgia, Serif;
     text-decoration: none;
     vertical-align: middle;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .nav-btn:hover {
