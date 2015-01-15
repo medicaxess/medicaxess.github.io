@@ -34,7 +34,7 @@ A provider is anyone who interacts with the patient in a "consultation", if your
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
     </head>
-    <body>
+    <body onload="doUiTease()">
         <main class="main">
 
            <header class="navbar navbar-inverse navbar-fixed-top gradient-area" role="navigation">
@@ -49,7 +49,7 @@ A provider is anyone who interacts with the patient in a "consultation", if your
                <h1 style="float: right;">Provider View</h1>
            </header>
 
-            <nav id="nav">
+            <nav id="nav" class="onePxWide">
                     <ul class="gradient-area">
                         <li><button class="flat-btn gradient-area nav-btn" onclick="showMessage('Dashboard')"><i class="fa fa-dashboard fa-lg fa-fw"></i></button></li>
                         <li><button class="flat-btn gradient-area nav-btn" onclick="showMessage('Patients')"><i class="fa fa-group fa-lg fa-fw"></i></button></li>
@@ -72,17 +72,32 @@ A provider is anyone who interacts with the patient in a "consultation", if your
     </body>
 <script>
     var navShowing = false;
+    var navArea = document.getElementById("nav");
+    navArea.onmouseover = showNav;
+    navArea.onmouseout = hideNav;
+
+    function doUiTease(){
+        toggleNav();
+        setTimeout(function(){
+            alert("Welcome to Medicaxess!\nTo show/hide the navigation bar, hover your mouse (or press your finger) to the upper left of the window, or click on our logo.");
+            toggleNav();
+        }, 3000);
+    };
+
     function showNav(){
         console.log("showNav was called!");
-        document.getElementById("nav").style.width='50px';
+        //navArea.className = navArea.className + " oneHundredPxWide";
+        navArea.className = navArea.className.replace(/\bonePxWide\b/,'oneHundredPxWide');
         navShowing = true;
     }
     function hideNav(){
-        document.getElementById("nav").style.width='1px';
+        console.log("hideNav was called!");
+        navArea.className = navArea.className.replace(/\boneHundredPxWide\b/,'onePxWide');
         navShowing= false;
     }
 
     function toggleNav(){
+        console.log("toggleNav was called!");
         if(navShowing){
             hideNav();
         }else{
@@ -91,6 +106,7 @@ A provider is anyone who interacts with the patient in a "consultation", if your
     }
 
     function showMessage(msg){
+        console.log("showMessage was called!");
         window.alert(msg);
     }
 </script>
