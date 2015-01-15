@@ -1,6 +1,5 @@
-<div class="widget widget-nopad">
-    <div class="widget-header"> <i class="icon-facetime-video"></i>
-        <h3> Video Conference</h3>
+<div class="panel panel-primary">
+    <span class="panel-heading"><i class="fa fa-facetime-video"></i>&nbsp;&nbsp;Video Conference
         <span class="pull-right">
             <select class="form-control">
                 <option default>{{currentPatient.name}}</option>
@@ -11,14 +10,9 @@
             </select>
             <button class="btn btn-default" ng-click="startVideo()">Invite</button>&nbsp;&nbsp;
         </span>&nbsp;&nbsp;
-    </div>
+    </span>
     <!-- /widget-header -->
-    <div class="widget-content">
-        <div class="widget big-stats-container">
-            <div class="widget-content">
-                <div id="myPublisherDiv"></div>
-            </div>
-            <!-- /widget-content -->
-        </div>
+    <div class="panel-body">
+        <div id="myPublisherDiv"></div>
     </div>
 </div>

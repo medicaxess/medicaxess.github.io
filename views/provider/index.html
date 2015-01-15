@@ -28,6 +28,7 @@ A provider is anyone who interacts with the patient in a "consultation", if your
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="css/provider.view.css">
 
     <!--
@@ -44,15 +45,13 @@ A provider is anyone who interacts with the patient in a "consultation", if your
         <main ng-app="myApp">
 
            <header class="navbar navbar-inverse navbar-fixed-top gradient-area" role="navigation">
-
                <div class="navbar-header">
-                   <button style="float: left;" class="gradient-area flat-btn" type="button" onclick="toggleNav()">
+                   <button style="float: left;" class="gradient-area flat-btn nav-btn" type="button" onmouseover="toggleNav()">
                        <span class="sr-only">Toggle navigation</span>
                        <h1>Medicaxess by IMAXESS</h1>
                    </button>
+                   <h1 style="float: right;">Provider View</h1>
                </div>
-
-               <h1 style="float: right;">Provider View</h1>
            </header>
             <nav id="nav" class="transitions onePxWide">
                 <ul class="gradient-area">
@@ -91,21 +90,27 @@ A provider is anyone who interacts with the patient in a "consultation", if your
         setTimeout(function(){
             alert("Welcome to Medicaxess!\nTo show/hide the navigation bar, hover your mouse (or press your finger) to the left of the window, or click on our logo.");
             toggleNav();
-        }, 3000);
+        }, 2100);
     };
 
     function showNav(){
         //console.log("showNav was called!");
         //navArea.className = navArea.className + " oneHundredPxWide";
-        contentArea.className = contentArea.className.replace(/\bcontent-wide\b/,'content-narrow');
-        navArea.className = navArea.className.replace(/\bonePxWide\b/,'oneHundredPxWide');
         navShowing = true;
+        contentArea.className = contentArea.className.replace(/\bcontent-wide\b/,'content-narrow');
+        setTimeout(function() {
+            navArea.className = navArea.className.replace(/\bonePxWide\b/, 'oneHundredPxWide');
+        },100);
+
     }
     function hideNav(){
+        navShowing= false;
         //console.log("hideNav was called!");
         navArea.className = navArea.className.replace(/\boneHundredPxWide\b/,'onePxWide');
-        contentArea.className = contentArea.className.replace(/\bcontent-narrow\b/,'content-wide');
-        navShowing= false;
+        setTimeout(function() {
+            contentArea.className = contentArea.className.replace(/\bcontent-narrow\b/, 'content-wide');
+        },1000);
+
     }
 
     function toggleNav(){
