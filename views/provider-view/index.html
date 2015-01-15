@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<!--
+A view is a collection of workflow tasks, workflow tasks, also called partials, are collections of widgets,
+widgets are dynamic data controls
+
+A view is similar to a partial, but includes menu components, custom CSS etc
+
+A view wraps it's self top to bottom and can be thought of in context as an SPA
+
+A view should be driven by the view controller for the view
+e.g. The provider view is this file, plus framework/controllers/providerViewController.js
+However the parent is /controllers/viewController.js styling for the components is provided by the view.partials CSS and the provider.view.css file
+
+A provider is anyone who interacts with the patient in a "consultation", if your job entails "encounters" this is the view you should see upon login.
+-->
+        <title>&copy; Medicaxess.com </title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/provider.view.css">
+
+        <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+        <main class="main">
+
+           <header class="navbar navbar-inverse navbar-fixed-top gradient-area" role="navigation">
+
+               <div class="navbar-header">
+                   <button style="float: left;" class="gradient-area flat-btn" type="button" onclick="toggleNav()">
+                       <span class="sr-only">Toggle navigation</span>
+                       <h1>Medicaxess by IMAXESS</h1>
+                   </button>
+               </div>
+
+               <h1 style="float: right;">Provider View</h1>
+           </header>
+
+            <nav id="nav">
+                    <ul  class="gradient-area">
+                        <li><button class="nav-btn gradient-area flat-btn" onclick="showMessage('Dashboard')"><i class="fa fa-dashboard fa-lg fa-fw"></i></button></li>
+                        <li><button class="nav-btn gradient-area flat-btn"><i class="fa fa-group fa-lg fa-fw"></i></button></li>
+                        <li><button class="nav-btn gradient-area flat-btn"><i class="fa fa-list-alt fa-lg fa-fw"></i></button></li>
+                        <li><button class="nav-btn gradient-area flat-btn"><i class="fa fa-envelope fa-lg fa-fw"></i></button></li>
+                        <li><button class="nav-btn gradient-area flat-btn"><i class="fa fa-comments fa-lg fa-fw"></i></button></li>
+                    </ul>
+                </nav>
+            </div>
+            <div id="page-content" class="container">
+                <div class="row">
+                    <div class="col-sm-2">
+                        Lorum Ipsum etc
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <footer>&copy; 2015 - Medicaxess.com</footer>
+    </body>
+<script>
+    var navShowing = false;
+    function showNav(){
+        console.log("showNav was called!");
+        document.getElementById("nav").style.width='50px';
+        navShowing = true;
+    }
+    function hideNav(){
+        document.getElementById("nav").style.width='1px';
+        navShowing= false;
+    }
+
+    function toggleNav(){
+        if(navShowing){
+            hideNav();
+        }else{
+            showNav();
+        }
+    }
+
+    function showMessage(msg){
+        window.alert(msg);
+    }
+</script>
+</html>
+
+

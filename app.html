@@ -37,13 +37,8 @@
         {
             text-decoration: none;
         }
-        
-        #navbar{
-            margin-bottom: 0px;
-            color: white;
-        }
 
-		#header{
+		#header, .navbar-nav {
 			color: white;
 			/* fallback */
 			background-color: #1a82f7;
@@ -65,14 +60,12 @@
 			background: -o-linear-gradient(top, #1a82f7, #2F2727);
 		}
 
-        #navbar ul li{
-            margin: 0px;
-            padding: 1px;
-        }
-
 		#navbar ul li a{
-			margin: 0px;
 			color: white;
+			text-shadow: #000000;
+			background-color: inherit;
+			background-repeat: inherit;
+			background: inherit;
 		}
 
         #navbar ul li a:hover{
@@ -92,36 +85,43 @@
 </head>
 
 <body ng-app="myApp" ng-controller="LoginController">
-	<header id="header" class="panel-heading panel-primary">
-		<h1><a href="#" id="node" name="node">Medicaxess</a> by IMAXESS</h1>
+	<header id="header" class="panel-heading panel-primary" >
+		<h1 style="float: left;"><a href="#" id="node" name="node">Medicaxess</a> by IMAXESS</h1>
 		    <!-- Fixed navbar -->
-        <nav class="navbar  navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <!--<a class="navbar-brand" href="#">Bootstrap theme</a>-->
-                </div>
-                
-                <div id="navbar" class="navbar-collapse collapse">
-                  <ul class="nav navbar-nav pull-right">
-                    <li><a ng-click="app.state='providerview'"><i class="fa fa-dashboard fa-lg fa-fw"></i><span>Dashboard</span></a></li>
-                    <li><a ng-click="app.state='reportsview'"><i class="fa fa-list-alt fa-lg fa-fw"></i><span>Reports</span></a></li>
-                    <li><a ng-click="app.state='providerview-search'"><i class="fa fa-group fa-lg fa-fw"></i><span>Patients</span></a></li>
-                    <li><a ng-click="app.state='messageview'"><i class="fa fa-envelope fa-lg fa-fw"></i><span>Messages</span></a></li>
-                    <li><a ng-click="app.state='conferenceview'"><i class="fa fa-comments fa-lg fa-fw"></i><span>Conferencing</span></a></li>
-                  </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
+		<div class="container">
+			<div class="navbar-header navbar-fixed">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="fa fa-bars fa-lg fa-fw"></span>
+				</button>
+			</div>
+		</div>
 	</header>
+<div class="container">
+	<div class="row">
+		<div class="col-md-2">
+			<!--<nav class="navbar  navbar-fixed-top">
+				<div class="container">
+					<div id="navbar" class="navbar-collapse collapse">-->
 
+					<!--</div>
+				</div>
+			</nav>
+			-->
+		</div>
+	</div>
+</div>
     <div class="container">
         <div class="row">&nbsp;&nbsp;</div>
+			<div class="col-md-2">
+			<ul class="nav navbar-nav" style="float: left; color: white;">
+				<li><a ng-click="app.state='providerview'"><i class="fa fa-dashboard fa-lg fa-fw"></i><span>Dashboard</span></a></li>
+				<li><a ng-click="app.state='reportsview'"><i class="fa fa-list-alt fa-lg fa-fw"></i><span>Reports</span></a></li>
+				<li><a ng-click="app.state='providerview-search'"><i class="fa fa-group fa-lg fa-fw"></i><span>Patients</span></a></li>
+				<li><a ng-click="app.state='messageview'"><i class="fa fa-envelope fa-lg fa-fw"></i><span>Messages</span></a></li>
+				<li><a ng-click="app.state='conferenceview'"><i class="fa fa-comments fa-lg fa-fw"></i><span>Conferencing</span></a></li>
+			</ul>
+			</div>
     	<login-area></login-area>
     	<signup-area></signup-area>
     	<section ng-controller="DashboardController">
