@@ -1,8 +1,8 @@
 <nav id="nav"  ng-class="navClass" ng-mouseenter="showNav()" ng-mouseleave="hideNav()">
     <ul class="gradient-area">
         <!--TODO:  Make this data driven -->
-        <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='patientview'"><i class="fa fa-dashboard fa-lg fa-fw"></i></button></li>
-        <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='messageview'"><i class="fa fa-envelope fa-lg fa-fw"></i></button></li>
-        <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='conferenceview'"><i class="fa fa-comments fa-lg fa-fw"></i></button></li>
+        <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='patientview'; toggleNav();"><i class="fa fa-dashboard fa-lg fa-fw"></i></button></li>
+        <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='messageview'; toggleNav();"><i class="fa fa-envelope fa-lg fa-fw"></i></button></li>
+        <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='conferenceview'; toggleNav();"><i class="fa fa-comments fa-lg fa-fw"></i></button></li>
     </ul>
 </nav>
