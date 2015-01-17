@@ -3,8 +3,8 @@
         <span class="panel-heading"><i class="fa fa-user"></i>&nbsp;&nbsp;{{currentPatient.name}}</span>
         <div class="panel-body">
             <fieldset>
-                <img ng-src="{{currentPatient.photo}}" style="float:left;">
-                <ul class="list-group" style="float: right;">
+
+                <ul class="list-group">
                     <li class="list-group-item">
                         <label><span style="float: left;"><b>Name:</b></span><span style="float:right;">{{currentPatient.name}}</span></label>
                     </li>
@@ -15,6 +15,7 @@
                         <label><span style="float: left;"><b>DOB:</b></span><span style="float:right;">{{currentPatient.dob | date: "yyyy-MM-dd"}}</span></label>
                     </li>
                 </ul>
+                <img ng-src="{{currentPatient.photo}}" style="float:left;">
             </fieldset>
             <prescription-widget></prescription-widget>
             <table class="table table-striped table-responsive">

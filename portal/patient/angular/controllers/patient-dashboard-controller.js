@@ -31,7 +31,7 @@ var patientDashboardController = function($rootScope, $scope, $http){
             */
         $scope.currentPatient =  {
             name: "Victor Vargas",
-            gender: "F",
+            gender: "M",
             dob: new Date(1976,6,4),
             photo: "/img/victor_vargas.png",
 
