@@ -123,7 +123,10 @@ nav ul li button {
     width: 1px;
 }
 
-.oneHundredPxWide-add, .oneHundredPxWide-remove, .content-narrow-add, .content-narrow-remove {
+.oneHundredPxWide-add, .oneHundredPxWide-remove,
+.content-narrow-add, .content-narrow-remove,
+.content-wide-add, .content-wide-remove
+{
     -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.0s;
     -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.0s;
     -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.0s;
@@ -140,11 +143,13 @@ nav ul li button {
 }
 
 .content-narrow,
+.content-wide-remove.content-wide-remove-active,
 .content-narrow-add.content-narrow-add-active {
     margin-left: 120px;
 }
 
 .content-wide,
+.content-wide-add.content-wide-add-active,
 .content-narrow-remove.content-narrow-remove-active
 {
     margin-left: 2px;

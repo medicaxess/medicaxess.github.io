@@ -3,8 +3,7 @@
  */
 
 var navigationController =  function($rootScope, $scope, $http, $timeout) {
-    $scope.navShowing = false;
-    $scope.navArea = "showing";
+
 
     $scope.doUiTease = function(){
         $scope.toggleNav();
@@ -16,14 +15,22 @@ var navigationController =  function($rootScope, $scope, $http, $timeout) {
 
     $scope.toggleNav = function(){
         //console.log("toggleNav was called!");
-        $scope.navShowing = !$scope.navShowing;
-        if(!$scope.navShowing){
-            $scope.navClass = "onePxWide";
+        if(!$rootScope.navShowing){
+            $scope.showNav();
         }else{
-            $scope.navClass = "oneHundredPxWide";
+            $scope.hideNav();
         }
-        $rootScope.navClass = $scope.navClass;
 
+    };
+
+    $scope.showNav = function(){
+        $rootScope.navShowing = true;
+        $scope.navClass = "oneHundredPxWide";
+    };
+
+    $scope.hideNav = function(){
+        $rootScope.navShowing = false;
+        $scope.navClass = "onePxWide";
     };
 
     function showMessage(msg){

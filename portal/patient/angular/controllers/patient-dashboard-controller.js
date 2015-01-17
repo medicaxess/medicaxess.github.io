@@ -8,15 +8,15 @@
 var patientDashboardController = function($rootScope, $scope, $http){
     console.log("Loading PatientDashBoardController");
     $scope.contentClass = "content-wide";
-    $rootScope.$watch('navClass',function(){
+    $rootScope.$watch('navShowing',function(){
         console.log("Width changed: ",$rootScope.navClass);
 
-       if($rootScope.navClass == "oneHundredPxWide"){
+       if($rootScope.navShowing == true){
            console.log("Narrowing content");
            $scope.contentClass = "content-narrow";
        }else{
            console.log("Widening content");
-           $scope.contentClass = '';
+           $scope.contentClass = 'content-wide';
        }
     });
     $scope.currentPatient = {};

@@ -4,35 +4,37 @@
     </div>
 <!--This dynamically generates a patient input form, based on the currentPatient object and the fieldData object -->
     <div class="row">
-        <div class="panel panel-default">
-            <span class="panel-heading">All about {{currentPatient.name}}</span>
-            <div class="panel-body">
-                <form>
-                    <fieldset>
-                        <legend>Please verify the information below</legend>
-                        <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="field in requiredFields" >
-                                <label >{{field.displayName}}
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <span class="panel-heading">All about {{currentPatient.name}}</span>
+                <div class="panel-body">
+                    <form>
+                        <fieldset>
+                            <legend>Please verify the information below</legend>
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="field in requiredFields" >
+                                    <label >{{field.displayName}}
 
-                                    <span ng-if="field.type != 'list' && field.type !='photo'">
-                                        <input class="form-control" type="{{field.type}}" name={{field.name}} value="{{currentPatient[field.name]}}" ng-model="currentPatient[field.name]">
-                                    </span>
+                                        <span ng-if="field.type != 'list' && field.type !='photo'">
+                                            <input class="form-control" type="{{field.type}}" name={{field.name}} value="{{currentPatient[field.name]}}" ng-model="currentPatient[field.name]">
+                                        </span>
 
-                                    <span ng-if="field.type == 'photo'">
-                                       <input type="file" name={{field.name}} value="{{currentPatient[field.name]}}" ng-model="currentPatient[field.name]" capture>
-                                    </span>
-                                    <span ng-if="field.type == 'list'">
-                                        <select name={{field.name}} value="{{currentPatient[field.name]}}" class="form-control">
-                                            <option ng-repeat="item in field.values" value="item.value">{{item.name}}</option>
-                                        </select>
-                                    </span>
+                                        <span ng-if="field.type == 'photo'">
+                                           <input type="file" name={{field.name}} value="{{currentPatient[field.name]}}" ng-model="currentPatient[field.name]" capture>
+                                        </span>
+                                        <span ng-if="field.type == 'list'">
+                                            <select name={{field.name}} value="{{currentPatient[field.name]}}" class="form-control">
+                                                <option ng-repeat="item in field.values" value="item.value">{{item.name}}</option>
+                                            </select>
+                                        </span>
 
-                                </label>
-                            </li>
-                        </ul>
-                        <button class="btn btn-success btn-block">Complete!</button>
-                    </fieldset>
-                </form>
+                                    </label>
+                                </li>
+                            </ul>
+                            <button class="btn btn-success btn-block">Complete!</button>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
