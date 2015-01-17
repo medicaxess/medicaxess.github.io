@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-class="contentClass">
     <div class="row">
         <patient-info-widget></patient-info-widget>
     </div>
@@ -14,10 +14,13 @@
                             <li class="list-group-item" ng-repeat="field in requiredFields" >
                                 <label >{{field.displayName}}
 
-                                    <span ng-if="field.type != 'list'">
+                                    <span ng-if="field.type != 'list' && field.type !='photo'">
                                         <input class="form-control" type="{{field.type}}" name={{field.name}} value="{{currentPatient[field.name]}}" ng-model="currentPatient[field.name]">
                                     </span>
 
+                                    <span ng-if="field.type == 'photo'">
+                                       <input type="file" name={{field.name}} value="{{currentPatient[field.name]}}" ng-model="currentPatient[field.name]" capture>
+                                    </span>
                                     <span ng-if="field.type == 'list'">
                                         <select name={{field.name}} value="{{currentPatient[field.name]}}" class="form-control">
                                             <option ng-repeat="item in field.values" value="item.value">{{item.name}}</option>

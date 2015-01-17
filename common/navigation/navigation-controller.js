@@ -18,10 +18,12 @@ var navigationController =  function($rootScope, $scope, $http, $timeout) {
         //console.log("toggleNav was called!");
         $scope.navShowing = !$scope.navShowing;
         if(!$scope.navShowing){
-            $scope.cssVar = "onePxWide";
+            $scope.navClass = "onePxWide";
         }else{
-            $scope.cssVar = "oneHundredPxWide";
+            $scope.navClass = "oneHundredPxWide";
         }
+        $rootScope.navClass = $scope.navClass;
+
     };
 
     function showMessage(msg){

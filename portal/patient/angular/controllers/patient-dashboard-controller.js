@@ -7,6 +7,18 @@
 
 var patientDashboardController = function($rootScope, $scope, $http){
     console.log("Loading PatientDashBoardController");
+    $scope.contentClass = "content-wide";
+    $rootScope.$watch('navClass',function(){
+        console.log("Width changed: ",$rootScope.navClass);
+
+       if($rootScope.navClass == "oneHundredPxWide"){
+           console.log("Narrowing content");
+           $scope.contentClass = "content-narrow";
+       }else{
+           console.log("Widening content");
+           $scope.contentClass = '';
+       }
+    });
     $scope.currentPatient = {};
 
     if($rootScope.currentPatient == undefined){
@@ -109,7 +121,7 @@ var patientDashboardController = function($rootScope, $scope, $http){
         {
             displayName: 'Photo',
             name: 'photo',
-            type: 'image'
+            type: 'photo'
         },
         {
             displayName: 'Favorite Color',
