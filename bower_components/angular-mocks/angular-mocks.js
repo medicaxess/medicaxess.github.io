@@ -1750,7 +1750,7 @@ angular.mock.$RootElementProvider = function() {
  * inspected and controlled in a synchronous manner within test code.
  *
  *
- * <div doc-module-components="ngMock"></div>
+ * <div doc-module-common="ngMock"></div>
  *
  */
 angular.module('ngMock', ['ng']).provider({

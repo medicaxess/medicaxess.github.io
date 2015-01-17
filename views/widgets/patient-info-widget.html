@@ -13,7 +13,7 @@
                         <td><b>Gender:</b></td><td>{{currentPatient.gender}}</td>
                     </tr>
                     <tr>
-                        <td><b>DOB:</b></td><td>{{currentPatient.dob}}</td>
+                        <td><b>DOB:</b></td><td>{{currentPatient.dob | date: "yyyy-MM-dd"}}</td>
                     </tr>
                 </table>
                 <prescription-widget></prescription-widget>

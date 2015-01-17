@@ -18,7 +18,7 @@
  * See {@link ngRoute.$route#example $route} for an example of configuring and using `ngRoute`.
  *
  *
- * <div doc-module-components="ngRoute"></div>
+ * <div doc-module-common="ngRoute"></div>
  */
  /* global -ngRouteModule */
 var ngRouteModule = angular.module('ngRoute', ['ng']).

@@ -13,7 +13,7 @@
 var uuid = 0,
 	runiqueId = /^ui-id-\d+$/;
 
-// $.ui might exist from components with no dependencies, e.g., $.ui.position
+// $.ui might exist from common with no dependencies, e.g., $.ui.position
 $.ui = $.ui || {};
 
 $.extend( $.ui, {

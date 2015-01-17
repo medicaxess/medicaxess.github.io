@@ -1,0 +1,146 @@
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
+
+.gradient-area{
+    color: white;
+    /* fallback */
+    background-color: #1a82f7;
+    background-repeat: repeat-x;
+
+    /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2F2727), to(#1a82f7));
+
+    /* Safari 5.1, Chrome 10+ */
+    background: -webkit-linear-gradient(top, #1a82f7, #2F2727);
+
+    /* Firefox 3.6+ */
+    background: -moz-linear-gradient(top, #1a82f7, #2F2727);
+
+    /* IE 10 */
+    background: -ms-linear-gradient(top,  #1a82f7,#2F2727);
+
+    /* Opera 11.10+ */
+    background: -o-linear-gradient(top, #1a82f7, #2F2727);
+}
+header{
+    display: block;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+}
+
+header h1 {
+    font-size: 12pt;
+    color: #ffffff;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+header h1 a {
+    color: #ffffff;
+    font-size: 12pt;
+    text-decoration: none;
+}
+
+footer{
+    display: block;
+    height: 50px;
+    position: relative;
+    bottom: 10px;
+}
+nav{
+    position: fixed;
+    margin-top: 50px;
+    height: 95%;
+    width: 100px;
+    float: left;
+}
+
+nav ul{
+    padding: 0;
+    margin: 0;
+
+}
+
+nav ul li {
+    list-style-type: none;
+}
+
+nav ul li button {
+
+    width: 100%;
+    float: left;
+}
+
+.flat-btn{
+    border: 0px none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.nav-btn {
+
+    font-size: 15pt;
+    font-family: Georgia, Serif;
+    text-decoration: none;
+    vertical-align: middle;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.nav-btn:hover {
+    color: white;
+    background: #28597a;
+    color: #ccc;
+}
+.nav-btn:active {
+    background: #1b435e;
+}
+
+#page-content{
+    margin-top: 75px;
+    position: absolute;
+}
+
+.transitions.ng-enter, .transitions.ng-remove {
+    -moz-transition: all 1.5s ease-in-out;
+    -webkit-transition: all 1.5s ease-in-out;
+    -o-transition: all 1.5s ease-in-out;
+    transition: all 1.5s ease-in-out;
+}
+.onePxWide{
+    width: 1px;
+}
+
+.oneHundredPxWide{
+
+}
+
+.content-wide{
+    margin-left: 15px;
+}
+
+.content-narrow{
+    margin-left: 120px;
+}
+
+
+
+.oneHundredPxWide-add, .oneHundredPxWide-remove {
+    -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.0s;
+    -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.0s;
+    -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.0s;
+    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.0s;
+}
+
+.oneHundredPxWide,
+.oneHundredPxWide-add.oneHundredPxWide-add-active {
+    width: 100px;
+}
+
+.oneHundredPxWide-remove.oneHundredPxWide-remove-active {
+    width: 1px;
+}
+

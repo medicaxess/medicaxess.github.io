@@ -9016,7 +9016,7 @@ function createHttpBackend($browser, XHR, $browserDefer, callbacks, rawDocument,
  * @name ng.$locale
  *
  * @description
- * $locale service provides localization rules for various Angular components. As of right now the
+ * $locale service provides localization rules for various Angular common. As of right now the
  * only public api is:
  *
  * * `id` – `{string}` – locale id formatted as `languageId-countryId` (e.g. `en-us`)
@@ -12327,7 +12327,7 @@ var ngCloakDirective = ngDirective({
  * The `ngController` directive assigns behavior to a scope. This is a key aspect of how angular
  * supports the principles behind the Model-View-Controller design pattern.
  *
- * MVC components in angular:
+ * MVC common in angular:
  *
  * * Model — The Model is data in scope properties; scopes are attached to the DOM.
  * * View — The template (HTML with data bindings) is rendered into the View.

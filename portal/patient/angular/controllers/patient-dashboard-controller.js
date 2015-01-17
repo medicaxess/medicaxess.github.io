@@ -20,7 +20,7 @@ var patientDashboardController = function($rootScope, $scope, $http){
         $scope.currentPatient =  {
             name: "Victor Vargas",
             gender: "F",
-            dob: "19760704",
+            dob: new Date(1976,6,4),
             photo: "/img/victor_vargas.png",
 
             rx : [
@@ -115,18 +115,24 @@ var patientDashboardController = function($rootScope, $scope, $http){
             displayName: 'Favorite Color',
             name: 'favorite-color',
             type: 'color'
+        },
+        {
+            displayName: 'Telephone',
+            name: 'telephone-primary',
+            type: 'tel'
         }
     ]
+
 };
 
 angular.module('patientdashboard',[])
     .controller('PatientDashboardController', ['$rootScope','$scope', '$http', patientDashboardController])
-    .directive('patientArea',function(){
-        console.log("Loading directive patient-area");
+    .directive('patientInfoWidget',function(){
+        console.log("Loading directive patient-info-widget");
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/views/partials/patient-area.html'
+            templateUrl: '/views/widgets/patient-info-widget.html'
         }
     })
     .directive('patientEditArea',function(){
