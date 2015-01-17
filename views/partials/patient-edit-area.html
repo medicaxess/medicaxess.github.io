@@ -1,0 +1,53 @@
+<div class="container" ng-controller="PatientDashboardController">
+    <div class="row">
+        <patient-info-widget></patient-info-widget>
+    </div>
+<!--This dynamically generates a patient input form, based on the currentPatient object and the fieldData object -->
+    <div class="row">
+        <div class="panel panel-default">
+            <span class="panel-heading">All about {{currentPatient.name}}</span>
+            <div class="panel-body">
+                <form>
+                    <fieldset>
+                        <legend>Please verify the information below</legend>
+                        <table class="table table-striped table-responsive">
+                            <tr class="row-fluid" ng-repeat="field in requiredFields" >
+                                <td><label>{{field.displayName}}</label></td>
+                                <td class="form-control">
+                                    <span ng-if="field.type != 'list'">
+                                        <input type="{{field.type}}" name={{field.name}} value="{{currentPatient[field.name]}}" ng-bind="currentPatient[field.name]">
+                                    </span>
+                                    <!--
+                                     <span ng-if="field.type == 'image'">
+                                        <img ng-src="{{currentPatient[field.name]}}">
+                                        <input type="image" name={{field.name}} value="{{currentPatient[field.name]}}" ng-bind="currentPatient[field.name]">
+                                    </span>
+                                    <span ng-if="field.type == 'text'">
+                                        <input type="text" name={{field.name}} value="{{currentPatient[field.name]}}" ng-bind="currentPatient[field.name]">
+                                    </span>
+                                    <span ng-if="field.type=='checkbox'">
+                                        <input type="checkbox" name={{field.name}} value="{{currentPatient[field.name]}}" ng-bind="currentPatient[field.name]">
+                                    </span>
+
+                                    <span ng-if="field.type == 'date'">
+                                        <input type="date" name={{field.name}} value="{{currentPatient[field.name]}}" ng-bind="currentPatient[field.name]">
+                                    </span>
+                                    <span ng-if="field.type == 'color'">
+                                        <input type="color" name={{field.name}} value="{{currentPatient[field.name]}}" ng-bind="currentPatient[field.name]">
+                                    </span>
+                                    -->
+                                    <span ng-if="field.type == 'list'">
+                                        <select name={{field.name}} value="{{currentPatient[field.name]}}">
+                                            <option ng-repeat="item in field.values" value="item.value">{{item.name}}</option>
+                                        </select>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                        <button class="btn btn-success btn-block">Complete!</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

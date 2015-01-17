@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <!--
+    A view is a collection of workflow tasks, workflow tasks, also called partials, are collections of widgets,
+    widgets are dynamic data controls
+
+    A view is similar to a partial, but includes menu components, custom CSS etc
+
+    A view wraps it's self top to bottom and can be thought of in context as an SPA
+
+    A view should be driven by the view controller for the view
+    e.g. The provider view is this file, plus framework/controllers/providerViewController.js
+    However the parent is /controllers/viewController.js styling for the components is provided by the view.partials CSS and the provider.view.css file
+
+    A provider is anyone who interacts with the patient in a "consultation", if your job entails "encounters" this is the view you should see upon login.
+    -->
+    <title>&copy; Medicaxess.com </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/provider.view.css">
+
+    <!--
+        <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+-->
+    <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
+    <script src="/components/login/login-controller.js"></script>
+    <script src="angular/controllers/patient-dashboard-controller.js"></script>
+    <script src="angular/modules/app.js"></script>
+</head>
+<body>
+<main ng-app="myApp">
+    <!--
+    <header class="navbar navbar-inverse navbar-fixed-top gradient-area" role="navigation">
+        <div class="navbar-header">
+            <button style="float: left;" class="gradient-area flat-btn nav-btn" type="button" onmouseover="toggleNav()">
+                <span class="sr-only">Toggle navigation</span>
+                <h1>Medicaxess by IMAXESS</h1>
+            </button>
+            <h1 style="float: right;">Patient View</h1>
+        </div>
+    </header>
+    <nav id="nav" class="transitions oneHundredPxWide">
+        <ul class="gradient-area">
+            <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='patientview'"><i class="fa fa-dashboard fa-lg fa-fw"></i></button></li>
+            <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='messageview'"><i class="fa fa-envelope fa-lg fa-fw"></i></button></li>
+            <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='conferenceview'"><i class="fa fa-comments fa-lg fa-fw"></i></button></li>
+        </ul>
+    </nav>
+    <login-area></login-area>
+    <signup-area></signup-area> -->
+    <section ng-controller="PatientDashboardController">
+        <patient-edit-area></patient-edit-area>
+        <message-area></message-area>
+    </section>
+</main>
+</body>
+</html>
