@@ -19,7 +19,7 @@
                                     </span>
 
                                     <span ng-if="field.type == 'list'">
-                                        <select name={{field.name}} value="{{currentPatient[field.name]}}" ng-bind="{{currentPatient[field.name]}}" class="form-control">
+                                        <select name={{field.name}} value="{{currentPatient[field.name]}}" class="form-control">
                                             <option ng-repeat="item in field.values" value="item.value">{{item.name}}</option>
                                         </select>
                                     </span>
