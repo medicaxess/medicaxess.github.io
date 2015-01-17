@@ -1,28 +1,25 @@
-<div class="col-sm-10 panel panel-primary">
-    <span class="panel-heading"><i class="fa fa-user"></i>&nbsp;&nbsp;{{currentPatient.name}}</span>
-    <div class="panel-body">
-        <div class="row">&nbsp;&nbsp;</div>
-        <div class="row">
-            <div class="col-lg-3"><img ng-src="{{currentPatient.photo}}"></div>
-            <div class="col-lg-6">
-                <table class="table table-striped table-responsive">
-                    <tr>
-                        <td><b>Name:</b></td><td>{{currentPatient.name}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Gender:</b></td><td>{{currentPatient.gender}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>DOB:</b></td><td>{{currentPatient.dob | date: "yyyy-MM-dd"}}</td>
-                    </tr>
-                </table>
-                <prescription-widget></prescription-widget>
-            </div>
-            <div class="col-lg-3">
-                <table class="table table-striped table-responsive">
-                    <tr ng-repeat="(key, value) in currentPatient.extraInfo"><td><b>{{key}}:</b></td><td>{{value}}</td></tr>
-                </table>
-            </div>
+<div class="col-lg-12">
+    <div class="panel panel-primary">
+        <span class="panel-heading"><i class="fa fa-user"></i>&nbsp;&nbsp;{{currentPatient.name}}</span>
+        <div class="panel-body">
+            <fieldset>
+                <img ng-src="{{currentPatient.photo}}" style="float:left;">
+                <ul class="list-group" style="float: right;">
+                    <li class="list-group-item">
+                        <label><span style="float: left;"><b>Name:</b></span><span style="float:right;">{{currentPatient.name}}</span></label>
+                    </li>
+                    <li class="list-group-item">
+                        <label><span style="float: left;"><b>Gender:</b></span><span style="float:right;">{{currentPatient.gender}}</span></label>
+                    </li>
+                    <li class="list-group-item">
+                        <label><span style="float: left;"><b>DOB:</b></span><span style="float:right;">{{currentPatient.dob | date: "yyyy-MM-dd"}}</span></label>
+                    </li>
+                </ul>
+            </fieldset>
+            <prescription-widget></prescription-widget>
+            <table class="table table-striped table-responsive">
+                <tr ng-repeat="(key, value) in currentPatient.extraInfo"><td><b>{{key}}:</b></td><td>{{value}}</td></tr>
+            </table>
         </div>
     </div>
 </div>
