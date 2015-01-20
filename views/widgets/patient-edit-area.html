@@ -11,7 +11,7 @@
                             <legend>Please verify the information below</legend>
                             <ul class="list-group">
                                 <li class="list-group-item" ng-repeat="field in requiredFields" >
-                                    <label>{{field.displayName}}
+                                    <label>{{field.displayname}}
                                         <span ng-if="field.type != 'list' && field.type !='photo'">
                                             <input class="form-control" type="{{field.type}}" name={{field.name}} value="{{currentPatient[field.name]}}" ng-model="currentPatient[field.name]">
                                         </span>

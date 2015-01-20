@@ -52,27 +52,27 @@ var formController = function($rootScope, $scope, $http) {
 
     $scope.newForm = function(){
         $rootScope.currentForm = {
-            displayName: "Default Example Form (change me)",
+            displayname: "Default Example Form (change me)",
             collection: "patients",
             scope: "self",
             recordType: "patient-forms",
             fields: [
                 {
-                    displayName: "Patient Photo",
+                    displayname: "Patient Photo",
                     databind: "currentPatient.photo",
                     variable: "currentPatient.photo",
                     type: "image",
                     collapsed: true
                 },
                 {
-                    displayName: "Patient Name",
+                    displayname: "Patient Name",
                     databind: "currentPatient.name",
                     variable: "patient.name",
                     type: "text",
                     collapsed: true
                 },
                 {
-                    displayName: "Gender",
+                    displayname: "Gender",
                     databind: "currentPatient.gender",
                     variable: "patient.gender",
                     type: "list",
@@ -84,7 +84,7 @@ var formController = function($rootScope, $scope, $http) {
                     collapsed: true
                 },
                 {
-                    displayName: "Temperature",
+                    displayname: "Temperature",
                     databind: "currentPatient.temp",
                     variable: "patient.temp",
                     type: "range",
@@ -180,7 +180,7 @@ var formController = function($rootScope, $scope, $http) {
         var index = fields.indexOf(field);
         console.log("Index: ",index);
         var newField = {
-            displayName: "New Field",
+            displayname: "New Field",
             collapsed: true
         };
         if(index == -1){
@@ -242,7 +242,7 @@ var formController = function($rootScope, $scope, $http) {
     };
 
     $scope.toggleCollapse = function(field){
-        console.log("Toggling collapse of "+field.displayName);
+        console.log("Toggling collapse of "+field.displayname);
         field.collapsed = !field.collapsed;
         $("#" + field).collapse('toggle');
     }

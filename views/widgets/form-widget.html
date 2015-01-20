@@ -1,11 +1,11 @@
 <div class="panel panel-primary fade-in">
     <span class="panel-heading">
-        {{currentForm.displayName}}
+        {{currentForm.displayname}}
     </span>
     <div class="panel-body">
         <ul class="list-group">
             <li class="list-group-item fade-in" ng-repeat="field in currentForm.fields" >
-                <label>{{field.displayName}}
+                <label>{{field.displayname}}
                         <span ng-if="field.type != 'list' && field.type !='image' && field.type !='range'  && field.type != 'number'">
                             <input class="form-control" type="{{field.type}}" name={{field.variable}} value="{{field.variable}}" dynamic-model="field.databind" required="{{field.isRequired}}">
                         </span>

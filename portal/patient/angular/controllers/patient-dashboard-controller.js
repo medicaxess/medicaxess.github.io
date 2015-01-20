@@ -91,17 +91,17 @@ var patientDashboardController = function($rootScope, $scope, $http){
         */
     $scope.requiredFields = [
         {
-          displayName: 'Name',
+          displayname: 'Name',
             name: 'name',
             type: 'text'
         },
         {
-            displayName: 'Date of Birth',
+            displayname: 'Date of Birth',
             name: 'dob',
             type: 'date'
         },
         {
-            displayName: 'Gender',
+            displayname: 'Gender',
             name: 'gender',
             type: 'list',
             values: [
@@ -119,17 +119,17 @@ var patientDashboardController = function($rootScope, $scope, $http){
             ]
         },
         {
-            displayName: 'Photo',
+            displayname: 'Photo',
             name: 'photo',
             type: 'photo'
         },
         {
-            displayName: 'Favorite Color',
+            displayname: 'Favorite Color',
             name: 'favorite-color',
             type: 'color'
         },
         {
-            displayName: 'Telephone',
+            displayname: 'Telephone',
             name: 'telephone-primary',
             type: 'tel'
         }
