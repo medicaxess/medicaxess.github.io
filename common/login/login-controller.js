@@ -8,6 +8,12 @@ var loginController = function($rootScope, $scope, $http) {
     $scope.user = {};
     $scope.app = {};
 
+    if(window.location.host != "localhost"){
+        $rootScope.baseUrl = "https://api.medicaxess.com/";
+    }else{
+        $rootScope.baseUrl = "http://localhost:8080/";
+    }
+
     $scope.demoLogin = function(){
 
         window.alert("Welcome to MedicAxess, you have successfully logged in as a Provider, you will now be taken to the Provider Dashboard");

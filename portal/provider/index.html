@@ -25,11 +25,13 @@ A provider is anyone who interacts with the patient in a "consultation", if your
 
 
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/css/style.css">
-        <link rel="stylesheet" href="css/provider.view.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="css/provider.view.css">
 
     <!--
         <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
@@ -41,99 +43,35 @@ A provider is anyone who interacts with the patient in a "consultation", if your
     <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="/bower_components/angular-animate/angular-animate.js"></script>
 
+    <script src="/common/navigation/navigation-controller.js"></script>
     <script src="/common/login/login-controller.js"></script>
-        <script src="angular/controllers/provider-dashboard-controller.js"></script>
-        <script src="/common/forms/form-controller.js"></script>
-        <script src="angular/modules/app.js"></script>
+    <script src="angular/controllers/provider-dashboard-controller.js"></script>
+    <script src="angular/modules/app.js"></script>
+    <script src="/common/forms/form-controller.js"></script>
+    <script src="angular/modules/app.js"></script>
     </head>
-    <body onload="doUiTease()">
-        <main ng-app="myApp">
-
-           <header class="navbar navbar-inverse navbar-fixed-top gradient-area" role="navigation">
-               <div class="navbar-header">
-                   <button style="float: left;" class="gradient-area flat-btn nav-btn" type="button" onmouseover="toggleNav()">
-                       <span class="sr-only">Toggle navigation</span>
-                       <h1>Medicaxess by IMAXESS</h1>
-                   </button>
-                   <h1 style="float: right;">Provider View</h1>
-               </div>
-           </header>
-            <nav id="nav" class="transitions onePxWide">
-                <ul class="gradient-area">
-                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='providerview'"><i class="fa fa-dashboard fa-lg fa-fw"></i></button></li>
-                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='providerview-search'"><i class="fa fa-group fa-lg fa-fw"></i></button></li>
-                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='customize-forms'"><i class="fa fa-list-alt fa-lg fa-fw"></i></button></li>
-                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='messageview'"><i class="fa fa-envelope fa-lg fa-fw"></i></button></li>
-                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='conferenceview'"><i class="fa fa-comments fa-lg fa-fw"></i></button></li>
-                </ul>
-            </nav>
-            <div id="page-content" class="container transitions content-wide">
-                <div class="row">
-                    <login-area></login-area>
-                    <signup-area></signup-area>
-                    <section ng-controller="DashboardController">
-                        <dashboard-area></dashboard-area>
-                        <custom-forms-area></custom-forms-area>
-                        <patient-area></patient-area>
-                        <charts-area></charts-area>
-                        <conference-area></conference-area>
-                    </section>
-                </div>
+    <body>
+    <main ng-app="myApp">
+        <div ng-controller="NavigationController">
+            <header-area></header-area>
+            <navigation-area></navigation-area>
+        </div>
+        <div id="page-content" class="container" ng-class="{'content-narrow': navShowing, 'content-wide': !navShowing}">
+            <div class="row">
+                <login-area></login-area>
+                <signup-area></signup-area>
+                <section ng-controller="DashboardController">
+                    <dashboard-area></dashboard-area>
+                    <custom-forms-area></custom-forms-area>
+                    <patient-area></patient-area>
+                    <charts-area></charts-area>
+                    <conference-area></conference-area>
+                </section>
             </div>
-        </main>
+        </div>
+    </main>
         <footer>&copy; 2015 - Medicaxess.com</footer>
     </body>
-
-<script>
-    var navShowing = false;
-    var navArea = document.getElementById("nav");
-    var contentArea = document.getElementById("page-content");
-    navArea.onmouseover = showNav;
-    navArea.onmouseout = hideNav;
-
-    function doUiTease(){
-        toggleNav();
-        setTimeout(function(){
-            alert("Welcome to Medicaxess!\nTo show/hide the navigation bar, hover your mouse (or press your finger) to the left of the window, or click on our logo.");
-            toggleNav();
-        }, 2100);
-    };
-
-    function showNav(){
-        //console.log("showNav was called!");
-        //navArea.className = navArea.className + " oneHundredPxWide";
-        navShowing = true;
-        contentArea.className = contentArea.className.replace(/\bcontent-wide\b/,'content-narrow');
-        setTimeout(function() {
-            navArea.className = navArea.className.replace(/\bonePxWide\b/, 'oneHundredPxWide');
-        },100);
-
-    }
-    function hideNav(){
-        navShowing= false;
-        //console.log("hideNav was called!");
-        navArea.className = navArea.className.replace(/\boneHundredPxWide\b/,'onePxWide');
-        setTimeout(function() {
-            contentArea.className = contentArea.className.replace(/\bcontent-narrow\b/, 'content-wide');
-        },1000);
-
-    }
-
-    function toggleNav(){
-        //console.log("toggleNav was called!");
-        if(navShowing){
-            hideNav();
-        }else{
-            showNav();
-        }
-    }
-
-    function showMessage(msg){
-        //console.log("showMessage was called!");
-        window.alert(msg);
-    }
-</script>
-
 </html>
 
 

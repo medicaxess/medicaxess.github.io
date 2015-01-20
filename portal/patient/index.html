@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/navigation.css">
     <link rel="stylesheet" href="css/patient.view.css">
 
     <!--
@@ -50,13 +51,14 @@
         <header-area></header-area>
         <navigation-area></navigation-area>
     </div>
-
-<!--    <login-area></login-area>
-    <signup-area></signup-area> -->
-    <section ng-controller="PatientDashboardController" id="page-content">
-        <patient-area></patient-area>
-        <message-area></message-area>
-    </section>
+    <div id="page-content" class="container" ng-class="{'content-narrow': navShowing, 'content-wide': !navShowing}">
+        <div class="row">
+            <login-area></login-area>
+            <signup-area></signup-area>
+            <patient-area></patient-area>
+            <message-area></message-area>
+        </div>
+    </div>
 </main>
 </body>
 </html>

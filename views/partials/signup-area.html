@@ -3,7 +3,7 @@
 
         <div class="content clearfix">
 
-            <form method="POST" action="https://medicaxess-padtronics.rhcloud.com/register">
+            <form id="registerform">
 
                 <h1>Register</h1>
 
@@ -12,24 +12,24 @@
                     <p>Create your account:</p>
             
                     <div class="field">
-                        <label for="username">Name:</label>
-                        <input type="text" id="" name="username" value="" placeholder="Name" class="login" ng-model="userData.fullname"/>
+                        <label>Name
+                        <input class="form-control" type="text" id="" name="username" value="" placeholder="Name"></label>
                     </div>
 
                     <div class="field">
-                        <label for="email">Email Address:</label>
-                        <input type="email" id="email" name="email" value="" placeholder="Email" class="login" ng-model="userData.email"/>
+                        <label>Email Address
+                        <input class="form-control" type="email" id="email" name="email" value="" placeholder="Email"></label>
                     </div> <!-- /field -->
 
                     <div class="field">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" value="" placeholder="Password" class="login" ng-model="userData.password"/>
+                        <label>Password
+                        <input class="form-control" type="password" id="password" name="password" value="" placeholder="Password" class="login"></label>
                     </div> <!-- /field -->
 
                     <div class="field">
-                        <label for="confirm_password">Confirm Password:</label>
+                        <label>Confirm Password:
 
-                        <input type="password"  value="" placeholder="Confirm Password" class="login"ng-model="userData.password2"/>
+                        <input class="form-control" type="password"  name="password2" value="" placeholder="Confirm Password" class="login"></label>
 
                     </div> <!-- /field -->
 
@@ -38,7 +38,7 @@
                 <div class="login-actions">
 
                     <span class="login-checkbox">
-                        <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" ng-model="userData.tosagree"/>
+                        <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
                         <label class="choice" for="Field">Agree with the Terms & Conditions.</label>
                     </span>
 

@@ -80,48 +80,8 @@ nav ul li button {
     margin: 0px;
 }
 
-.nav-btn {
-
-    font-size: 15pt;
-    font-family: Georgia, Serif;
-    text-decoration: none;
-    vertical-align: middle;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.nav-btn:hover {
-    color: white;
-    background: #28597a;
-    color: #ccc;
-}
-.nav-btn:active {
-    background: #1b435e;
-}
 
 #page-content{
     margin-top: 75px;
     position: absolute;
-}
-
-.transitions {
-    -moz-transition: all 1.5s ease-in-out;
-    -webkit-transition: all 1.5s ease-in-out;
-    -o-transition: all 1.5s ease-in-out;
-    transition: all 1.5s ease-in-out;
-}
-.onePxWide{
-    width: 1px;
-}
-
-.oneHundredPxWide{
-    width: 100px;
-}
-
-.content-wide{
-    margin-left: 15px;
-}
-
-.content-narrow{
-    margin-left: 120px;
 }
