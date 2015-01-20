@@ -36,9 +36,14 @@ A provider is anyone who interacts with the patient in a "consultation", if your
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 -->
-        <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
-        <script src="/components/login/login-controller.js"></script>
-        <script src="/components/dashboard/dashboard-controller.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-animate/angular-animate.js"></script>
+
+    <script src="/common/login/login-controller.js"></script>
+        <script src="angular/controllers/provider-dashboard-controller.js"></script>
+        <script src="/common/forms/form-controller.js"></script>
         <script src="angular/modules/app.js"></script>
     </head>
     <body onload="doUiTease()">
@@ -57,7 +62,7 @@ A provider is anyone who interacts with the patient in a "consultation", if your
                 <ul class="gradient-area">
                     <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='providerview'"><i class="fa fa-dashboard fa-lg fa-fw"></i></button></li>
                     <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='providerview-search'"><i class="fa fa-group fa-lg fa-fw"></i></button></li>
-                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='reportsview'"><i class="fa fa-list-alt fa-lg fa-fw"></i></button></li>
+                    <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='customize-forms'"><i class="fa fa-list-alt fa-lg fa-fw"></i></button></li>
                     <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='messageview'"><i class="fa fa-envelope fa-lg fa-fw"></i></button></li>
                     <li><button class="flat-btn gradient-area nav-btn" ng-click="app.state='conferenceview'"><i class="fa fa-comments fa-lg fa-fw"></i></button></li>
                 </ul>
@@ -68,6 +73,7 @@ A provider is anyone who interacts with the patient in a "consultation", if your
                     <signup-area></signup-area>
                     <section ng-controller="DashboardController">
                         <dashboard-area></dashboard-area>
+                        <custom-forms-area></custom-forms-area>
                         <patient-area></patient-area>
                         <charts-area></charts-area>
                         <conference-area></conference-area>

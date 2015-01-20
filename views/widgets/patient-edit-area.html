@@ -15,7 +15,6 @@
                                         <span ng-if="field.type != 'list' && field.type !='photo'">
                                             <input class="form-control" type="{{field.type}}" name={{field.name}} value="{{currentPatient[field.name]}}" ng-model="currentPatient[field.name]">
                                         </span>
-
                                         <span ng-if="field.type == 'photo'">
                                            <input type="file" name={{field.name}} value="{{currentPatient[field.name]}}" ng-model="currentPatient[field.name]" capture>
                                         </span>

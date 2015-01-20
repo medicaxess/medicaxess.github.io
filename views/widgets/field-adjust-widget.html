@@ -1,0 +1,10 @@
+<div>
+    <span class="pull-left">
+
+    </span>
+    {{field.displayName}}
+    <span  class="pull-right " >
+    <button class="btn btn-xs" ng-if="currentForm.fields.length > 1" ng-click="moveField(field,'up');"><i class="fa fa-chevron-up fa-fw"></i></button>
+    <button class="btn btn-xs" ng-if="currentForm.fields.length > 1" ng-click="moveField(field,'down');"><i class="fa fa-chevron-down fa-fw"></i></button>
+    <button class="btn btn-xs"><i class="glyphicon" ng-class="{'glyphicon-minus': status.open, 'glyphicon-plus': !status.open}"></i></button>
+</div>

@@ -152,6 +152,15 @@ angular.module('patientdashboard',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/views/partials/patient-edit-area.html'
+            templateUrl: '/views/widgets/patient-edit-area.html'
         }
-    });
+    })
+    .directive('patientArea',function(){
+        console.log("Loading directive patient-area");
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: '/views/partials/patient-area.html'
+        }
+    })
+;

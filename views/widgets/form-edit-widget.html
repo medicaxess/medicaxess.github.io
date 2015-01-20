@@ -1,0 +1,79 @@
+<div class="panel panel-primary fade-in">
+    <span class="panel-heading">Form Edit</span>
+    <div class="panel-body">
+        <fieldset>
+            <button ng-if="currentForm === undefined" class="btn btn-success btn-block" ng-click="newForm();"><i class="fa fa-code fa-lg fa-fw"></i>&nbsp;&nbsp;New Form</button>
+            <div ng-if="currentForm !== undefined">
+                <legend>{{currentForm.displayName}}&nbsp;&nbsp;
+                    <span style="float: right;">
+                        <button class="btn btn-small btn-success" ng-click="saveForm()">Save</button>
+                        <button class="btn btn-small btn-danger" ng-click="revertForm()">Cancel</button>
+                    </span>
+                </legend>
+
+                <label>Form Name:<input class="form-control" type="text" ng-model="currentForm.displayName"></label>
+                <label>Form Collection:<input  class="form-control" list="formcollections" ng-model="currentForm.collection"></label>
+                <label>Form Scope:<input  class="form-control" list="formscopes" ng-model="currentForm.scope"></label>
+                <label>Form Record Type:<input  class="form-control" list="formrecordtypes" ng-model="currentForm.recordType"></label>
+
+                <datalist id="formscopes">
+                    <option data-ng-repeat="scope in formInf.scopes" value="{{scope.value}}">{{scope.name}}</option>
+                </datalist>
+                <datalist id="formcollections">
+                    <option data-ng-repeat="collection in formInf.collections" value="{{collection.value}}">{{collection.name}}</option>
+                </datalist>
+                <datalist id="formrecordtypes">
+                    <option data-ng-repeat="rtype in formInf.recordTypes" value="{{rtype.value}}">{{rtype.name}}</option>
+                </datalist>
+                <datalist id="databind">
+                    <option data-ng-repeat="binding in fieldInf.bindings" value="{{binding.value}}">{{binding.name}}</option>
+                </datalist>
+                <datalist id="fieldtypes">
+                    <option data-ng-repeat="fieldType in fieldInf.fieldTypes" value="{{fieldType.value}}">{{fieldType.name}}</option>
+                </datalist>
+                <label>Add Field: <button ng-click="addField();" class="btn btn-success btn-xs"><i class="fa fa-plus fa-fw"></i></button></label>
+
+                <accordion close-others="oneAtATime">
+                    <accordion-group ng-repeat="field in currentForm.fields" is-open="status.open" is-disabled="status.isFirstDisabled">
+                        <accordion-heading>
+                            <field-adjust-widget></field-adjust-widget>
+                        </accordion-heading>
+
+                        <input class="form-control" type="text" ng-model="field.displayName" required>
+                        <label>Is {{field.displayName}} required?<input class="form-control form-inline checkbox" type="checkbox" name="isRequired" value="true" ng-model="field.isRequired" tooltip="Require this field?"></span></label>
+                        <label>Dynamic Binding:**<input class="form-control" list="databind" ng-model="field.databind" required></label>
+
+                        <label>Field Type:*<input class="form-control" list="fieldtypes" ng-model="field.type" required></label>
+
+                        <label>Field Variable:<input class="form-control" type="text" ng-model="field.variable" required></label>
+
+                        <div ng-if="field.type == 'list'">
+                            List Values:<button class="btn btn-small btn-success btn-xs" ng-click="addListItem(field);">+</button>
+                            <fieldset ng-repeat="item in field.list">
+                                <legend>{{item.name}}
+                                    <button class="btn btn-small btn-danger btn-xs" style="float: right;" ng-click="removeListItem(field,item);">X</button>
+                                </legend>
+                                <label>Name:<input type="text" ng-model="item.name"></label>
+                                <label>Value:<input type="text" ng-model="item.value"></label>
+                            </fieldset>
+                        </div>
+
+                        <div ng-if="field.type =='image'">
+                            <label>Show Preview:<input class="form-control" type="checkbox" ng-model="field.preview"></label>
+                        </div>
+
+                        <div ng-if="field.type =='range' || field.type =='number'">
+                            <label>Min:<input type="number" ng-model="field.min"></label>
+                            <label>Max:<input type="number" ng-model="field.max"></label>
+                        </div>
+                        <label>Delete this field&nbsp;&nbsp;<i class="btn btn-xs fa fa-times fa-fw" ng-click="deleteField(field);"></i></label>
+                    </accordion-group>
+                </accordion>
+                *note: Not all browsers support all field types yet.  If the browser does not support it, the user will see a single line text field.<br>
+                **note: Dynamic binding on a form field allows you to automatically "fill it in" based an an existing object in the database, e.g. patient.displayName.<br>
+                The objects listed in the drop down are the primary objects tracked by the application. To add something new, append your own field name. In most cases you will want to ensure you consistently name the fields, but do not use accented or special characters.
+                Be careful changing the databinding, the application may occasionally freeze.
+            </div>
+        </fieldset>
+    </div>
+</div>
