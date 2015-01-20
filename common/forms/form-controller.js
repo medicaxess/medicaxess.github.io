@@ -151,7 +151,7 @@ var formController = function($rootScope, $scope, $http) {
 
         bindings : enumeratePatient(),
 
-        fieldTypes : [
+        fieldtypes : [
             {name: "Plain Text - Single Line",              value: "text"},
             {name: "Plain Text - Multi Line",               value: "textarea"},
             {name: "Photograph or Other Image",             value: "photo"},
