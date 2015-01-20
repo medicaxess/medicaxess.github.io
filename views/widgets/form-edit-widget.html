@@ -14,7 +14,7 @@
                 <label>Form Name:<input class="form-control" type="text" ng-model="currentForm.displayname"></label>
                 <label>Form Collection:<input  class="form-control" list="formcollections" ng-model="currentForm.collection"></label>
                 <label>Form Scope:<input  class="form-control" list="formscopes" ng-model="currentForm.scope"></label>
-                <label>Form Record Type:<input  class="form-control" list="formrecordtypes" ng-model="currentForm.recordType"></label>
+                <label>Form Record Type:<input  class="form-control" list="formrecordtypes" ng-model="currentForm.recordtype"></label>
 
                 <datalist id="formscopes">
                     <option data-ng-repeat="scope in formInf.scopes" value="{{scope.value}}">{{scope.name}}</option>
@@ -23,7 +23,7 @@
                     <option data-ng-repeat="collection in formInf.collections" value="{{collection.value}}">{{collection.name}}</option>
                 </datalist>
                 <datalist id="formrecordtypes">
-                    <option data-ng-repeat="rtype in formInf.recordTypes" value="{{rtype.value}}">{{rtype.name}}</option>
+                    <option data-ng-repeat="rtype in formInf.recordtypes" value="{{rtype.value}}">{{rtype.name}}</option>
                 </datalist>
                 <datalist id="databind">
                     <option data-ng-repeat="binding in fieldInf.bindings" value="{{binding.value}}">{{binding.name}}</option>

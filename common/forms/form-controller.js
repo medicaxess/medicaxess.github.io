@@ -55,7 +55,7 @@ var formController = function($rootScope, $scope, $http) {
             displayname: "Default Example Form (change me)",
             collection: "patients",
             scope: "self",
-            recordType: "patient-forms",
+            recordtype: "patient-forms",
             fields: [
                 {
                     displayname: "Patient Photo",
@@ -116,9 +116,9 @@ var formController = function($rootScope, $scope, $http) {
             {name: "Patient Records", value: "patients"},
             {name: "Employee Records", value: "users"}
         ],
-        //recordType is a custom searching and indexing field for the use of the form creator
+        //recordtype is a custom searching and indexing field for the use of the form creator
         //Below are some examples
-        recordTypes : [
+        recordtypes : [
             {name: "Patient Forms (General)", value: "patient-forms"},
             {name: "Patient Forms (Vitals)", value: "patient-vitals"},
             {name: "Patient Forms (Appointments)", value: "patient-appointments"}
