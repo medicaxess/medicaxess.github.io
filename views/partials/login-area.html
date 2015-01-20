@@ -1,16 +1,24 @@
 <div ng-hide="app.state">
-    <div class="account-container">
+    <div class="account-container col-md-6">
         <div class="panel panel-primary">
             <div class="gradient-area">&nbsp;&nbsp;<i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;Login</div>
 
             <div class="panel-body">
                 <div class="login-fields">
-                    <p>You must login to continue</p>
+                    <label><em>You must login to continue</em></label>
+                    <label class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-envelope"></span>
+                        </span>
+                        <input class="form-control" type="text" placeholder="Email address" ng-model="userData.email">
+                    </label>
 
-                    <input type="text" id="username" name="username" value="" placeholder="Username" class="login username-field" ng-model="userData.email"><br>
-
-                    <input type="password" id="password" name="password" value="" placeholder="Password" class="login password-field" ng-model="userData.password"><br>
-
+                    <label class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-lock"></span>
+                        </span>
+                        <input class="form-control" type="password" placeholder="Password" ng-model="userData.password">
+                    </label>
                     <button class="btn btn-success btn-block" ng-click="loginUser();">Sign In</button>
                     <button class="btn btn-block" ng-click="registerUser()">Register</button>
                 </div> <!-- .actions -->
