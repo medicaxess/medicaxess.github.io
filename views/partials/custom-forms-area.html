@@ -1,12 +1,18 @@
 <div class="container" ng-show="app.state=='customize-forms'">
     <div class="row" ng-controller="FormController">
-
-        <div class="col-md-6" style="border-right: 1px">
-            <form-edit-widget></form-edit-widget>
+        <div class="row">
+            <div class="col-md-12">
+                <form-list-widget></form-list-widget>
+            </div>
         </div>
-        <div class="col-md-6" style="border-left: 1px">
-            <h1>Form Preview</h1>
-            <form-widget></form-widget>
+        <div class="row">
+            <div class="col-md-6" style="border-right: 1px">
+                <form-edit-widget></form-edit-widget>
+            </div>
+            <div class="col-md-6" style="border-left: 1px">
+                <h1>Form Preview</h1>
+                <form-widget></form-widget>
+            </div>
         </div>
     </div>
 </div>

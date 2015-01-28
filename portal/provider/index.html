@@ -26,9 +26,9 @@ A provider is anyone who interacts with the patient in a "consultation", if your
 
         <!-- Bootstrap -->
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/navigation.css">
     <link rel="stylesheet" href="css/provider.view.css">
@@ -45,9 +45,8 @@ A provider is anyone who interacts with the patient in a "consultation", if your
 
     <script src="/common/navigation/navigation-controller.js"></script>
     <script src="/common/login/login-controller.js"></script>
-    <script src="angular/controllers/provider-dashboard-controller.js"></script>
-    <script src="angular/modules/app.js"></script>
     <script src="/common/forms/form-controller.js"></script>
+    <script src="angular/controllers/provider-dashboard-controller.js"></script>
     <script src="angular/modules/app.js"></script>
     </head>
     <body>
@@ -62,6 +61,7 @@ A provider is anyone who interacts with the patient in a "consultation", if your
                 <signup-area></signup-area>
                 <section ng-controller="DashboardController">
                     <dashboard-area></dashboard-area>
+                    <profile-area></profile-area>
                     <custom-forms-area></custom-forms-area>
                     <patient-area></patient-area>
                     <charts-area></charts-area>

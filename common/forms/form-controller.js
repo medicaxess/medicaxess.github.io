@@ -1,5 +1,13 @@
 var formController = function($rootScope, $scope, $http) {
     console.log("FormController Starting Up!");
+
+    if(window.location.host != "localhost"){
+        $rootScope.baseUrl = "https://api.medicaxess.com";
+    }else{
+        $rootScope.baseUrl = "http://localhost:8080";
+    }
+
+    $scope.baseUrl = $rootScope.baseUrl+"/forms";
     $rootScope.currentPatient =  {
         name: "Victor Vargas",
         gender: "Male",
@@ -125,7 +133,7 @@ var formController = function($rootScope, $scope, $http) {
         ]
     };
 
-    function enumeratePatient(){
+    function enumerateFields(){
         var array = [
             {name: "Record - at time of service", value: 'currentRecord'},
             {name: "Patient - at time of service", value: 'currentPatient'},
@@ -143,13 +151,27 @@ var formController = function($rootScope, $scope, $http) {
                 }
             }
         });
+        /*
+        keys = Object.keys($rootScope.currentUser);
+        keys.forEach(function(key, index,keys){
+            if($rootScope.currentUser.hasOwnProperty(key)) {
+                if(!Array.isArray($rootScope.currentPatient[key])) {
+                    var obj = {};
+                    obj.name = key;
+                    obj.value = "currentUser." + key;
+                    array.push(obj);
+                }
+            }
+        });
+        */
+
         console.log("Patient array: ", array);
         return array;
     }
     //Allows binding of field defaults to current Objects
     $scope.fieldInf  = {
 
-        bindings : enumeratePatient(),
+        bindings : enumerateFields(),
 
         fieldtypes : [
             {name: "Plain Text - Single Line",              value: "text"},
@@ -227,7 +249,7 @@ var formController = function($rootScope, $scope, $http) {
         $scope.deleteField(field);
         fields.splice(offset,0,field);
         $rootScope.currentForm.fields = fields;
-    }
+    };
 
     $scope.addListItem = function(field){
         if(field.list == undefined){
@@ -245,19 +267,111 @@ var formController = function($rootScope, $scope, $http) {
         console.log("Toggling collapse of "+field.displayname);
         field.collapsed = !field.collapsed;
         $("#" + field).collapse('toggle');
+    };
+
+    $scope.saveForm = function(){
+        if(!$rootScope.currentForm.hasOwnProperty("_id")){
+            $rootScope.currentForm.owner_id = $rootScope.currentUser._id;
+            $http.post($scope.baseUrl,$rootScope.currentForm)
+                .success(function(data){
+                    $rootScope.currentForm = data;
+                    $rootScope.forms.push($rootScope.currentForm)
+                    window.alert("Form has been successfully saved, you can now reference by name or by id which is "+data._id);
+                })
+                .error(function(error){
+                    console.error(error);
+                    window.alert("There has been an error in persisting the form");
+                });
+        }else{
+            var url = $scope.baseUrl+"/"+$rootScope.currentForm._id
+            $http.put(url,$rootScope.currentForm)
+                .success(function(data){
+                    window.alert("Changes to your form have been saved!")
+                })
+                .error(function(error){
+                    console.error(error);
+                    window.alert("There has been an error in persisting the form, it appears you were logged out, you will be returned to the login screen now.");
+                    //$rootScope.app.state = undefined;
+                });
+        }
+
+
+    };
+
+    $scope.saveFormData = function(form){
+        console.log("saving: ",form);
+        var loc = $scope.currentForm.collection;
+        console.log("saving it to: ",$rootScope.baseUrl+"/"+loc);
+        $http.post($rootScope.baseUrl+"/"+loc, form)
+            .success(function(data){
+                $rootScope[data.scope] = data;
+            })
+            .error(function(error){
+                console.error(error)
+            })
+    };
+
+    $scope.fetchForm = function(name, id){
+        name = encodeURIComponent(name);
+      $http.get($scope.baseUrl+"/"+name)
+          .success(function(data){
+              console.log(data);
+              $rootScope[id] = data;
+          })
+          .error(function(error){
+              console.error(error);
+              window.alert("There was a problem fetching a required form")
+          })
+    };
+
+    $scope.fetchAllForms = function(){
+        console.log("Fetching all forms from "+$scope.srl);
+        $http.get($scope.baseUrl)
+            .success(function(data){
+                console.log("forms: ",data);
+                $rootScope['forms'] = data;
+
+            })
+            .error(function(error){
+                console.error(error);
+                window.alert("There was a problem fetching a required form")
+            })
+    };
+    /**
+     * This sets a rootScope object to an arbitrary form
+     * e.g. displayname, Profile, currentForm will set $rootScope.currentForm = {displayname: Profile ...}
+     * @param haystack (the field to search in rootScope.forms
+     * @param needle (the value to search for)
+     * @param id (the field off rootScope to set if/when the form is found)
+     */
+    $scope.setForm = function(haystack,needle,id){
+
+        console.log("Looking for ",needle," in ",haystack," to set ", id);
+        console.log("Available Forms: ",$rootScope['forms']);
+        var forms = $rootScope['forms'];
+        if(Array.isArray(forms)) {
+            for (var i = 0; i <= forms.length; i++) {
+                console.log("form: ", forms[i]);
+                if (forms[i][haystack] == needle) {
+                    $rootScope[id] = forms[i];
+                    break;
+                }
+            }
+        }else{
+            $rootScope[id]= $rootScope[forms]
+        }
+    };
+
+    $scope.editForm = function(form){
+        $rootScope.currentForm = form;
     }
+    $rootScope.setForm = $scope.setForm;
+    $rootScope.fetchForms = $scope.fetchAllForms;
+
 };
 
 angular.module('customforms',[])
     .controller('FormController', ['$rootScope','$scope', '$http', formController])
-    .directive('formEditWidget',function(){
-        console.log("Loading directive form-edit-widget");
-        return {
-            restrict: 'E',
-            replace: 'true',
-            templateUrl: '/views/widgets/form-edit-widget.html'
-        }
-    })
     .directive('formWidget',function(){
         console.log("Loading directive form-widget");
         return {
@@ -266,12 +380,36 @@ angular.module('customforms',[])
             templateUrl: '/views/widgets/form-widget.html'
         }
     })
+    .directive('formListWidget',function(){
+        console.log("Loading directive form-list-widget");
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: '/views/widgets/form-list-widget.html'
+        }
+    })
+    .directive('formEditWidget',function(){
+        console.log("Loading directive form-edit-widget");
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: '/views/widgets/form-edit-widget.html'
+        }
+    })
     .directive('fieldAdjustWidget',function(){
         console.log("Loading directive field-adjust-widget");
         return {
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/widgets/field-adjust-widget.html'
+        }
+    })
+    .directive('fieldEditWidget',function(){
+        console.log("Loading directive field-edit-widget");
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: '/views/widgets/field-edit-widget.html'
         }
     })
     .directive('customFormsArea',function(){

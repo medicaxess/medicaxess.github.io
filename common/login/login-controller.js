@@ -4,14 +4,14 @@
 
 var loginController = function($rootScope, $scope, $http) {
 
-    console.log('Loading login controller');
+    console.log('Login controller, starting up!');
     $scope.user = {};
     $scope.app = {};
 
     if(window.location.host != "localhost"){
-        $rootScope.baseUrl = "https://api.medicaxess.com/";
+        $rootScope.baseUrl = "https://api.medicaxess.com";
     }else{
-        $rootScope.baseUrl = "http://localhost:8080/";
+        $rootScope.baseUrl = "http://localhost:8080";
     }
 
     $scope.demoLogin = function(){
@@ -22,36 +22,60 @@ var loginController = function($rootScope, $scope, $http) {
         window.document.title = $scope.userData.username + "'s Dashboard";
     };
 
-    $scope.registerUser = function(){
-        /*
-        if(isValid()){
-            console.log("Preparing to register " + $scope.user.username);
-            $scope.currentAction ="register";
-
-            $scope.send("/api/user/register","Sending registration request.");
-        }*/
-        console.log("registerUser was called");
-        $scope.demoLogin();
-    };
-
     $scope.logoutUser = function(){
-        $http.get("/api/user/logout");
         window.alert("You are now logged out");
         window.location = "index.html";
     };
 
-    $scope.loginUser = function(){
-        /*
-        if(isValid()) {
-            console.log("Preparing to login " + $scope.user.username);
-            $scope.currentAction ="login";
-            $scope.send("/api/user/login", "Logging you in...");
-        }
-        */
+    $scope.loginUser = function(form){
         console.log("loginUser was called");
-        $scope.demoLogin();
-    };
+        console.log("sending: ",$scope.userData)
 
+        $http.post($rootScope.baseUrl+"/login",$scope.userData)
+            .success(function(data, status, headers, config) {
+                $rootScope.fetchForms
+                console.log("Login success: ",data);
+                window.alert("Welcome back, "+data.displayname)
+                $rootScope.currentUser = data;
+                $rootScope.app ={};
+                if($rootScope.currentUser.displayname == null){
+                    $rootScope.app.state = 'profileview';
+                    $rootScope.setForm('displayname',"Profile",'currentForm');
+                    window.alert("Your profile is missing important information, please complete it before proceeding.")
+                }else{
+                    //$rootScope.app.state = 'defaultview';
+                    $rootScope.app.state='profileview';
+                    window.document.title = $scope.userData.displayname + "'s Dashboard";
+                }
+
+            })
+            .error(function(data, status, headers, config) {
+                console.error("Error: ",data);
+                console.error("Status: ",status);
+                window.alert("Login Failed!\nPlease check your username and password, contact support if the problem persists")
+            });
+
+        };
+
+    $scope.registerUser = function(){
+
+        console.log("registerUser was called");
+
+        $http.post($rootScope.baseUrl+"/register",$scope.userData)
+            .success(function(data, status, headers, config) {
+                console.log("Registration success: ",data);
+                $rootScope.currentUser = $scope.userData;
+                $rootScope.app ={};
+                $rootScope.app.state = 'defaultview';
+                window.document.title = $scope.userData.username + "'s Dashboard";
+            }).
+            error(function(data, status, headers, config) {
+                console.error("Error: ",data);
+                console.error("Status: ",status);
+                window.alert("Registration Failed!\nEither you're missing a field or an account exists with this information already, please contact support if the problem persists")
+            });
+
+    };
 
     $scope.recoverPassword = function(){
         if($scope.user.username !== undefined) {
@@ -81,40 +105,6 @@ var loginController = function($rootScope, $scope, $http) {
         return true;
     }
 
-    $scope.send = function(url,text){
-
-        if(text){
-            $scope.loadingText = text;
-        }
-        $scope.loading = true;
-        console.log("Sending: ",$scope.user);
-        $http.post(url, $scope.user)
-            .success(function (data) {
-                console.log("Data: ", data);
-                if(!data){
-                    window.alert("Invalid username or password.  If you are trying to register, it may mean that the name is already taken.");
-                    return;
-                }
-                if(data.activated == false){
-                    $scope.currentAction = "register";
-                }
-
-                $scope.userData = data;
-                $rootScope.userData = angular.copy(data);
-                console.log("userData: ",$scope.userData);
-                //window.location ="/dashboard.html";
-            })
-            .error(function (error) {
-                console.error(error);
-                window.alert("There was an error and we could not log you in.  Please check your username & password.");
-            })
-            .finally(function () {
-                console.log("Done with login");
-                $scope.loading = false;
-            });
-
-    };
-    
     $scope.isLoggedIn = function(){
         var islogged  = $rootScope.hasOwnProperty('userData');
         //console.log("User Logged in: ", islogged);

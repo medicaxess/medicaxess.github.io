@@ -261,6 +261,14 @@ angular.module('dashboard',[])
             templateUrl: '/views/partials/dashboard-area.html'
         }
     })
+    .directive('profileArea',function(){
+        console.log("Loading directive profile-area");
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: '/views/partials/profile-area.html'
+        }
+    })
     .directive('patientArea',function(){
         console.log("Loading directive patient-area");
         return {

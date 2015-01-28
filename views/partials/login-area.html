@@ -1,26 +1,27 @@
-<div ng-hide="app.state">
+<div ng-hide="app.state" ng-controller="LoginController">
     <div class="account-container col-md-6">
         <div class="panel panel-primary">
             <div class="gradient-area">&nbsp;&nbsp;<i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;Login</div>
-
             <div class="panel-body">
                 <div class="login-fields">
                     <label><em>You must login to continue</em></label>
-                    <label class="input-group input-group-lg">
-                        <span class="input-group-addon">
-                          <span class="glyphicon glyphicon-envelope"></span>
-                        </span>
-                        <input class="form-control" type="text" placeholder="Email address" ng-model="userData.email">
-                    </label>
+                    <form name="loginform" id="loginform">
+                        <label class="input-group input-group-lg">
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-envelope"></span>
+                            </span>
+                            <input class="form-control" type="text" placeholder="Email address" name="userData.email" ng-model="userData.email" required="true">
+                        </label>
+                        <label class="input-group input-group-lg">
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-lock"></span>
+                            </span>
+                            <input class="form-control" type="password" placeholder="Password" name="userData.password" ng-model="userData.password" required="true">
+                        </label>
 
-                    <label class="input-group input-group-lg">
-                        <span class="input-group-addon">
-                          <span class="glyphicon glyphicon-lock"></span>
-                        </span>
-                        <input class="form-control" type="password" placeholder="Password" ng-model="userData.password">
-                    </label>
-                    <button class="btn btn-success btn-block" ng-click="loginUser();">Sign In</button>
-                    <button class="btn btn-block" ng-click="registerUser()">Register</button>
+                        <button class="btn btn-success btn-block" ng-click="loginUser();">Sign In</button>
+                        <button class="btn btn-block" ng-click="registerUser()">Register</button>
+                    </form>
                 </div> <!-- .actions -->
            </div>
         </div>

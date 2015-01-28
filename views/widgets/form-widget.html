@@ -1,33 +1,36 @@
-<div class="panel panel-primary fade-in">
+<div class="panel panel-primary fade-in" ng-controller="FormController">
     <span class="panel-heading">
         {{currentForm.displayname}}
     </span>
     <div class="panel-body">
-        <ul class="list-group">
-            <li class="list-group-item fade-in" ng-repeat="field in currentForm.fields" >
-                <label>{{field.displayname}}
-                        <span ng-if="field.type != 'list' && field.type !='image' && field.type !='range'  && field.type != 'number'">
-                            <input class="form-control" type="{{field.type}}" name={{field.variable}} value="{{field.variable}}" dynamic-model="field.databind" required="{{field.isRequired}}">
-                        </span>
-                        <span  ng-if="field.type == 'image'">
-                            <img dynamic-model="field.databind">
-                           <input class="form-control" type="file" name={{field.variable}} value="{{field.variable}}" dynamic-model="field.databind" capture>
-                        </span>
-                        <span  ng-if="field.type == 'list'">
-                            <select name="{{field.variable}}" class="form-control" dynamic-model="field.databind">
-                                <option ng-repeat="item in field.list" value="item.value">{{item.name}}</option>
-                            </select>
-                        </span>
-                        <span  ng-if="field.type == 'range' || field.type == 'number'">{{field.value}}
-                            <input class="form-control" type="{{field.type}}"
-                                   min="{{field.min}}"
-                                   max="{{field.max}}"
-                                   dynamic-model="field.databind" >
-                        </span>
-                 </label>
-            </li>
-        </ul>
-        <button class="btn btn-block btn-success" ng-click="saveForm()">Save</button>
-        <button class="btn btn-block btn-danger" ng-click="revertForm()">Cancel</button>
+        <form name="{{currentForm._id}}">
+            <input class="hidden" type="hidden" name="collection" value="{{currentForm.collection}}">
+            <ul class="list-group">
+                <li class="list-group-item fade-in" ng-repeat="field in currentForm.fields" >
+                    <label>{{field.displayname}}
+                            <span ng-if="field.type != 'list' && field.type !='image' && field.type !='range'  && field.type != 'number'">
+                                <input class="form-control" type="{{field.type}}" name={{field.name}} value="{{field.value}}" dynamic-model="field.databind" required="{{field.isRequired}}">
+                            </span>
+                            <span  ng-if="field.type == 'image'">
+                                <img ng-src="{{field.databind}}">
+                               <input class="form-control" type="file" name={{field.name}} value="{{field.value}}" dynamic-model="field.databind" capture>
+                            </span>
+                            <span  ng-if="field.type == 'list'">
+                                <select name="{{field.name}}" class="form-control" dynamic-model="field.databind">
+                                    <option ng-repeat="item in field.list" value="item.value">{{item.name}}</option>
+                                </select>
+                            </span>
+                            <span  ng-if="field.type == 'range' || field.type == 'number'">{{field.value}}
+                                <input class="form-control" type="{{field.type}}"
+                                       min="{{field.min}}"
+                                       max="{{field.max}}"
+                                       dynamic-model="field.databind" >
+                            </span>
+                     </label>
+                </li>
+            </ul>
+            <input type="submit" class="btn btn-block btn-success" value="Save" ng-click="saveFormData(form)"/>
+        </form>
+
     </div>
 </div>
