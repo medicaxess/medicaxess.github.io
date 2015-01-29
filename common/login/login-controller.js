@@ -39,8 +39,9 @@ var loginController = function($rootScope, $scope, $http) {
                 $rootScope.currentUser = data;
                 $rootScope.app ={};
                 if($rootScope.currentUser.displayname == null){
-                    $rootScope.app.state = 'profileview';
                     $rootScope.setForm('displayname',"Profile",'currentForm');
+                    $rootScope.app.state = 'profileview';
+
                     window.alert("Your profile is missing important information, please complete it before proceeding.")
                 }else{
                     //$rootScope.app.state = 'defaultview';

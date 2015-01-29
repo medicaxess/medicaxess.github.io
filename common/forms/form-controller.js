@@ -61,43 +61,22 @@ var formController = function($rootScope, $scope, $http) {
     $scope.newForm = function(){
         $rootScope.currentForm = {
             displayname: "Default Example Form (change me)",
-            collection: "patients",
-            scope: "self",
-            recordtype: "patient-forms",
+            collection: "user-profiles",
+            scope: "all",
+            recordtype: "user-forms",
             fields: [
                 {
-                    displayname: "Patient Photo",
-                    databind: "currentPatient.photo",
-                    variable: "currentPatient.photo",
-                    type: "image",
-                    collapsed: true
-                },
-                {
-                    displayname: "Patient Name",
-                    databind: "currentPatient.name",
-                    variable: "patient.name",
+                    displayname: "Name",
                     type: "text",
+                    databind: "currentUser.displayname",
+                    variable: "user.name",
                     collapsed: true
                 },
                 {
-                    displayname: "Gender",
-                    databind: "currentPatient.gender",
-                    variable: "patient.gender",
-                    type: "list",
-                    list: [
-                        {name: "Male", value: "M"},
-                        {name: "Female", value: "F"},
-                        {name: "Other", value: "O"}
-                    ],
-                    collapsed: true
-                },
-                {
-                    displayname: "Temperature",
-                    databind: "currentPatient.temp",
-                    variable: "patient.temp",
-                    type: "range",
-                    min: 90,
-                    max: 110,
+                    displayname: "Email",
+                    databind: "currentUser.email",
+                    variable: "user.email",
+                    type: "email",
                     collapsed: true
                 }
             ]
@@ -271,12 +250,12 @@ var formController = function($rootScope, $scope, $http) {
 
     $scope.saveForm = function(){
         if(!$rootScope.currentForm.hasOwnProperty("_id")){
+
             $rootScope.currentForm.owner_id = $rootScope.currentUser._id;
             $http.post($scope.baseUrl,$rootScope.currentForm)
                 .success(function(data){
-                    $rootScope.currentForm = data;
-                    $rootScope.forms.push($rootScope.currentForm)
-                    window.alert("Form has been successfully saved, you can now reference by name or by id which is "+data._id);
+                    $scope.fetchAllForms();
+                    window.alert("Form has been successfully saved, you can now reference by name or by id");
                 })
                 .error(function(error){
                     console.error(error);
@@ -286,6 +265,7 @@ var formController = function($rootScope, $scope, $http) {
             var url = $scope.baseUrl+"/"+$rootScope.currentForm._id
             $http.put(url,$rootScope.currentForm)
                 .success(function(data){
+                    $scope.fetchAllForms();
                     window.alert("Changes to your form have been saved!")
                 })
                 .error(function(error){
@@ -296,6 +276,12 @@ var formController = function($rootScope, $scope, $http) {
         }
 
 
+    };
+
+    $scope.cloneForm = function(form){
+        var newForm = form;
+        delete newForm._id;
+        $rootScope.currentForm = newForm;
     };
 
     $scope.saveFormData = function(form){
@@ -335,6 +321,20 @@ var formController = function($rootScope, $scope, $http) {
             .error(function(error){
                 console.error(error);
                 window.alert("There was a problem fetching a required form")
+            })
+    };
+
+    $scope.deleteForm = function(form){
+        var id = form._id
+        delete $rootScope.forms[form]
+        $http.delete($scope.baseUrl+"/"+id)
+            .success(function(data){
+                $scope.fetchAllForms();
+                window.alert("You have successfully deleted a form")
+            })
+            .error(function(err){
+                console.error(err)
+                window.alert("There was a problem deleting that form, possibly it was locked, out of sync or already deleted.  Try again later")
             })
     };
     /**

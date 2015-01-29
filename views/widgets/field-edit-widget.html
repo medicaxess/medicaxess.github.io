@@ -1,39 +1,38 @@
 <div>
+    <accordion close-others="oneAtATime">
+        <accordion-group ng-repeat="field in currentForm.fields" is-open="status.open" is-disabled="status.isFirstDisabled">
+            <accordion-heading>
+                <field-adjust-widget></field-adjust-widget>
+            </accordion-heading>
 
-<accordion close-others="oneAtATime">
-    <accordion-group ng-repeat="field in currentForm.fields" is-open="status.open" is-disabled="status.isFirstDisabled">
-        <accordion-heading>
-            <field-adjust-widget></field-adjust-widget>
-        </accordion-heading>
+            <label><input class="form-control" type="text" ng-model="field.displayname" required></label>
+            <label>Is {{field.displayname}} required?<input class="form-control form-inline checkbox" type="checkbox" name="isRequired" value="true" ng-model="field.isRequired" tooltip="Require this field?"></label>
+            <label>Dynamic Binding:**<input class="form-control" list="databind" ng-model="field.databind" ng-model-options="{ debounce: 1000 }" required></label>
 
-        <label><input class="form-control" type="text" ng-model="field.displayname" required></label>
-        <label>Is {{field.displayname}} required?<input class="form-control form-inline checkbox" type="checkbox" name="isRequired" value="true" ng-model="field.isRequired" tooltip="Require this field?"></label>
-        <label>Dynamic Binding:**<input class="form-control" list="databind" ng-model="field.databind" ng-model-options="{ debounce: 1000 }" required></label>
+            <label>Field Type:*<input class="form-control" list="fieldtypes" ng-model="field.type" required></label>
 
-        <label>Field Type:*<input class="form-control" list="fieldtypes" ng-model="field.type" required></label>
+            <label>Field Variable:<input class="form-control" type="text" ng-model="field.variable" required></label>
+            <label>Field Default Value:<input class="form-control" type="text" ng-model="field.value" required></label>
+            <div ng-if="field.type == 'list'">
+                List Values:<button class="btn btn-small btn-success btn-xs" ng-click="addListItem(field);">+</button>
+                <fieldset ng-repeat="item in field.list">
+                    <legend>{{item.name}}
+                        <button class="btn btn-small btn-danger btn-xs" style="float: right;" ng-click="removeListItem(field,item);">X</button>
+                    </legend>
+                    <label>Name:<input type="text" ng-model="item.name"></label>
+                    <label>Value:<input type="text" ng-model="item.value"></label>
+                </fieldset>
+            </div>
 
-        <label>Field Variable:<input class="form-control" type="text" ng-model="field.variable" required></label>
-        <label>Field Default Value:<input class="form-control" type="text" ng-model="field.value" required></label>
-        <div ng-if="field.type == 'list'">
-            List Values:<button class="btn btn-small btn-success btn-xs" ng-click="addListItem(field);">+</button>
-            <fieldset ng-repeat="item in field.list">
-                <legend>{{item.name}}
-                    <button class="btn btn-small btn-danger btn-xs" style="float: right;" ng-click="removeListItem(field,item);">X</button>
-                </legend>
-                <label>Name:<input type="text" ng-model="item.name"></label>
-                <label>Value:<input type="text" ng-model="item.value"></label>
-            </fieldset>
-        </div>
+            <div ng-if="field.type =='image'">
+                <label>Show Preview:<input class="form-control" type="checkbox" ng-model="field.preview"></label>
+            </div>
 
-        <div ng-if="field.type =='image'">
-            <label>Show Preview:<input class="form-control" type="checkbox" ng-model="field.preview"></label>
-        </div>
-
-        <div ng-if="field.type =='range' || field.type =='number'">
-            <label>Min:<input type="number" ng-model="field.min"></label>
-            <label>Max:<input type="number" ng-model="field.max"></label>
-        </div>
-        <label>Delete this field&nbsp;&nbsp;<button class="btn btn-xs" ng-click="deleteField(field);"><span class="glyphicon glyphicon-"></span></button></label>
-    </accordion-group>
-</accordion>
-    </div>
+            <div ng-if="field.type =='range' || field.type =='number'">
+                <label>Min:<input type="number" ng-model="field.min"></label>
+                <label>Max:<input type="number" ng-model="field.max"></label>
+            </div>
+            <label>Delete this field&nbsp;&nbsp;<button class="btn btn-xs" ng-click="deleteField(field);"><span class="glyphicon glyphicon-"></span></button></label>
+        </accordion-group>
+    </accordion>
+</div>

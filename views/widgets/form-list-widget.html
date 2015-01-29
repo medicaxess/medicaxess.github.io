@@ -8,7 +8,7 @@
     <div class="panel-body">
         <table class="table table-responsive table-striped">
             <thead>
-                <th>Name</th><th>Collection</th><th>Scope</th><th>Record Type</th><th>Owner</th><th>ID</th>
+                <th>Name</th><th>Collection</th><th>Scope</th><th>Record Type</th><th>Field Count</th><th>MID*</th>
             </thead>
             <tbody>
                 <tr ng-repeat="item in forms">
@@ -17,13 +17,16 @@
                     <td>{{item.collection}}</td>
                     <td>{{item.scope}}</td>
                     <td>{{item.recordtype}}</td>
-                    <td>{{item.owner_id}}</td>
+                    <td>{{item.fields.length}}</td>
                     <td>{{item._id}}</td>
                     <td ng-if="item.owner_id == currentUser.id"><button ng-click="editForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Edit</button></td>
                     <td><button ng-click="cloneForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Clone</button></td>
+                    <td ng-if="item.owner_id == currentUser.id"><button ng-click="deleteForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;Delete</button></td>
+
                 </tr>
             <tfoot></tfoot>
             </tbody>
         </table>
+        <span>*MID = Medicaxess Identifier</span>
     </div>
 </div>

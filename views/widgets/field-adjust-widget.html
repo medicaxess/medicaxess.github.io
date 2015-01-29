@@ -6,6 +6,6 @@
     <span  class="pull-right " >
     <button class="btn btn-xs" ng-if="currentForm.fields.length > 1" ng-click="moveField(field,'up');"><i class="glyphicon glyphicon-chevron-up"></i></button>
     <button class="btn btn-xs" ng-if="currentForm.fields.length > 1" ng-click="moveField(field,'down');"><i class="glyphicon glyphicon-chevron-down"></i></button>
-    <button class="btn btn-xs"><i class="glyphicon" ng-class="{'glyphicon-expand': status.open, 'glyphicon-collapse': !status.open}"></i></button>
+    <button class="btn btn-xs"><i class="glyphicon" ng-class="{'glyphicon-unchecked': status.open, 'glyphicon-check': !status.open}"></i></button>
     </span>
 </div>
