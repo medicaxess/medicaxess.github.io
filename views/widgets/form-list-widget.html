@@ -18,9 +18,9 @@
                     <td>{{item.recordtype}}</td>
                     <td>{{item.fields.length}}</td>
                     <td>{{item._id}}</td>
-                    <td ng-if="item.owner_id == currentUser.id"><button ng-click="editForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Edit</button></td>
+                    <td ng-if="item.owner_id == currentUser._id"><button ng-click="editForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Edit</button></td>
                     <td><button ng-click="cloneForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Clone</button></td>
-                    <td ng-if="item.owner_id == currentUser.id"><button ng-click="deleteForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;Delete</button></td>
+                    <td ng-if="item.owner_id == currentUser._id"><button ng-click="deleteForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;Delete</button></td>
                 </tr>
             <tfoot></tfoot>
             </tbody>

@@ -257,7 +257,7 @@ var formController = function($rootScope, $scope, $http) {
         }
 
         var loc = form.collection;
-        console.log("saving it to: ",$rootScope.baseUrl+"/"+loc);
+        console.log("saving it to: ",$rootScope.baseUrl+loc);
         window.alert("Successfully saved data for "+form.displayname)
         /*
          $http.post($rootScope.baseUrl+"/"+loc, formData)
