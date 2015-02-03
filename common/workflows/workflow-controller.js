@@ -1,5 +1,11 @@
 var workflowController = function($rootScope, $scope, $http) {
     console.log("WorkflowController Starting Up!");
+    $rootScope.$watch('workflows', function () {
+        console.log('change workflows');
+        console.log($rootScope.workflows);
+        $scope.workflows = $rootScope.workflows;
+    });
+
     $scope.now = function(){
         return new Date().now();
     };
@@ -121,6 +127,20 @@ var workflowController = function($rootScope, $scope, $http) {
             $scope.currentWorkflow.forms.splice(idx, 1);
         }
     };
+
+    $scope.setCurrent = function(flow){
+        console.log("Setting currentWorkFlow to: ",flow);
+        $scope.currentWorkflow = flow;
+        $rootScope.currentWorkflow = flow;
+    };
+    $scope.clearWorkFlow = function(){
+        console.log("clearing currentWorkFlow");
+        $scope.currentWorkflow = null;
+        $rootScope.currentWorkflow = null;
+    };
+
+    $rootScope.clearWorkFlow = $scope.clearWorkFlow;
+    $rootScope.fetchAllWorkFlows = $scope.fetchAllWorkFlows;
     $rootScope.onLogin.push($scope.fetchAllWorkFlows);
 
 };

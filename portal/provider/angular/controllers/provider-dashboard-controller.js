@@ -10,7 +10,7 @@ var dashboardController = function($rootScope, $scope, $http){
 
     $scope.patients = [
          {
-            name: "Victor Vargas",
+            displayname: "Victor Vargas",
             gender: "M",
             dob: "19760704",
             photo: "/img/victor_vargas.png",
@@ -59,7 +59,7 @@ var dashboardController = function($rootScope, $scope, $http){
             ]
         },
         {
-            name: "Faye King",
+            displayname: "Faye King",
             gender: "F",
             dob: "19870630",
             records:[
@@ -96,7 +96,7 @@ var dashboardController = function($rootScope, $scope, $http){
             ]
         },
         {
-            name: "Antonia Malsalud",
+            displayname: "Antonia Malsalud",
             gender: "F",
             dob: "19691215",
             complaint: "Annual Checkup",
@@ -200,6 +200,16 @@ var dashboardController = function($rootScope, $scope, $http){
         patient.records.push(record);
         $scope.currentRecord = record;
     };
+
+    $scope.startEncounter = function(patient){
+        $rootScope.clearWorkFlow();
+        $rootScope.fetchAllWorkFlows();
+        $rootScope.currentPatient = patient;
+        $scope.newEncounter = true;
+        console.log("There are " + $rootScope.workflows.length + " workflows");
+
+    };
+
     $scope.showPatient = function(id){
         $scope.app.state = 'providerview-patient';
         $scope.currentPatient = $scope.patients[id];
