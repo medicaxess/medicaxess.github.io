@@ -20,7 +20,7 @@ var workflowController = function($rootScope, $scope, $http) {
                 console.log("workflows: ",data);
                 $rootScope.workflows = {};
                 data.forEach(function(element, index){
-                    console.log("Fetching workflow: ", element._id)
+                    console.log("Fetching workflow: ", element._id);
                     $http.get($scope.baseUrl+"/"+element._id)
                         .success(function(result){
                             console.log("workflow result: ", result);
@@ -36,6 +36,17 @@ var workflowController = function($rootScope, $scope, $http) {
                 console.log(err);
                 window.alert("There has been a problem contacting the server, please verify that your internet connection is working.")
             })
+    };
+    $scope.stepForward = function(){
+        if(!$scope.currentWorkflow.step){
+            $scope.currentWorkflow.step = 0;
+        }
+        $scope.currentForm = $scope.currentWorkflow.forms[$scope.currentWorkflow.step++];
+    };
+    $scope.stepBackward = function(){
+        if($scope.currentWorkflow.step) {
+            $scope.currentForm = $scope.currentWorkflow.forms[$scope.currentWorkflow.step--];
+        }
     };
 
     $scope.createWorkflow = function(){
@@ -130,6 +141,14 @@ angular.module('workflows',[])
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/widgets/workflow-modify-widget.html'
+        }
+    })
+    .directive('workflowInteractionWidget',function(){
+        console.log("Loading directive workflow-interaction-widget");
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: '/views/widgets/workflow-interaction-widget.html'
         }
     })
     .directive('createWorkflowArea',function(){

@@ -1,0 +1,26 @@
+<div class="row" ng-controller="WorkflowController">
+    <div class="col-md-12" >
+        <div ng-if="currentWorkflow" class="panel panel-default">
+            <div class="panel-heading">{{currentWorkflow.displayname}}</div>
+            <div class="panel-body">
+                <span>
+                    <button ng-if="currentWorkflow.step != 0" style="float: left" class="btn btn-default" ng-click="stepBack()">Back</button>
+                    <button ng-if="currentWorkflow.step != currentWorkflow.forms.length" style="float: right" class="btn btn-default" ng-click="stepForward()">Next</button>
+                </span>
+                <form-widget></form-widget>
+            </div>
+        </div>
+        <div ng-if="!currentWorkflow" class="panel panel-default">
+            <div class="panel-heading">
+                Please select a workflow to use
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="flow in workflows" ng-click="currentWorkflow = flow">
+                        {{flow.diplayname}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
