@@ -9,7 +9,8 @@ var loginController = function($rootScope, $scope, $http) {
     $scope.app = {};
     $rootScope.onLogin = [];
     if(window.location.host != "localhost"){
-        $rootScope.baseUrl = "https://api.medicaxess.com";
+        //$rootScope.baseUrl = "https://api.medicaxess.com";
+        $rootScope.baseUrl = "https://medicaxess-padtronics.rhcloud.com/"
     }else{
         $rootScope.baseUrl = "http://localhost:8080";
     }

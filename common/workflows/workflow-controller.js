@@ -6,9 +6,10 @@ var workflowController = function($rootScope, $scope, $http) {
     if(!$rootScope.workflows){
         $rootScope.workflows = [];
     }
-    if (window.location.host != "localhost") {
-        $rootScope.baseUrl = "https://api.medicaxess.com";
-    } else {
+    if(window.location.host != "localhost"){
+        //$rootScope.baseUrl = "https://api.medicaxess.com";
+        $rootScope.baseUrl = "https://medicaxess-padtronics.rhcloud.com/"
+    }else{
         $rootScope.baseUrl = "http://localhost:8080";
     }
     $scope.baseUrl = $rootScope.baseUrl +"/workflows";
