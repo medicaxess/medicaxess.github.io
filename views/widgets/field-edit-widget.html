@@ -6,7 +6,8 @@
             </accordion-heading>
 
             <label><input class="form-control" type="text" ng-model="field.displayname" required></label>
-            <label>Is {{field.displayname}} required?<input class="form-control form-inline checkbox" type="checkbox" name="isRequired" value="true" ng-model="field.isRequired" tooltip="Require this field?"></label>
+            <label>Is {{field.displayname}} Required?  <input bs-switch class="form-control form-inline checkbox" type="checkbox" name="isRequired" value="true" ng-model="field.isRequired" tooltip="Require this field?"></label>
+            <label>Is {{field.displayname}} Repeating? <input bs-switch class="form-control form-inline checkbox" type="checkbox" name="isRepeating" value="true" ng-model="field.isRepeating" tooltip="Repeat this field?"></label>
             <label>Dynamic Binding:**<input class="form-control" list="databind" ng-model="field.databind" ng-model-options="{ debounce: 1000 }" required></label>
 
             <label>Field Type:*<input class="form-control" list="fieldtypes" ng-model="field.type" required></label>
@@ -32,6 +33,7 @@
                 <label>Min:<input type="number" ng-model="field.min"></label>
                 <label>Max:<input type="number" ng-model="field.max"></label>
             </div>
+
             <label>Delete this field&nbsp;&nbsp;<button class="btn btn-xs" ng-click="deleteField(field);"><span class="glyphicon glyphicon-"></span></button></label>
         </accordion-group>
     </accordion>

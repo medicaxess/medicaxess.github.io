@@ -1,5 +1,11 @@
 var formController = function($rootScope, $scope, $http) {
     console.log("FormController Starting Up!");
+    $scope.eval = $scope.$eval;
+    $rootScope.$watch('currentUser', function () {
+        console.log('change currentUser');
+        console.log($rootScope.currentUser);
+        $scope.currentUser = $rootScope.currentUser;
+    });
 
     if(window.location.host != "localhost"){
         $rootScope.baseUrl = "https://api.medicaxess.com";
@@ -8,78 +14,14 @@ var formController = function($rootScope, $scope, $http) {
     }
 
     $scope.baseUrl = $rootScope.baseUrl+"/forms";
-    $rootScope.currentPatient =  {
-        name: "Victor Vargas",
-        gender: "Male",
-        dob: new Date(1976,6,4),
-        photo: "/img/victor_vargas.png",
-
-        rx : [
-            {
-                drug :  'Albuterol Inhaler',
-                dose : '10mg',
-                frequency : 'PRN',
-                duration : '3m',
-                refillsallowed : '10',
-                reason : 'Shortness of breath'
-            }
-        ],
-        records:[
-            {
-                date: Date.now(),
-                provider: 'Dr Morales',
-                location: 'Consultorio Web',
-                complaints: [
-                    "Shortness of breath"
-                ],
-                obs : [
-                    { name: 'auscultation',
-                        status : 'complete',
-                        notes: 'Observed wheezing'
-                    }
-                ],
-                studies : [
-                    {
-                        name: 'chest xray',
-                        status: 'ordered',
-                        notes: 'Sent to Imaxess for chest x-ray'
-                    }
-
-                ],
-                orders : [
-                    {
-                        type: 'study',
-                        status: 'on-order',
-                        studytype: 'xray chest',
-                        reason: 'Rule out blockage'
-                    }
-                ]
-            }
-        ]
-    };
 
     $scope.newForm = function(){
         $rootScope.currentForm = {
             displayname: "Default Example Form (change me)",
-            collection: "user-profiles",
+            collection: "users",
             scope: "all",
-            recordtype: "user-forms",
-            fields: [
-                {
-                    displayname: "Name",
-                    type: "text",
-                    databind: "currentUser.displayname",
-                    variable: "user.name",
-                    collapsed: true
-                },
-                {
-                    displayname: "Email",
-                    databind: "currentUser.email",
-                    variable: "user.email",
-                    type: "email",
-                    collapsed: true
-                }
-            ]
+            recordtype: "user.forms",
+            fields: []
         };
     };
 
@@ -106,9 +48,9 @@ var formController = function($rootScope, $scope, $http) {
         //recordtype is a custom searching and indexing field for the use of the form creator
         //Below are some examples
         recordtypes : [
-            {name: "Patient Forms (General)", value: "patient-forms"},
-            {name: "Patient Forms (Vitals)", value: "patient-vitals"},
-            {name: "Patient Forms (Appointments)", value: "patient-appointments"}
+            {name: "Patient Forms (General)", value: "patient.forms.general"},
+            {name: "Patient Forms (Vitals)", value: "patient.forms.vitals"},
+            {name: "Patient Forms (Appointments)", value: "patient.forms.appointments"}
         ]
     };
 
@@ -119,17 +61,19 @@ var formController = function($rootScope, $scope, $http) {
             {name: "User - Person Inputting Data", value: 'currentUser'},
             {name: "Location of User - at time of service", value: 'currentLocation'},
         ];
-        var keys = Object.keys($rootScope.currentPatient);
-        keys.forEach(function(key, index,keys){
-            if($rootScope.currentPatient.hasOwnProperty(key)) {
-                if(!Array.isArray($rootScope.currentPatient[key])) {
-                    var obj = {};
-                    obj.name = key;
-                    obj.value = "currentPatient." + key;
-                    array.push(obj);
+        if($rootScope.currentPatient) {
+            var keys = Object.keys($rootScope.currentPatient);
+            keys.forEach(function (key, index, keys) {
+                if ($rootScope.currentPatient.hasOwnProperty(key)) {
+                    if (!Array.isArray($rootScope.currentPatient[key])) {
+                        var obj = {};
+                        obj.name = key;
+                        obj.value = "currentPatient." + key;
+                        array.push(obj);
+                    }
                 }
-            }
-        });
+            });
+        }
         /*
         keys = Object.keys($rootScope.currentUser);
         keys.forEach(function(key, index,keys){
@@ -277,28 +221,161 @@ var formController = function($rootScope, $scope, $http) {
 
 
     };
+    $scope.startsWith = function(data, str){
+        return data.lastIndexOf(str, 0) === 0
+    };
 
+    $scope.collateFields = function(fields){
+        console.log("collating: ", fields);
+        var obj = {};
+        for(var i = 0; i < fields.length; i++){
+            var name = fields[i].variable;
+            obj[name] = fields[i].value;
+        }
+        console.log("returning object: ",obj);
+        return obj;
+    };
+    $scope.saveFormData = function(form){
+        console.log("saving: ",form);
+
+        var fields = $scope.currentForm.fields;
+        console.log("scope.currentUser: ",$scope.currentUser);
+        console.log("rootScope.currentUser: ",$rootScope.currentUser);
+
+        //Strategy...
+        //Loop through each of the data-bindings, compare to globals, and preserve them using the normal process.
+        $scope.preserveGlobals(fields);
+        //Next construct a formData object comprised of the field.name & field.value objects and preserve that to /{collection} to produce a "record object"
+        var formData = $scope.collateFields(fields);
+        //if form-type == patient-record then set the patient_id: = currentPatient._id
+        //Also append the origin form-id to the new record in the form of form_id = currentForm._id
+        formData["collection"] = form.collection;
+        formData["source_form"] = form._id;
+        if($scope.startsWith($scope.currentForm.recordtype,"patient")){
+            formData["patient_id"] = $rootScope.currentPatient._id;
+        }
+
+        var loc = form.collection;
+        console.log("saving it to: ",$rootScope.baseUrl+"/"+loc);
+        /*
+         $http.post($rootScope.baseUrl+"/"+loc, formData)
+             .success(function(data){
+                 console.log("saveFormData returned: ",data);
+                 $rootScope.currentForm = null;
+                 window.alert("Successfully saved changes!  If you were in the middle of a workflow, you will now be taken to the next step.");
+                 $rootScope.nextAction();
+             })
+             .error(function(error){
+                console.error(error)
+             });
+             */
+    };
+
+    /**
+     * Can be only used with self aware objects, i.e. those that know their own _id and collection already
+     * @param object
+     */
+    $scope.updateObject = function(object){
+        console.log("Attempting to update ",object);
+        if(!object.collection || !object._id){
+            console.error("object was missing it's collection or _id fields and could not be updated ",object);
+            return;
+        }
+        var collection = object.collection;
+        var id = object._id;
+        var url = $rootScope.baseUrl+"/"+collection+"/"+id;
+        $http.put(url,object)
+            .success(function(data){
+                console.log("Successfully put ",object);
+            })
+            .error(function(err){
+                console.error(err);
+            });
+
+    };
+
+    /**
+     * Given a list of fields from a form object, will attempt to preserve any databind globals
+     * @param fields
+     */
+    $scope.preserveGlobals = function(fields){
+        var globals = {};
+        console.log("preserving globals on fields: ",fields);
+        //Loop through fields looking for databind attribute and mark true if present
+        console.log("fields.length: "+fields.length);
+        for(var i = 0; i <= fields.length -1; i++){
+            var databind = fields[i]["databind"];
+            console.log("field[i]: ",fields[i]);
+            console.log("databinding: ",databind);
+            if(databind == null || databind === ""){
+                continue
+            }
+
+            if($scope.startsWith(databind,"currentUser")){
+                globals.currentUser = $scope.currentUser;
+                continue
+            }
+            if($scope.startsWith(databind,"currentPatient")){
+                globals.currentPatient = $scope.currentPatient;
+                continue
+            }
+            if($scope.startsWith(databind,"currentLocation")){
+                globals.currentLocation = $scope.currentLocation;
+                continue
+            }
+            if($scope.startsWith(databind,"currentEquipment")){
+                globals.currentEquipment = $scope.currentEquipment;
+                continue
+            }
+            if($scope.startsWith(databind,"currentWorkflow")){
+                globals.currentWorkflow = $scope.currentWorkflow;
+                continue
+            }
+            if($scope.startsWith(databind,"currentEncounter")){
+                globals.currentEncounter = $scope.currentEncounter;
+                continue
+            }
+            if($scope.startsWith(databind,"currentRecord")){
+                globals.currentRecord = $scope.currentRecord;
+            }
+        }
+
+        var keys = Object.keys(globals);
+        keys.forEach(function(name,index){
+            console.log("name: ", name);
+            console.log("index: ", index);
+            //Update the rootScope (since it's globals here)
+            var newKeys = Object.keys(globals[name]);
+            newKeys.forEach(function(field,idx){
+                $rootScope[name][field] = globals[name][field];
+                console.log("field: ",$rootScope[name][field])
+            });
+            //Perist object to DB
+            $scope.updateObject($rootScope[name])
+        });
+
+    };
     $scope.cloneForm = function(form){
         var newForm = form;
         delete newForm._id;
         $rootScope.currentForm = newForm;
     };
 
-    $scope.saveFormData = function(form){
-        console.log("saving: ",form);
-        var loc = $scope.currentForm.collection;
-        console.log("saving it to: ",$rootScope.baseUrl+"/"+loc);
-        $http.post($rootScope.baseUrl+"/"+loc, form)
-            .success(function(data){
-                $rootScope[data.scope] = data;
-            })
-            .error(function(error){
-                console.error(error)
-            })
-    };
+    $scope.appendField = function(field){
 
+        var newField = Object.create(field);
+        if(!field.counter){
+            field.counter = 0;
+        }
+        newField.name = newField.name+field.counter++;
+        if(newField.databind){
+            newField.databind = newField.databind+field.counter;
+        }
+        newField.displayname = newField.displayname +" "+field.counter;
+        $scope.currentForm.fields.push(newField);
+    };
     $scope.fetchForm = function(name, id){
-        name = encodeURIComponent(name);
+      name = encodeURIComponent(name);
       $http.get($scope.baseUrl+"/"+name)
           .success(function(data){
               console.log(data);
@@ -311,7 +388,7 @@ var formController = function($rootScope, $scope, $http) {
     };
 
     $scope.fetchAllForms = function(){
-        console.log("Fetching all forms from "+$scope.srl);
+        console.log("Fetching all forms from "+$scope.baseUrl);
         $http.get($scope.baseUrl)
             .success(function(data){
                 console.log("forms: ",data);
@@ -325,8 +402,8 @@ var formController = function($rootScope, $scope, $http) {
     };
 
     $scope.deleteForm = function(form){
-        var id = form._id
-        delete $rootScope.forms[form]
+        var id = form._id;
+        delete $rootScope.forms[form];
         $http.delete($scope.baseUrl+"/"+id)
             .success(function(data){
                 $scope.fetchAllForms();
@@ -347,6 +424,7 @@ var formController = function($rootScope, $scope, $http) {
     $scope.setForm = function(haystack,needle,id){
 
         console.log("Looking for ",needle," in ",haystack," to set ", id);
+
         console.log("Available Forms: ",$rootScope['forms']);
         var forms = $rootScope['forms'];
         if(Array.isArray(forms)) {
@@ -358,15 +436,25 @@ var formController = function($rootScope, $scope, $http) {
                 }
             }
         }else{
-            $rootScope[id]= $rootScope[forms]
+            var name = encodeURIComponent(needle);
+            $http.get($scope.baseUrl+"/"+name)
+                .success(function(data){
+                    console.log(data);
+                    $rootScope.currentForm = data[0]
+                })
+                .error(function(error){
+                    console.error(error);
+                    window.alert("There was a problem fetching a required form")
+                })
         }
     };
 
     $scope.editForm = function(form){
         $rootScope.currentForm = form;
-    }
+    };
     $rootScope.setForm = $scope.setForm;
     $rootScope.fetchForms = $scope.fetchAllForms;
+    $rootScope.onLogin.push($scope.fetchAllForms);
 
 };
 

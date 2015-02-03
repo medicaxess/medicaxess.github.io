@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Available Workflows<span class="pull-right"><button class="btn btn-default" ng-click="fetchAllWorkFlows();"><i class="glyphicon glyphicon-cloud-download"></i>&nbsp;&nbsp;Sync</button></span>
+            </div>
+            <div class="panel-body">
+                <form name="flowForm">
+                    <table class="table table-responsive table-stripped">
+                        <thead>
+                            <tr>
+                                <th>Name</th><th>Kind</th><th>Description</th><th>Created By</th><th>Created On</th><th>Form Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr ng-repeat="flow in workflows">
+                                <td>{{flow.displayname}}</td>
+                                <td>{{flow.kind}}</td>
+                                <td>{{flow.description}}</td>
+                                <td>{{flow.creator}}</td>
+                                <td>{{flow.created}}</td>
+                                <td>{{flow.forms.length}}</td>
+                                <td><button class="btn btn-default" ng-click="modifyWorkflow(flow)">Edit</button></td>
+                                <td><button class="btn btn-default" ng-click="beginWorkflow(flow)">Start</button></td>
+                                <td><button class="btn btn-default" ng-click="deleteWorkflow(flow)">Remove</button></td>
+                            </tr>
+                            <tr ng-if="!workflows || workflows.length == 0">
+                                <td colspan="5">
+                                No workflows exist for you yet, please create one using the form below.
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td><input class="form-control" type="text" ng-model="newFlow.displayname"></td>
+                                <td><input class="form-control" type="text" ng-model="newFlow.kind" default="encounter"></td>
+                                <td><input class="form-control" type="text" ng-model="newFlow.description"></td>
+                                <td>{{currentUser.displayname}}</td>
+                                <td>{{now}}</td>
+                                <td><button class="btn btn-default" ng-click="createWorkflow()"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;&nbsp;Create</button></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

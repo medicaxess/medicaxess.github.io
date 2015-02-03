@@ -4,8 +4,10 @@
 angular.module('myApp', [
   'ui.bootstrap'
     ,'ngAnimate'
+    //,'frapontillo.bootstrap-switch'
     ,'login'
     ,'navigation'
     ,'dashboard'
     ,'customforms'
+    ,'workflows'
 ]);

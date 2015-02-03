@@ -1,0 +1,24 @@
+<div class="row" ng-if="currentWorkflowState== 'edit'">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{currentWorkflow.displayname}}</div>
+        <div class="panel-body">
+            <p>{{currentWorkflow.description}}</p>
+            <p>Use the "Add Step dropdown" to add a form to this workflow.</p>
+            <p>
+                <ol>
+                    <li ng-repeat="form in currentWorkflow.forms">
+                        <span><button class="btn btn-default" ng-click="removeStep(form)">Remove</button>&nbsp;&nbsp;{{form.displayname}}
+                        Repeat?&nbsp;&nbsp;<input type="checkbox" ng-model="form.repeating"></span>
+                    </li>
+                </ol>
+                <button class="btn btn-default" ng-click="saveWorkflow()">Save</button>
+            </p>
+            <p>
+                <label>Next Step:<input  class="form-control" list="availableforms" ng-model="currentWorkflow.nextstep" ng-change="setStep()"></label>
+            </p>
+            <datalist id="availableforms">
+                <option data-ng-repeat="form in forms" value="{{form._id}}">{{form.displayname}}</option>
+            </datalist>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@
     <div class="panel-heading">Available Forms
         <span class="pull-right">
             <button class="btn btn-default " ng-click="fetchAllForms();"><i class="glyphicon glyphicon-cloud-download"></i>&nbsp;&nbsp;Sync</button>
-             <button class="btn btn-default" ng-click="newForm();"><i class="glyphicon glyphicon-new-window"></i>&nbsp;&nbsp;New Form</button>
+             <button class="btn btn-default" ng-click="newForm();"><i class="glyphicon glyphicon-new-window"></i>&nbsp;&nbsp;Create</button>
         </span>
     </div>
     <div class="panel-body">
@@ -11,8 +11,7 @@
                 <th>Name</th><th>Collection</th><th>Scope</th><th>Record Type</th><th>Field Count</th><th>MID*</th>
             </thead>
             <tbody>
-                <tr ng-repeat="item in forms">
-
+                <tr ng-repeat="item in forms" ng-if="item.redacted != true">
                     <td>{{item.displayname}}</td>
                     <td>{{item.collection}}</td>
                     <td>{{item.scope}}</td>
@@ -22,7 +21,6 @@
                     <td ng-if="item.owner_id == currentUser.id"><button ng-click="editForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Edit</button></td>
                     <td><button ng-click="cloneForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Clone</button></td>
                     <td ng-if="item.owner_id == currentUser.id"><button ng-click="deleteForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;Delete</button></td>
-
                 </tr>
             <tfoot></tfoot>
             </tbody>

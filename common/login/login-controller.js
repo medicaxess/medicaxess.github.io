@@ -7,22 +7,14 @@ var loginController = function($rootScope, $scope, $http) {
     console.log('Login controller, starting up!');
     $scope.user = {};
     $scope.app = {};
-
+    $rootScope.onLogin = [];
     if(window.location.host != "localhost"){
         $rootScope.baseUrl = "https://api.medicaxess.com";
     }else{
         $rootScope.baseUrl = "http://localhost:8080";
     }
 
-    $scope.demoLogin = function(){
-
-        window.alert("Welcome to MedicAxess, you have successfully logged in as a Provider, you will now be taken to the Provider Dashboard");
-        $scope.userData.isLoggedIn = true;
-        $scope.app.state='providerview';
-        window.document.title = $scope.userData.username + "'s Dashboard";
-    };
-
-    $scope.logoutUser = function(){
+     $scope.logoutUser = function(){
         window.alert("You are now logged out");
         window.location = "index.html";
     };
@@ -33,7 +25,13 @@ var loginController = function($rootScope, $scope, $http) {
 
         $http.post($rootScope.baseUrl+"/login",$scope.userData)
             .success(function(data, status, headers, config) {
-                $rootScope.fetchForms
+                //$rootScope.fetchForms();
+                console.log("Executing onLogin callbacks, there are "+$rootScope.onLogin.length+" of them.")
+                while($rootScope.onLogin.length > 0){
+                    var cb = $rootScope.onLogin.shift();
+                    console.log("Executing login callback: ",cb);
+                    cb();
+                }
                 console.log("Login success: ",data);
                 window.alert("Welcome back, "+data.displayname)
                 $rootScope.currentUser = data;
@@ -44,9 +42,10 @@ var loginController = function($rootScope, $scope, $http) {
 
                     window.alert("Your profile is missing important information, please complete it before proceeding.")
                 }else{
-                    //$rootScope.app.state = 'defaultview';
-                    $rootScope.app.state='profileview';
-                    window.document.title = $scope.userData.displayname + "'s Dashboard";
+                    //
+                    $rootScope.setForm('displayname',"Profile",'currentForm'); //Just so something is set there because it's alarming to have it blank
+                    $rootScope.app.state = 'defaultview';
+                    window.document.title = $rootScope.currentUser.displayname + "'s Dashboard";
                 }
 
             })
@@ -65,10 +64,11 @@ var loginController = function($rootScope, $scope, $http) {
         $http.post($rootScope.baseUrl+"/register",$scope.userData)
             .success(function(data, status, headers, config) {
                 console.log("Registration success: ",data);
-                $rootScope.currentUser = $scope.userData;
-                $rootScope.app ={};
-                $rootScope.app.state = 'defaultview';
-                window.document.title = $scope.userData.username + "'s Dashboard";
+                //$rootScope.currentUser = $scope.userData;
+                //$rootScope.app ={};
+                //$rootScope.app.state = 'defaultview';
+                //window.document.title = $scope.userData.username + "'s Dashboard";
+                window.alert("You have successfully registered.  You may now use the login button to proceed.")
             }).
             error(function(data, status, headers, config) {
                 console.error("Error: ",data);

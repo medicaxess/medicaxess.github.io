@@ -1,9 +1,22 @@
-<div class="container" ng-show="app.state=='customize-workflow'">
-    <div class="row">
-        <!-- a workflow is a series of forms that must be filled out -->
-        <!-- select from list or create new -->
-            <!-- if existing workflow, then show forms attached to workflow -->
-            <!-- if new workflow then show available forms and new form option -->
+<div class="row" ng-controller="WorkflowController">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Workflow Generator
+            </div>
+            <div class="panel-body">
 
+                <p>Please choose a workflow from below, or use the form to create a new one</p>
+                    <workflow-display-widget></workflow-display-widget>
+                    <workflow-modify-widget></workflow-modify-widget>
+            </div>
+            <div class="panel-footer">
+                <p>
+                    A workflow is a collection of forms that must be filled out to complete a task.
+                    For example a patient encounter is a class of workflow that utilizes forms which relate to an encounter with a patient.
+                    When a workflow is run, the user engaging in the workflow will be presented with the forms contained in the workflow.
+                </p>
+            </div>
+        </div>
     </div>
 </div>
