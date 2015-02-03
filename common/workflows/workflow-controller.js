@@ -55,6 +55,19 @@ var workflowController = function($rootScope, $scope, $http) {
                 window.alert("There was an error creating your new workflow.\nThis problem is probably temporary.\nTry again later.");
             })
     };
+
+    $scope.saveWorkflow = function(){
+        var id = $scope.currentWorkflow._id;
+        $http.put($scope.baseUrl+"/"+id, $scope.currentWorkflow)
+            .success(function(data){
+                console.log("workflow returned: ",data);
+                window.alert("Successfully saved "+$scope.currentWorkflow.displayname);
+            })
+            .error(function(err){
+                console.error(err);
+                window.alert("Failed to save "+scope.currentWorkflow.displayname+" please try again later");
+            })
+    };
     $scope.modifyWorkflow = function(flow){
         $scope.currentWorkflowState = 'edit';
         $scope.currentWorkflow = flow;
