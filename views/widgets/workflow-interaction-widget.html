@@ -1,13 +1,13 @@
 <div class="row" ng-controller="WorkflowController">
     <div class="col-md-12" >
         <div ng-if="currentWorkflow" class="panel panel-default">
-            <div class="panel-heading">{{currentWorkflow.displayname}}</div>
-            <div class="panel-body">
-                <span style="float: right;">
+            <div class="panel-heading">{{currentWorkflow.displayname}} - Workflow
+                <span class="pull-right">
                     <button ng-if="currentWorkflow.step != 0" class="btn btn-default" ng-click="stepBackward()">Back</button>
-                    <button class="btn btn-default" ng-click="workflowComplete()">Back</button>
+                    <button class="btn btn-default" ng-click="workflowComplete()">Finished</button>
                     <button ng-if="currentWorkflow.step != currentWorkflow.forms.length" style="float: right" class="btn btn-default" ng-click="stepForward()">Next</button>
-                </span>
+                </span></div>
+            <div class="panel-body">
                 <form-widget></form-widget>
             </div>
         </div>

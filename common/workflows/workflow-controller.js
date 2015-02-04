@@ -116,7 +116,7 @@ var workflowController = function($rootScope, $scope, $http) {
         if(!$scope.currentWorkflow.forms){
             $scope.currentWorkflow.forms = [];
         }
-        $scope.currentWorkflow.forms.push(form)
+        $scope.currentWorkflow.forms.push(form);
         window.alert("You have now added "+$scope.currentWorkflow.nextstep + " as a step");
         $scope.currentWorkflow.nextstep = "";
     };
@@ -132,6 +132,7 @@ var workflowController = function($rootScope, $scope, $http) {
         console.log("Setting currentWorkFlow to: ",flow);
         $scope.currentWorkflow = flow;
         $rootScope.currentWorkflow = flow;
+        $rootScope.currentForm = flow.forms[0];
     };
     $scope.clearWorkFlow = function(){
         console.log("clearing currentWorkFlow");
@@ -139,6 +140,9 @@ var workflowController = function($rootScope, $scope, $http) {
         $rootScope.currentWorkflow = null;
     };
 
+    $scope.workflowComplete = function(){
+      $scope.clearWorkFlow();
+    };
     $rootScope.clearWorkFlow = $scope.clearWorkFlow;
     $rootScope.fetchAllWorkFlows = $scope.fetchAllWorkFlows;
     $rootScope.onLogin.push($scope.fetchAllWorkFlows);

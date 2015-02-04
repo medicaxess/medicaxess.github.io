@@ -7,177 +7,66 @@
 
 var dashboardController = function($rootScope, $scope, $http){
     console.log("Loading dashboard controller");
+    if (typeof String.prototype.contains === 'undefined') { String.prototype.contains = function(it) { return this.indexOf(it) != -1; }; }
+    $scope.patient = {};
 
-    $scope.patients = [
-         {
-            displayname: "Victor Vargas",
-            gender: "M",
-            dob: "19760704",
-            photo: "/img/victor_vargas.png",
-
-             rx : [
-                 {
-                     drug :  'Albuterol Inhaler',
-                     dose : '10mg',
-                     frequency : 'PRN',
-                     duration : '3m',
-                     refillsallowed : '10',
-                     reason : 'Shortness of breath'
-                 }
-             ],
-            records:[
-                {
-                    date: Date.now(),
-                    provider: 'Dr Morales',
-                    location: 'Consultorio Web',
-                    complaints: [
-                        "Shortness of breath"
-                    ],
-                    obs : [
-                        { name: 'auscultation',
-                            status : 'complete',
-                            notes: 'Observed wheezing'
-                        }
-                    ],
-                    studies : [
-                        {
-                            name: 'chest xray',
-                            status: 'ordered',
-                            notes: 'Sent to Imaxess for chest x-ray'
-                        }
-
-                    ],
-                    orders : [
-                        {
-                            type: 'study',
-                            status: 'on-order',
-                            studytype: 'xray chest',
-                            reason: 'Rule out blockage'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            displayname: "Faye King",
-            gender: "F",
-            dob: "19870630",
-            records:[
-                {
-                    date: Date.now(),
-                    provider: 'Dr Morales',
-                    location: 'Consultorio Web',
-                    complaints: [
-                        "Unconciousness Following Automobile Accident"
-                    ],
-                    obs : [
-                        { name: 'Visual Inspection',
-                            status : 'complete',
-                            notes: 'Observed bruising / swelling around left orbital'
-                        }
-                    ],
-                    studies : [
-                        {
-                            name: 'MRI Skull',
-                            status: 'ordered',
-                            notes: 'Sent to Imaxess for MRI'
-                        }
-
-                    ],
-                    orders : [
-                        {
-                            type: 'study',
-                            status: 'on-order',
-                            studytype: 'MRI Skull',
-                            reason: 'Homeostasis check, rule out concussion'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            displayname: "Antonia Malsalud",
-            gender: "F",
-            dob: "19691215",
-            complaint: "Annual Checkup",
-            records:[
-                {
-                    date: Date.now(),
-                    provider: 'Dr Morales',
-                    location: 'Consultorio Web',
-                    complaints: [
-                        "None"
-                    ],
-                    obs : [
-                        { name: 'Visual Inspection',
-                            status : 'complete',
-                            notes: 'normal'
-                        },
-                        {
-                            name: 'BP',
-                            stat: 'complete',
-                            notes: '120/98'
-                        }
-                    ],
-                    studies : [
-                        {
-                            name: 'CBC',
-                            status: 'ordered',
-                            notes: 'Sent to Imaxess for CBC'
-                        },
-                        {
-                            name: 'HbA1C',
-                            status: 'ordered',
-                            notes: 'Sent to Imaxess for HbA1C'
-                        },
-                        {
-                            name: 'MAMMO',
-                            status: 'ordered',
-                            notes: 'Sent to Imaxess for Mammogram'
-                        }
-
-                    ],
-                    orders : [
-                        {
-                            type: 'study',
-                            status: 'on-order',
-                            studytype: 'CBC',
-                            reason: 'Annual Exam, Complete blood count'
-                        },
-                        {
-                            type: 'study',
-                            status: 'on-order',
-                            studytype: 'HbA1C',
-                            reason: 'Annual Exam, HbA1C'
-                        },
-                        {
-                            type: 'study',
-                            status: 'on-order',
-                            studytype: 'MAMMO',
-                            reason: 'Annual Exam, Mammogram'
-                        }
-                    ]
-                }
-            ]
-        }
-        ];
-
-
-    $scope.searchPatients = function(fieldname){
-
-      $scope.matches = [];
-       $scope.patients.forEach(function(patient){
-           //console.log("Looking at: ",patient);
-           if(patient[fieldname].toLowerCase().contains($scope.search[fieldname].toLowerCase())){
-               $scope.matches.push(patient);
-           }
-       });
+    $scope.fetchAllPatients = function(){
+        $rootScope.patients = {};
+        $http.get($rootScope.baseUrl+"/patients")
+            .success(function(data){
+                console.log("patients: ",data);
+                data.forEach(function(element, index, array){
+                   $http.get($rootScope.baseUrl+"/patients/"+element._id)
+                       .success(function(patient){
+                           console.log("patient: ",patient[0]);
+                           $rootScope.patients[element._id] = patient[0];
+                       })
+                });
+            })
     };
 
-    $scope.setCurrentPatient = function(patient){
+    $scope.searchPatients = function(){
+
+        delete($rootScope.matches);
+        $rootScope.matches = {};
+        if($rootScope.patients){
+            console.log("rootScope.patients: ",$rootScope.patients);
+            var patients = Object.keys($rootScope.patients);
+            patients.forEach(function(id, idx, arr){
+                console.log("Looking at: ",id);
+                var patient = $rootScope.patients[id];
+                console.log("patient: ",patient);
+                var keys = Object.keys($scope.patient);
+                console.log("keys: ",keys);
+
+                if(keys) {
+                    keys.forEach(function (fieldname, index, array) {
+                        console.log("Searching on: ",fieldname);
+                        if(patient[fieldname]) {
+                            var field = patient[fieldname].toLowerCase();
+                            console.log("field: ",field);
+                            var field2 = $scope.patient[fieldname].toLowerCase();
+                            console.log("field2: ",field2);
+                            if(field && field2) {
+                                if (field.contains(field2)) {
+                                    $rootScope.matches[patient._id] = patient;
+                                }
+                            }
+                        }
+                    })
+                }
+            });
+        }else{
+            $scope.fetchAllPatients();
+        }
+    };
+
+    $scope.setCurrentPatient = function(id){
+
         $scope.app.state = 'providerview-patient';
-        $scope.currentPatient = patient;
-        drawChart();
+        $scope.currentPatient = $rootScope.patients[id];
+        $rootScope.currentPatient = $scope.currentPatient;
+        //drawChart();
     };
     $scope.addInfo = function(patient){
         if(patient.extraInfo == undefined){
@@ -186,6 +75,7 @@ var dashboardController = function($rootScope, $scope, $http){
         patient.extraInfo[$scope.fieldName] = $scope.fieldValue;
 
     };
+
     $scope.appendRecord = function(patient){
         var record =  {
           date: 'today',
@@ -213,9 +103,30 @@ var dashboardController = function($rootScope, $scope, $http){
     $scope.showPatient = function(id){
         $scope.app.state = 'providerview-patient';
         $scope.currentPatient = $scope.patients[id];
-        drawChart();
+        //drawChart();
     };
 
+    $scope.newPatient = function(){
+        if($scope.patient.displayname){
+            console.log("creating: ",$scope.patient);
+            $scope.patient.createdby = $rootScope.currentUser.displayname;
+            $scope.patient.createdby_id = $rootScope.currentUser._id;
+            delete($scope.patient._id);
+            $http.post($rootScope.baseUrl+"/patients",$scope.patient)
+                .success(function(data){
+                    console.log("new patient: ",data);
+                    $scope.currentPatient = data;
+                    $scope.fetchAllPatients();
+                    window.alert("Successfully created new patient "+data.displayname);
+                })
+                .error(function(err){
+                    console.error(err);
+                    window.alert("There was a problem creating this patient, please try again in a few minutes.");
+                })
+        }else{
+            window.alert("You need to at least input a patient name to continue");
+        }
+    };
     $scope.showRecordDetail = function(record){
         console.log("Selected record: ",record);
         $scope.currentRecord = record;
@@ -248,17 +159,21 @@ var dashboardController = function($rootScope, $scope, $http){
         study.notes = $scope.newStudy.notes;
         record.studies.push(study);
         $scope.newStudy = {}
-    }
+    };
 
     $scope.startVideo = function(){
         initVideo();
         $scope.chatstate = "started";
-    }
+    };
 
     $scope.viewStudy = function(patient){
         var url = "http://pacs.medicaxess.com:8080/plugin-dwv/explorer.html#patient?name="+escape(patient.name);
         window.open(url);
+    };
+    if(!$rootScope.onLogin){
+        $rootScope.onLogin = [];
     }
+    $rootScope.onLogin.push($scope.fetchAllPatients);
 };
 
 angular.module('dashboard',[])
@@ -303,12 +218,28 @@ angular.module('dashboard',[])
             templateUrl: '/views/partials/conference-area.html'
         }
     })
+    .directive('searchArea',function(){
+        console.log("Loading directive search-area");
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: '/views/partials/search-area.html'
+        }
+    })
     .directive('patientInfoWidget',function(){
         console.log("Loading directive patient-info-widget");
         return {
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/widgets/patient-info-widget.html'
+        }
+    })
+    .directive('patientSearchWidget',function(){
+        console.log("Loading directive patient-search-widget");
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: '/views/widgets/patient-search-widget.html'
         }
     })
     .directive('patientVitalsWidget',function(){

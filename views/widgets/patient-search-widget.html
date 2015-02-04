@@ -1,0 +1,43 @@
+<div class="row" >
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Patient Search
+        </div>
+        <div class="panel-body">
+            <form>
+                <table class="table table-responsive table-stripped">
+                    <thead>
+                        <th>Name</th><th>MID*</th><th>DOB</th><th>Gender</th><th>Action</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" ng-model="patient.displayname" ng-change="searchPatients()"></td>
+                            <td><input type="text" ng-model="patient._id" ng-change="searchPatients()"></td>
+                            <td><input type="date" ng-model="patient.dob" ng-change="searchPatients()"></td>
+                            <td><input type="text" ng-model="patient.gender" ng-change="searchPatients()"></td>
+                            <td>
+                                <button class="btn btn-default" ng-click="newPatient()">Create</button>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="patient in matches track by $index">
+                            <td>{{patient.displayname}}</td>
+                            <td>{{patient._id}}</td>
+                            <td>{{patient.dob | date: "yyyy-MM-dd"}}</td>
+                            <td>{{patient.gender}}</td>
+                            <td>
+                                <button class="btn btn-default" ng-click="setCurrentPatient(patient._id)">Select</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                *MID = MedicAxess Identifier a globally unique tag attached to every entry in our database.
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

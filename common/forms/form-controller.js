@@ -7,6 +7,12 @@ var formController = function($rootScope, $scope, $http) {
         $scope.currentUser = $rootScope.currentUser;
     });
 
+    $rootScope.$watch('currentForm', function () {
+        console.log('change currentForm');
+        console.log($rootScope.currentForm);
+        $scope.currentForm = $rootScope.currentForm;
+    });
+
     if(window.location.host != "localhost"){
         //$rootScope.baseUrl = "https://api.medicaxess.com";
         $rootScope.baseUrl = "https://medicaxess-padtronics.rhcloud.com/"

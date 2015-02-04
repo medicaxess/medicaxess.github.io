@@ -10,7 +10,7 @@
                 <li class="list-group-item fade-in" ng-repeat="field in currentForm.fields track by $index" >
                     <label>{{field.displayname}}
                             <span ng-if="field.type != 'list' && field.type !='image' && field.type !='range'  && field.type != 'number'">
-                                <input class="form-control" type="{{field.type}}" name={{field.variable}} dynamic-model="field.databind" required="{{field.isRequired}}">
+                                <input class="form-control" type="{{field.type}}" name={{field.variable}} dynamic-model="field.databind" placeholder="{{field.variable}}" required="{{field.isRequired}}">
                             </span>
                             <span  ng-if="field.type == 'image'">
                                 <img ng-src="{{field.databind}}">
@@ -18,7 +18,7 @@
                             </span>
                             <span  ng-if="field.type == 'list'">
                                 <select name="{{field.name}}" class="form-control" dynamic-model="field.databind">
-                                    <option ng-repeat="item in field.list" value="item.value">{{item.name}}</option>
+                                    <option ng-repeat="item in field.list" value={{item.value}}>{{item.name}}</option>
                                 </select>
                             </span>
                             <span  ng-if="field.type == 'range' || field.type == 'number'">{{field.value}}
