@@ -11,9 +11,10 @@
                 </legend>
 
                 <label>Form Name:<input class="form-control" type="text" ng-model="currentForm.displayname" required></label>
-                <label>Where to store the form data?<input  class="form-control" list="formcollections" ng-model="currentForm.collection" required></label>
                 <label>Form Scope:<input  class="form-control" list="formscopes" ng-model="currentForm.scope" required></label>
                 <label>Custom Record Type:<input  class="form-control" list="formrecordtypes" ng-model="currentForm.recordtype" required></label>
+                <label>Collection: (Where to store the form data?<sub>[1]</sub>) <input  class="form-control" list="formcollections" ng-model="currentForm.collection" required></label>
+                <label>Parent binding (Attach a reference)<sub>[1]</sub> <input class="form-control" list="databind" ng-model="currentForm.dataparent"></label>
 
                 <datalist id="formscopes">
                     <option data-ng-repeat="scope in formInf.scopes" value="{{scope.value}}">{{scope.name}}</option>
@@ -32,6 +33,9 @@
                 </datalist>
                 <label>Add Field: <button ng-click="addField();" class="btn btn-xs"><i class="glyphicon glyphicon-plus-sign"></i></button></label>
                 <field-edit-widget></field-edit-widget>
+                [1] All forms create new records.  The record will be created in the database selected in "Collection". To make finding and indexing records easier you can choose to store a reference to that record in a parent object, which makes searching and indexing easier.  For example if this form generates a new patient record you should put "patient.records" in the Collection field and "currentPatient" in the "Parent Binding" field.  Doing so will allow the form data to follow the patient.
+                If you also want individual fields to apply to an existing user, fill out the databind field in the field editor.  For example the name of the current patient is currentPatient.displayname , so if you need to have access to that, then bind a field on currentPatient.displayname
+
                 *note: Not all browsers support all field types yet.  If the browser does not support it, the user will see a single line text field.<br>
                 **note: Dynamic binding on a form field allows you to automatically "fill it in" based an an existing object in the database, e.g. patient.displayname.<br>
                 The objects listed in the drop down are the primary objects tracked by the application. To add something new, append your own field name. If you ensure you consistently name the fields then they will display correctly in reports, but do not use accented or special characters.

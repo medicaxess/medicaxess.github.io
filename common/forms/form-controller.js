@@ -14,8 +14,8 @@ var formController = function($rootScope, $scope, $http) {
     });
 
     if(window.location.host != "localhost"){
-        //$rootScope.baseUrl = "https://api.medicaxess.com";
-        $rootScope.baseUrl = "https://medicaxess-padtronics.rhcloud.com/"
+        $rootScope.baseUrl = "https://api.medicaxess.com";
+        //$rootScope.baseUrl = "https://medicaxess-padtronics.rhcloud.com/"
     }else{
         $rootScope.baseUrl = "http://localhost:8080";
     }
@@ -104,25 +104,26 @@ var formController = function($rootScope, $scope, $http) {
         bindings : enumerateFields(),
 
         fieldtypes : [
-            {name: "Plain Text - Single Line",              value: "text"},
-            {name: "Plain Text - Multi Line",               value: "textarea"},
-            {name: "Photograph or Other Image",             value: "photo"},
-            {name: "Video (from file, or camera)",          value: "video"},
-            {name: "Color",                                 value: "color"},
-            {name: "Email",                                 value: "email"},
-            {name: "URL",                                   value: "url"},
-            {name: "Checkbox",                              value: "checkbox"},
-            {name: "Radio Button",                          value: "radio" },
-            {name: "List",                                  value: "list"},
-            {name: "Telephone Number",                      value: "tel"},
-            {name: "Number",                                value: "number"},
-            {name: "Range",                                 value: "range"},
-            {name: "Month",                                 value: "month"},
-            {name: "Week",                                  value: "week"},
-            {name: "Time",                                  value: "time"},
-            {name: "Date (yyyy/mm/dd)",                     value: "date"},
-            {name: "Date & Time (with timezone)",           value: "datetime"},
-            {name: "Date & Time (no timezone)",             value: "datetime-local"}
+            {name: "Label - Read only, use databind for content",   value: "label" },
+            {name: "Plain Text - Single Line",                      value: "text"},
+            {name: "Plain Text - Multi Line",                       value: "textarea"},
+            {name: "Photograph or Other Image",                     value: "photo"},
+            {name: "Video (from file, or camera)",                  value: "video"},
+            {name: "Color",                                         value: "color"},
+            {name: "Email",                                         value: "email"},
+            {name: "URL",                                           value: "url"},
+            {name: "Checkbox",                                      value: "checkbox"},
+            {name: "Radio Button",                                  value: "radio" },
+            {name: "List",                                          value: "list"},
+            {name: "Telephone Number",                              value: "tel"},
+            {name: "Number",                                        value: "number"},
+            {name: "Range",                                         value: "range"},
+            {name: "Month",                                         value: "month"},
+            {name: "Week",                                          value: "week"},
+            {name: "Time",                                          value: "time"},
+            {name: "Date (yyyy/mm/dd)",                             value: "date"},
+            {name: "Date & Time (with timezone)",                   value: "datetime"},
+            {name: "Date & Time (no timezone)",                     value: "datetime-local"}
         ]
     };
 
@@ -232,51 +233,77 @@ var formController = function($rootScope, $scope, $http) {
         return data.lastIndexOf(str, 0) === 0
     };
 
-    $scope.collateFields = function(fields){
-        console.log("collating: ", fields);
+    $scope.collateFields = function(fields,data){
+        console.log("fields: ", fields);
+        console.log("data: ",data);
         var obj = {};
-        for(var i = 0; i < fields.length; i++){
-            var name = fields[i].variable;
-            obj[name] = fields[i].value;
+        for(var field in fields){
+            var fieldName = fields[field].variable;
+            console.log("field: ", fieldName);
+            if(data[fieldName]){
+                console.log("value: ", data[fieldName].$viewValue);
+                obj[fieldName] = data[fieldName].$viewValue;
+            }
         }
         console.log("returning object: ",obj);
         return obj;
     };
+
     $scope.saveFormData = function(form){
         console.log("saving: ",form);
 
-        var fields = $scope.currentForm.fields;
+
         console.log("scope.currentUser: ",$scope.currentUser);
         console.log("rootScope.currentUser: ",$rootScope.currentUser);
-
+        console.log("scope.currentForm: ",$scope.currentForm);
+        console.log("rootScope.currentForm: ", $rootScope.currentForm);
+        console.log("form: ",form);
         //Strategy...
-        //Loop through each of the data-bindings, compare to globals, and preserve them using the normal process.
-        $scope.preserveGlobals(fields);
-        //Next construct a formData object comprised of the field.name & field.value objects and preserve that to /{collection} to produce a "record object"
-        var formData = $scope.collateFields(fields);
-        //if form-type == patient-record then set the patient_id: = currentPatient._id
+
+        //construct a formData object comprised of the field.name & field.value objects and preserve that to /{collection} to produce a "record object"
+        var fields = $scope.currentForm.fields;
+        var formData = $scope.collateFields(fields,form);
+        //if form-type == patient then set the patient_id: = currentPatient._id
         //Also append the origin form-id to the new record in the form of form_id = currentForm._id
-        formData["collection"] = form.collection;
-        formData["source_form"] = form._id;
+        formData["collection"] = $scope.currentForm.collection;
+        formData["source_form"] = $scope.currentForm._id;
         if($scope.startsWith($scope.currentForm.recordtype,"patient")){
             formData["patient_id"] = $rootScope.currentPatient._id;
         }
 
-        var loc = form.collection;
-        console.log("saving it to: ",$rootScope.baseUrl+loc);
-        window.alert("Successfully saved data for "+form.displayname)
+        var loc = $scope.currentForm.collection;
+        console.log("saving it to: ",$rootScope.baseUrl+"/"+loc);
+
+
         /*
          $http.post($rootScope.baseUrl+"/"+loc, formData)
              .success(function(data){
                  console.log("saveFormData returned: ",data);
-                 $rootScope.currentForm = null;
-                 window.alert("Successfully saved changes!  If you were in the middle of a workflow, you will now be taken to the next step.");
-                 $rootScope.nextAction();
+
+                 //Attach to parent (if needed)
+                 if($scope.currentForm.dataparent){
+                     var parent = $scope.currentForm.dataparent;
+                     if(!Array.isArray($rootScope[parent].records)){
+                         $rootScope[parent].records = [];
+                     }
+
+                     var recordInfo = {
+                         collection: $scope.currentForm.collection,
+                         id: data._id
+                     };
+
+                    $rootScope[parent].records.push(recordInfo);
+                 }
+                 //Loop through each of the data-bindings, compare to globals, and preserve them using the normal process.
+
+                 $scope.preserveGlobals(fields);
+
+                 window.alert("Successfully saved changes!  If you were in the middle of a workflow, you should now 'next'.");
              })
              .error(function(error){
                 console.error(error)
              });
-             */
+         */
     };
 
     /**

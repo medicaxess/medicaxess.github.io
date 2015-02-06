@@ -6,9 +6,9 @@
         </span>
     </div>
     <div class="panel-body">
-        <table class="table table-responsive table-striped">
+        <table class="table table-responsive table-striped table-condensed">
             <thead>
-                <th>Name</th><th>Collection</th><th>Scope</th><th>Record Type</th><th>Field Count</th><th>MID*</th>
+                <th>Name</th><th>Collection</th><th>Scope</th><th>Record Type</th><th>Field Count</th><th>MID*</th><th>Action</th>
             </thead>
             <tbody>
                 <tr ng-repeat="item in forms" ng-if="item.redacted != true">
@@ -18,9 +18,9 @@
                     <td>{{item.recordtype}}</td>
                     <td>{{item.fields.length}}</td>
                     <td>{{item._id}}</td>
-                    <td ng-if="item.owner_id == currentUser._id"><button ng-click="editForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Edit</button></td>
-                    <td><button ng-click="cloneForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Clone</button></td>
-                    <td ng-if="item.owner_id == currentUser._id"><button ng-click="deleteForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;Delete</button></td>
+                    <td><button ng-click="editForm(item)" class="btn btn-default" ng-if="item.owner_id == currentUser._id"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Edit</button>
+                    <button ng-click="cloneForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Clone</button>
+                    <button ng-if="item.owner_id == currentUser._id" ng-click="deleteForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;Delete</button></td>
                 </tr>
             <tfoot></tfoot>
             </tbody>
