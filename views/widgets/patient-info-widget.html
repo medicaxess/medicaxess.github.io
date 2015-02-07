@@ -30,7 +30,7 @@
                     <legend>{{findForm(currentReport.id).displayname}}</legend>
                     <ul class="list-group">
                         <li class="list-group-item" ng-repeat="field in findForm(currentReport.id).fields">
-                            <label><span style="float: left;"><b>{{field.displayname}}:</b></span><span style="float:right;">{{dynamicModel(field.databind) || "no hay"}}</span></label>
+                            <label><span style="float: left;"><b>{{field.displayname}}:</b></span><span style="float:right;">{{dynamicModel(field.databind) || "indefenido"}}</span></label>
                         </li>
                     </ul>
                 </fieldset>
