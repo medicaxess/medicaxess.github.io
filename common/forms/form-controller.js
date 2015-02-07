@@ -207,7 +207,7 @@ var formController = function($rootScope, $scope, $http) {
             $http.post($scope.baseUrl,$rootScope.currentForm)
                 .success(function(data){
                     $scope.fetchAllForms();
-                    window.alert("Form has been successfully saved, you can now reference by name or by id");
+                    window.alert("Form has been successfully saved, you can now reference it by name or by id");
                 })
                 .error(function(error){
                     console.error(error);
@@ -275,7 +275,7 @@ var formController = function($rootScope, $scope, $http) {
         console.log("saving it to: ",$rootScope.baseUrl+"/"+loc);
 
 
-        /*
+
          $http.post($rootScope.baseUrl+"/"+loc, formData)
              .success(function(data){
                  console.log("saveFormData returned: ",data);
@@ -303,7 +303,7 @@ var formController = function($rootScope, $scope, $http) {
              .error(function(error){
                 console.error(error)
              });
-         */
+
     };
 
     /**

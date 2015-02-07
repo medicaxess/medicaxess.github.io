@@ -1,17 +1,22 @@
 var workflowController = function($rootScope, $scope, $http) {
     console.log("WorkflowController Starting Up!");
+    if(!$rootScope.workflows){
+        $rootScope.workflows = {};
+    }
     $rootScope.$watch('workflows', function () {
-        console.log('change workflows');
-        console.log($rootScope.workflows);
+        console.log('changing workflows: ', $rootScope.workflows);
         $scope.workflows = $rootScope.workflows;
+    });
+
+    $rootScope.$watch('currentWorkflow', function () {
+        console.log('changing currentWorkflow: ',$rootScope.currentWorkflow);
+        $scope.currentWorkflow = $rootScope.currentWorkflow;
     });
 
     $scope.now = function(){
         return new Date().now();
     };
-    if(!$rootScope.workflows){
-        $rootScope.workflows = [];
-    }
+
     if(window.location.host != "localhost"){
         $rootScope.baseUrl = "https://api.medicaxess.com";
         //$rootScope.baseUrl = "https://medicaxess-padtronics.rhcloud.com/"
@@ -43,6 +48,20 @@ var workflowController = function($rootScope, $scope, $http) {
                 window.alert("There has been a problem contacting the server, please verify that your internet connection is working.")
             })
     };
+    $scope.setWorkflowByName = function(name){
+        console.log("Looking for workflow named: ",name);
+        for(var id in $scope.workflows){
+            console.log("Examining: ",id);
+            var workflow = $rootScope.workflows[id];
+            if(workflow.displayname == name){
+                console.log("Found: ",name);
+                $rootScope.currentWorkflow = workflow;
+                return;
+            }
+        }
+        console.error("Could not find a workflow named ",name);
+    };
+
     $scope.stepForward = function(){
         if(!$scope.currentWorkflow.step){
             $scope.currentWorkflow.step = 0;
@@ -62,6 +81,9 @@ var workflowController = function($rootScope, $scope, $http) {
         $http.post($scope.baseUrl,$scope.newFlow)
             .success(function(data){
                 $scope.newFlow = data;
+                if(!Array.isArray($rootScope.workflows)){
+                    $rootScope.workflows = [];
+                }
                 $rootScope.workflows.push($scope.newFlow);
                 $scope.newFlow = {};
                 window.alert("You have created a new workflow "+data._id+"\nTo add forms to your workflow, press the Edit button in the table above.")
@@ -91,8 +113,8 @@ var workflowController = function($rootScope, $scope, $http) {
     };
 
     $scope.findForm = function(id){
-      var len = $rootScope.forms.length;
-        for(var i=0; i < len; i++){
+
+        for(var i in $rootScope.forms){
             if($rootScope.forms[i]._id == id){
                 return $rootScope.forms[i];
             }
@@ -100,12 +122,18 @@ var workflowController = function($rootScope, $scope, $http) {
         return null;
     };
     $scope.findIndex = function(id){
-        var len = $scope.currentWorkflow.forms;
-        for(var i=0; i < len; i++){
-            if($scope.currentWorkflow.forms[i]._id == id){
-                return i;
+
+        console.log("looking for id: ",id);
+        for(x in $scope.currentWorkflow.forms){
+            console.log("offset: ",x);
+            var ref = $scope.currentWorkflow.forms[x];
+            console.log("looking at form: ", ref);
+            if(ref.id == id){
+                console.log("found it at: ",x);
+                return x;
             }
         }
+        console.log("could not find: ",id);
         return null;
     };
     $scope.setStep = function(){
@@ -116,16 +144,33 @@ var workflowController = function($rootScope, $scope, $http) {
         if(!$scope.currentWorkflow.forms){
             $scope.currentWorkflow.forms = [];
         }
-        $scope.currentWorkflow.forms.push(form);
+        $scope.currentWorkflow.forms.push({id: form._id, repeating: false});
         window.alert("You have now added "+$scope.currentWorkflow.nextstep + " as a step");
         $scope.currentWorkflow.nextstep = "";
     };
 
-    $scope.removeStep = function(form){
-        var idx = findIndex(form._id);
+    $scope.removeStep = function(id){
+        console.log("Attempting to remove: ",id);
+        var idx = $scope.findIndex(id);
         if(idx != null) {
+            console.log("idx: ",idx);
             $scope.currentWorkflow.forms.splice(idx, 1);
+        }else{
+            console.error("form not found: ",id);
         }
+    };
+
+    $scope.dumpStep = function(id){
+        console.log("id: ", id);
+        console.log("form: ",$rootScope.forms[id]);
+        console.log("forms: ",$rootScope.forms);
+    };
+
+    $scope.dump = function(obj){
+        $scope.setWorkflowByName("Nuevo Paciente");
+        console.log("dumping: ",obj);
+        console.log("scope.currentWorkflow: ",$scope.currentWorkflow);
+        console.log("rootScope.currentWorkflow: ",$rootScope.currentWorkflow);
     };
 
     $scope.setCurrent = function(flow){

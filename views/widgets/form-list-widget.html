@@ -1,30 +1,36 @@
 <div class="panel panel-primary fade-in">
-    <div class="panel-heading">Available Forms
+    <div class="panel-heading">
+        &nbsp;&nbsp;<span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;Available Forms
         <span class="pull-right">
-            <button class="btn btn-default " ng-click="fetchAllForms();"><i class="glyphicon glyphicon-cloud-download"></i>&nbsp;&nbsp;Sync</button>
+            <button class="btn btn-default" ng-click="fetchAllForms();"><i class="glyphicon glyphicon-cloud-download"></i>&nbsp;&nbsp;Sync</button>
              <button class="btn btn-default" ng-click="newForm();"><i class="glyphicon glyphicon-new-window"></i>&nbsp;&nbsp;Create</button>
-        </span>
+        </span>&nbsp;&nbsp;
     </div>
+
     <div class="panel-body">
-        <table class="table table-responsive table-striped table-condensed">
-            <thead>
-                <th>Name</th><th>Collection</th><th>Scope</th><th>Record Type</th><th>Field Count</th><th>MID*</th><th>Action</th>
+        <table class="table table-hover table-striped table-bordered table-responsive">
+            <thead class="row-fluid">
+                <th class="col-md-1">Name</th>
+                <th class="col-md-1">Collection</th>
+                <th class="col-md-1">Scope</th>
+                <th class="col-md-1">Record Type</th>
+                <th class="col-md-1">Field Count</th>
+                <!--<th class="col-md-1">MID*</th>-->
+                <th class="col-md-1">Action</th>
             </thead>
             <tbody>
-                <tr ng-repeat="item in forms" ng-if="item.redacted != true">
-                    <td>{{item.displayname}}</td>
-                    <td>{{item.collection}}</td>
-                    <td>{{item.scope}}</td>
-                    <td>{{item.recordtype}}</td>
-                    <td>{{item.fields.length}}</td>
-                    <td>{{item._id}}</td>
-                    <td><button ng-click="editForm(item)" class="btn btn-default" ng-if="item.owner_id == currentUser._id"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Edit</button>
-                    <button ng-click="cloneForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Clone</button>
-                    <button ng-if="item.owner_id == currentUser._id" ng-click="deleteForm(item)" class="btn btn-default"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;Delete</button></td>
+                <tr ng-repeat="item in forms" ng-if="item.redacted != true" class="row-fluid">
+                    <td class="col-md-1">{{item.displayname}}</td>
+                    <td class="col-md-1">{{item.collection}}</td>
+                    <td class="col-md-1">{{item.scope}}</td>
+                    <td class="col-md-1">{{item.recordtype}}</td>
+                    <td class="col-md-1">{{item.fields.length}}</td>
+                    <!--<td class="col-md-1">{{item._id}}</td>-->
+                    <td class="col-md-1"><button ng-click="editForm(item)" class="btn btn-default btn-block" ng-if="item.owner_id == currentUser._id"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Edit</button>
+                    <button ng-click="cloneForm(item)" class="btn btn-default btn-block"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Clone</button>
+                    <button ng-if="item.owner_id == currentUser._id" ng-click="deleteForm(item)" class="btn btn-default btn-block"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;Delete</button></td>
                 </tr>
-            <tfoot></tfoot>
             </tbody>
         </table>
-        <span>*MID = Medicaxess Identifier</span>
     </div>
 </div>
