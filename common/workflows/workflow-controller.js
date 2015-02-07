@@ -61,7 +61,9 @@ var workflowController = function($rootScope, $scope, $http) {
         }
         console.error("Could not find a workflow named ",name);
     };
-
+    $scope.setCurrentReport = function(ref){
+      $rootScope.currentReport = ref;
+    };
     $scope.stepForward = function(){
         if(!$scope.currentWorkflow.step){
             $scope.currentWorkflow.step = 0;

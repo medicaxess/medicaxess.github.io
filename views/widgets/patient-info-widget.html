@@ -20,11 +20,16 @@
                 <img ng-src="{{currentPatient.photo}}" style="float:left;">
             </fieldset>
             <div ng-controller="WorkflowController">
-                <button ng-click="dump(currentWorkflow)">Mas Informes</button>
-                <fieldset ng-repeat="ref in currentWorkflow.forms">
-                    <legend>{{findForm(ref.id).displayname}}</legend>
+                <button ng-if="!currentWorkflow" ng-click="dump(currentWorkflow)">Mas Informes</button>
+                <ul class="list-group col-md-2">
+                    <li ng-repeat="ref in currentWorkflow.forms" class="list-group-item">
+                        <button ng-click="setCurrentReport(ref)" class="btn-block">{{findForm(ref.id).displayname}}</button>
+                    </li>
+                </ul>
+                <fieldset>
+                    <legend>{{findForm(currentReport.id).displayname}}</legend>
                     <ul class="list-group">
-                        <li class="list-group-item" ng-repeat="field in findForm(ref.id).fields">
+                        <li class="list-group-item" ng-repeat="field in findForm(currentReport.id).fields">
                             <label><span style="float: left;"><b>{{field.displayname}}:</b></span><span style="float:right;">{{dynamicModel(field.databind) || "no hay"}}</span></label>
                         </li>
                     </ul>
