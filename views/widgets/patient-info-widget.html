@@ -35,7 +35,15 @@
                                     <b>{{field.displayname}}:</b>
                                 </span>
                                 <span style="float:right;">
-                                    {{parseValue(field.databind)}}
+                                    <span ng-if="field.type == 'text'">
+                                        {{parseValue(field.databind)}}
+                                    </span>
+                                    <span ng-if="field.type == 'date'">
+                                        {{parseValue(field.databind) | date: "yyyy-MM-dd"}}
+                                    </span>
+                                    <span ng-if="field.type =='image'">
+                                        <img ng-src="parseValue(field.databind)">
+                                    </span>
                                 </span>
                             </label>
                         </li>
