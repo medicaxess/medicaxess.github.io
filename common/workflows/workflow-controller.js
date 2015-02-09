@@ -205,7 +205,11 @@ var workflowController = function($rootScope, $scope, $http, $parse) {
 
     $scope.parseValue = function (value) {
         //console.log("parsing: ",value);
-        return $parse(value)($scope);
+        var val = $parse(value)($scope);
+        if(!val){
+            val = "indefinido"
+        }
+        return val;
     };
 
     $rootScope.clearWorkFlow = $scope.clearWorkFlow;
