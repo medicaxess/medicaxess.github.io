@@ -1,4 +1,4 @@
-var workflowController = function($rootScope, $scope, $http) {
+var workflowController = function($rootScope, $scope, $http, $parse) {
     console.log("WorkflowController Starting Up!");
     if(!$rootScope.workflows){
         $rootScope.workflows = {};
@@ -56,6 +56,8 @@ var workflowController = function($rootScope, $scope, $http) {
             if(workflow.displayname == name){
                 console.log("Found: ",name);
                 $rootScope.currentWorkflow = workflow;
+                $rootScope.clearWorkFlow.step = 0;
+                $rootScope.currentForm = $scope.findForm(workflow[0].id);
                 return;
             }
         }
@@ -65,17 +67,27 @@ var workflowController = function($rootScope, $scope, $http) {
       $rootScope.currentReport = ref;
     };
     $scope.stepForward = function(){
-        if(!$scope.currentWorkflow.step){
-            $scope.currentWorkflow.step = 0;
+        if(!$rootScope.currentWorkflow.step){
+            $rootScope.currentWorkflow.step = 0;
         }
-        $scope.currentForm = $scope.currentWorkflow.forms[$scope.currentWorkflow.step++];
+        //$scope.currentForm = $scope.currentWorkflow.forms[$scope.currentWorkflow.step++];
+        var pos = $rootScope.currentWorkflow.step++;
+        $scope.stepTo(pos);
     };
     $scope.stepBackward = function(){
-        if($scope.currentWorkflow.step) {
-            $scope.currentForm = $scope.currentWorkflow.forms[$scope.currentWorkflow.step--];
+        if($rootScope.currentWorkflow.step > 0) {
+            var pos = $rootScope.currentWorkflow.step--;
+            $scope.stepTo(pos);
         }
     };
-
+    $scope.stepTo = function(pos){
+        console.log("pos: ",pos);
+        var ref = $scope.currentWorkflow.forms[pos];
+        console.log("Stepping to: ",ref);
+        var form =  $scope.findForm(ref.id);
+        console.log("form: ",form);
+        $rootScope.currentForm = form;
+    };
     $scope.createWorkflow = function(){
         console.log("Workflow: ", $scope.newFlow);
         $scope.newFlow.creator = $rootScope.currentUser.displayname;
@@ -176,7 +188,7 @@ var workflowController = function($rootScope, $scope, $http) {
     };
 
     $scope.setCurrent = function(flow){
-        console.log("Setting currentWorkFlow to: ",flow);
+        console.log("Setting currentWorkFlow to: ",flow.id);
         $scope.currentWorkflow = flow;
         $rootScope.currentWorkflow = flow;
         $rootScope.currentForm = flow.forms[0];
@@ -190,6 +202,12 @@ var workflowController = function($rootScope, $scope, $http) {
     $scope.workflowComplete = function(){
       $scope.clearWorkFlow();
     };
+
+    $scope.parseValue = function (value) {
+        //console.log("parsing: ",value);
+        return $parse(value)($scope);
+    };
+
     $rootScope.clearWorkFlow = $scope.clearWorkFlow;
     $rootScope.fetchAllWorkFlows = $scope.fetchAllWorkFlows;
     $rootScope.onLogin.push($scope.fetchAllWorkFlows);
@@ -197,7 +215,7 @@ var workflowController = function($rootScope, $scope, $http) {
 };
 
 angular.module('workflows',[])
-    .controller('WorkflowController', ['$rootScope','$scope', '$http', workflowController])
+    .controller('WorkflowController', ['$rootScope','$scope', '$http','$parse', workflowController])
     .directive('workflowDisplayWidget',function(){
         console.log("Loading directive workflow-display-widget");
         return {
