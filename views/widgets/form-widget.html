@@ -8,6 +8,9 @@
             <input class="hidden" type="hidden" name="collection" value="{{currentForm.collection}}">
             <ul class="list-group">
                 <li class="list-group-item fade-in" ng-repeat="field in currentForm.fields track by $index" >
+                    <datalist ng-if="field.type=='list'" id="{{field.name+'_list'}}">
+                        <option data-ng-repeat="item in field.list" value="{{item.value}} : {{item.name}}">{{item.value}} : {{item.name}}</option>
+                    </datalist>
                     <label>{{field.displayname}}
                             <span ng-if="field.type != 'list' && field.type !='image' && field.type !='range'  && field.type != 'number'">
                                 <input class="form-control" type="{{field.type}}" name={{field.variable}} dynamic-model="field.databind" placeholder="{{field.variable}}" required="{{field.isRequired}}">
@@ -16,12 +19,12 @@
                                 <img ng-src="{{field.databind}}">
                                <input class="form-control" type="file" name={{field.name}} value="{{field.value}}" dynamic-model="field.databind" capture>
                             </span>
-                            <span  ng-if="field.type == 'list'">
-                                <select name={{field.name}} class="form-control" dynamic-model="field.databind">
-                                    <option ng-repeat="item in field.list" value={{item.value}}>{{item.name}}</option>
-                                </select>
+
+                            <span ng-if="field.type == 'list'">
+                                <input class="form-control" list="{{field.name+'_list'}}" name="field.variable" ng-model="field.value" ng-change="searchDataSource(field)">
                             </span>
-                            <span  ng-if="field.type == 'range' || field.type == 'number'">{{field.value}}
+
+                            <span ng-if="field.type == 'range' || field.type == 'number'">{{field.value}}
                                 <input class="form-control" type="{{field.type}}"
                                        min="{{field.min}}"
                                        max="{{field.max}}"

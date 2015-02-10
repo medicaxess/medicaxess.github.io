@@ -1,4 +1,4 @@
-var formController = function($rootScope, $scope, $http) {
+var formController = function($rootScope, $scope, $http, $parse) {
     console.log("FormController Starting Up!");
     $scope.eval = $scope.$eval;
     $rootScope.$watch('currentUser', function () {
@@ -114,7 +114,8 @@ var formController = function($rootScope, $scope, $http) {
             {name: "URL",                                           value: "url"},
             {name: "Checkbox",                                      value: "checkbox"},
             {name: "Radio Button",                                  value: "radio" },
-            {name: "List",                                          value: "list"},
+            {name: "DataList - DB collection",                      value: "list"},
+            {name: "List - custom (add fields below)",              value: "list"},
             {name: "Telephone Number",                              value: "tel"},
             {name: "Number",                                        value: "number"},
             {name: "Range",                                         value: "range"},
@@ -484,17 +485,141 @@ var formController = function($rootScope, $scope, $http) {
         }
     };
 
+    $scope.fetchJSON = function(){
+
+        var filename = "/js/idc10.json";
+
+        $http.get(filename)
+            .success(function(data){
+                if(!$rootScope.json){
+                    $rootScope.json = {};
+                }
+                $rootScope["json.idc10"] = data;
+                console.log("json.idc10: Loaded");
+            })
+            .error(function(err){
+                console.error(err);
+            });
+    };
+
+
+    /**
+     * Used to populate a datalist for custom forms
+     * CAUTION: Only use this function for datasources with a limited number of entries, too many will slow down the app.
+     * @param source
+     * @returns {*}
+     */
+    $scope.getDataSourceItems = function(source){
+        console.log("Attempting to find: ",source);
+        if(!source){
+            console.log("source was undefined, returning an empty set");
+            return [{name: 'undefined', value: null}];
+        }
+
+        if(!$rootScope[source+"try"]){
+            $rootScope[source+"try"] = 1;
+        }
+        if(!$rootScope[source] && $rootScope[source+"try"] < 2){
+            $rootScope[source+"try"]++;
+            console.log("About to load: ",$rootScope.baseURL+"/"+source);
+            $http.get($rootScope.baseURL+"/"+source)
+                .success(function(data){
+                    console.log("Found: ",data[0]);
+                    $rootScope[source] = data[0];
+                })
+                .error(function(err){
+                    console.error(err);
+                    window.alert("A referenced data source is missing: "+source);
+                    $rootScope.source = err;
+                });
+        }else{
+            if($rootScope[source]) {
+                console.log("Had it already: ",$rootScope[source]);
+                return $rootScope[source];
+            }else{
+                console.log("Didn't have it, and count was high enough to abandon, sending empty set.");
+                $rootScope[source] = [];
+                window.alert("A referenced datasource for this form is missing, please have the creator examine the fields for "+source);
+                return $rootScope[source];
+            }
+        }
+    };
+    $scope.searchDataSource = function(field){
+        console.log("Attempting to find: ",field.datasource);
+        if(!field.datasource){
+            console.log("source was undefined, returning an empty set");
+           return;
+        }
+        field.source = field.datasource;
+        if(!$rootScope[field.source+"try"]){
+            $rootScope[field.source+"try"] = 1;
+        }
+        if(!$rootScope[field.source] && $rootScope[field.source+"try"] < 2){
+            $rootScope[field.source+"try"]++;
+            console.log("About to load: ",$rootScope.baseURL+"/"+field.source);
+            $http.get($rootScope.baseURL+"/"+field.source)
+                .success(function(data){
+                    console.log("Found: ",data[0]);
+                    $rootScope[field.source] = data[0];
+                })
+                .error(function(err){
+                    console.error(err);
+                    window.alert("A referenced data source is missing: "+source);
+                    $rootScope[field.source] = err;
+                });
+            return;
+        }else{
+            var count = 0;
+            var matching = [];
+            console.log("field: ",field);
+            for(pos in $rootScope[field.source]){
+
+                var source = $rootScope[field.source];
+                var entry = source[pos];
+                if(count > 10 ){
+                    console.log("Limit reached for: ",field.value);
+                    break;
+                }
+                var value = field.value.toLowerCase();
+                if(entry.name.toLowerCase().contains(value) || entry.value.toLowerCase().contains(value)){
+                    matching.push(entry);
+                    count++;
+                    //console.log("Found: ",$rootScope[source][entry]);
+                }
+                /*
+                count++;
+                if(count < 100) {
+                    console.log("entry: ", $rootScope[field.source][entry]);
+                }else{
+                    break;
+                }*/
+            }
+            field.list = matching;
+        }
+
+
+    };
+    $scope.parseValue = function (value) {
+        //console.log("parsing: ",value);
+        var val = $parse(value)($scope);
+        if(!val){
+            val = "indefinido"
+        }
+        return val;
+    };
+
     $scope.editForm = function(form){
         $rootScope.currentForm = form;
     };
     $rootScope.setForm = $scope.setForm;
     $rootScope.fetchForms = $scope.fetchAllForms;
     $rootScope.onLogin.push($scope.fetchAllForms);
+    $rootScope.onLogin.push($scope.fetchJSON);
 
 };
 
 angular.module('customforms',[])
-    .controller('FormController', ['$rootScope','$scope', '$http', formController])
+    .controller('FormController', ['$rootScope','$scope', '$http','$parse', formController])
     .directive('formWidget',function(){
         console.log("Loading directive form-widget");
         return {

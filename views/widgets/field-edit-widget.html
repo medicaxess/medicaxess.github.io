@@ -14,15 +14,19 @@
 
             <label>Field Variable:<input class="form-control" type="text" ng-model="field.variable" required></label>
             <label>Field Default Value:<input class="form-control" type="text" ng-model="field.value" required></label>
+
             <div ng-if="field.type == 'list'">
-                List Values:<button class="btn btn-small btn-success btn-xs" ng-click="addListItem(field);">+</button>
-                <fieldset ng-repeat="item in field.list">
-                    <legend>{{item.name}}
-                        <button class="btn btn-small btn-danger btn-xs" style="float: right;" ng-click="removeListItem(field,item);">X</button>
-                    </legend>
-                    <label>Name:<input type="text" ng-model="item.name"></label>
-                    <label>Value:<input type="text" ng-model="item.value"></label>
-                </fieldset>
+                <label>Datasource:<input class="form-control" type="text" ng-model="field.datasource" ng-model-options="{ debounce: 1000 }"></label>
+                <div ng-if="!field.datasource">
+                    List Values:<button class="btn btn-small btn-success btn-xs" ng-click="addListItem(field);">+</button>
+                    <fieldset ng-repeat="item in field.list">
+                        <legend>{{item.name}}
+                            <button class="btn btn-small btn-danger btn-xs" style="float: right;" ng-click="removeListItem(field,item);">X</button>
+                        </legend>
+                        <label>Name:<input type="text" ng-model="item.name"></label>
+                        <label>Value:<input type="text" ng-model="item.value"></label>
+                    </fieldset>
+                </div>
             </div>
 
             <div ng-if="field.type =='image'">
