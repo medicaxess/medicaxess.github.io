@@ -16,7 +16,7 @@ angular.module('ui.calendar', [])
             $scope,
             $timeout,
             $locale){
-
+            console.log("**** uiCalendarCtrl loading! ****");
             var sourceSerialId = 1,
                 eventSerialId = 1,
                 sources = $scope.eventSources,
@@ -57,6 +57,10 @@ angular.module('ui.calendar', [])
             this.allEvents = function() {
                 // return sources.flatten(); but we don't have flatten
                 var arraySources = [];
+                if(sources === undefined || !Array.isArray(sources)){
+                    //console.error("*** No data source defined for calendar, please check your configuration! ***")
+                    return;
+                }
                 for (var i = 0, srcLen = sources.length; i < srcLen; i++) {
                     var source = sources[i];
                     if (angular.isArray(source)) {

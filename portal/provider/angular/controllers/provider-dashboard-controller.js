@@ -5,8 +5,114 @@
  * @param $http
  */
 
-var dashboardController = function($rootScope, $scope, $http){
+var dashboardController = function($rootScope, $scope, $http, $compile, uiCalendarConfig){
+    Date.prototype.addHours= function(h){
+        this.setHours(this.getHours()+h);
+        return this;
+    };
+
     console.log("Loading dashboard controller");
+
+    $scope.eventSource = {
+        url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
+        className: 'gcal-event',           // an option!
+        currentTimezone: 'America/Chicago' // an option!
+    };
+
+    /* Render Tooltip */
+    $scope.eventRender = function( event, element, view ) {
+        /*
+        element.attr({'tooltip': event.title,
+            'tooltip-append-to-body': true});
+        */
+        element.attr({'onclick': $scope.onCalendarClick})
+
+        $compile(element)($scope);
+    };
+    $scope.onCalendarClick = function(evt, jsEvent, view){
+        console.log("evt: ",evt);
+        console.log("event: ",jsEvent);
+        console.log("view: ",view);
+        if(evt == 0){
+            return;
+        }
+        $scope.currentEvent = evt;
+
+        var now = evt.start;
+        //var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth();
+        var dateOfMonth = now.getDate();
+        console.log("now: ",now);
+        console.log("year: ",year);
+        console.log("month: ",month);
+        console.log("dateOfMonth: ",dateOfMonth);
+        $scope.gotoDate('bigCalendar', year, month, dateOfMonth);
+        $scope.changeView('agendaDay','bigCalendar');
+    };
+
+    $scope.gotoDate = function(calendar,year, month, dateOfMonth){
+        uiCalendarConfig.calendars[calendar].fullCalendar('gotoDate',year,month,dateOfMonth);
+    };
+    /* config object */
+    $scope.uiConfig = {
+        calendar:{
+
+            editable: true,
+            header: {
+                left: 'title',
+                center: 'today prev,next',
+                right: ''
+            },
+            defaultView: 'agendaWeek',
+            eventClick: $scope.onCalendarClick,
+            eventDrop: $scope.alertOnDrop,
+            eventResize: $scope.alertOnResize,
+            eventRender: $scope.eventRender
+        }
+    };
+    console.log("uiCalendarConfig: ",uiCalendarConfig);
+    $scope.currentTime = function(){
+        return new Date();
+    };
+    var now = $scope.currentTime();
+
+    $scope.events = {
+        color: 'yellow',
+        textColor: 'black',
+        events: [
+            {type:'availability',title: 'Available',start: now, end: $scope.currentTime().addHours(2), allDay: false}
+        ]
+    };
+
+    /* Change View */
+    $scope.changeView = function(view,calendar) {
+        uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);
+    };
+    $scope.renderCalendar = function(calendar) {
+        if(uiCalendarConfig.calendars[calendar]){
+            uiCalendarConfig.calendars[calendar].fullCalendar('render');
+        }
+    };
+    $scope.newEvent = function(){
+        var now = $scope.currentTime();
+        now.setMinutes(0);
+        $scope.currentEvent = {
+            title : 'New Appointment',
+            start : now,
+            end : now.addHours(1),
+            new : true
+        };
+    };
+    $scope.saveEvent = function(){
+        if($scope.currentEvent.new){
+            delete $scope.currentEvent.new;
+            $scope.events.events.push($scope.currentEvent);
+        }
+        delete $scope.currentEvent;
+        //$scope.renderCalendar('bigCalendar');
+        $scope.changeView('month','bigCalendar')
+    };
     if (typeof String.prototype.contains === 'undefined') { String.prototype.contains = function(it) { return this.indexOf(it) != -1; }; }
     $scope.patient = {};
 
@@ -170,14 +276,30 @@ var dashboardController = function($rootScope, $scope, $http){
         var url = "http://pacs.medicaxess.com:8080/plugin-dwv/explorer.html#patient?name="+escape(patient.name);
         window.open(url);
     };
+    $scope.setDefaultCalendar = function(){
+        $scope.changeView('agendaDay', 'bigCalendar');
+        $scope.changeView('month', 'littleCalendar');
+        $http.get($rootScope.baseUrl+"/events")
+            .success(function(data){
+                $scope.events.push(data[0]);
+            })
+            .error(function(err){
+                console.error(err);
+            });
+    };
+
+    $scope.eventSources = [$scope.events,$rootScope.events];
+
     if(!$rootScope.onLogin){
         $rootScope.onLogin = [];
     }
+
     $rootScope.onLogin.push($scope.fetchAllPatients);
+    $rootScope.onLogin.push($scope.setDefaultCalendar);
 };
 
 angular.module('dashboard',[])
-    .controller('DashboardController', ['$rootScope','$scope', '$http', dashboardController])
+    .controller('DashboardController', ['$rootScope','$scope', '$http','$compile','uiCalendarConfig', dashboardController])
     .directive('dashboardArea',function(){
         console.log("Loading directive dashboard-area");
         return {

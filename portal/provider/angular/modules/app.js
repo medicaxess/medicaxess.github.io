@@ -2,9 +2,9 @@
 
 // Declare app level module which depends on views, and common
 angular.module('myApp', [
-  'ui.bootstrap'
+    'ui.bootstrap'
+    ,'ui.calendar'
     ,'ngAnimate'
-    //,'frapontillo.bootstrap-switch'
     ,'login'
     ,'navigation'
     ,'dashboard'

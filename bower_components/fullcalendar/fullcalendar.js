@@ -5648,6 +5648,7 @@ function DayEventRenderer() {
 	function draggableDayEvent(event, eventElement) {
 		var hoverListener = getHoverListener();
 		var dayDelta;
+
 		eventElement.draggable({
 			delay: 50,
 			opacity: opt('dragOpacity'),

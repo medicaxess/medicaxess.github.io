@@ -3,40 +3,48 @@
         <div class="main-inner">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-5">
+                    <!-- /span6 -->
+                    <div ng-class="{'col-md-9': currentEvent, 'col-md-12 content-wide': !currentEvent}">
                         <div class="panel panel-primary">
-                            <span class="panel-heading"> <i class="fa fa-list-alt"></i>&nbsp;&nbsp;Today's Patients</span>
+                            <span class="panel-heading">
+                                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;&nbsp;Appointments&nbsp;&nbsp;
+                                <button class="btn btn-default btn-xs" ng-click="newEvent();"><span class="glyphicon glyphicon-plus-sign"></span></button></span>
                             <!-- /widget-header -->
                             <div class="panel-body">
-                                <div class="panel">
-                                    <span>
-                                        <i class="fa fa-calendar-o fa-fw"></i> - Appointment&nbsp;&nbsp;
-                                        <i class="fa fa-wheelchair fa-fw"></i> - Walk In&nbsp;&nbsp;
-                                        <i class="fa fa-ambulance fa-fw"></i> - Emergency&nbsp;&nbsp;
-                                    </span>
-                                    <div class="panel-body">
-                                        <ul class="list-group">
-                                            <li class="list-group-item"><i class="fa fa-wheelchair fa-fw"></i> <a class="value" ng-click="showPatient(0)">Victor Vargas</a></li>
-                                            <li class="list-group-item"><i class="fa fa-ambulance fa-fw"></i> <a class="value" ng-click="showPatient(1)">Faye King</a></li>
-                                            <li class="list-group-item"> <i class="fa fa-calendar-o fa-fw"></i> <a class="value" ng-click="showPatient(2)">Antonia Malsalud</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- /widget-content -->
+                                        <span>
+                                        <i class="glyphicon glyphicon-bell"></i> {{currentUser.displayname}}'s Agenda
+                                        </span>
+                                        <span>
+                                        <button class="btn btn-sm" ng-click="changeView('month', 'bigCalendar')">Month</button>&nbsp;
+                                        <button class="btn btn-sm" ng-click="changeView('agendaWeek', 'bigCalendar')">Week</button>&nbsp;
+                                        <button class="btn btn-sm" ng-click="changeView('agendaDay', 'bigCalendar')">Day</button>&nbsp;
+
+                                        </span>
+                                        <div ui-calendar="uiConfig.calendar" class=" calendar fc" ng-class="{'span8': currentEvent, 'span12': !currentEvent}" calendar="bigCalendar" ng-model="eventSources"></div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="currentEvent" ng-class="{'col-md-3': currentEvent}">
+                        <div class="panel panel-primary">
+                            <!--<span class="panel-heading"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Calendar</span>-->
+                            <div class="panel-body">
+
+                                <div ng-if="currentEvent">
+                                    <form>
+                                        <div class="form-group">
+                                            <label>Name<input class="form-control" type="text" ng-model="currentEvent.title"></label></label>
+                                            <label>Start Date<input class="form-control" type="date" ng-model="currentEvent.start"></label>
+                                            <label>End Date<input class="form-control" type="date" ng-model="currentEvent.end"></label>
+                                            <label>All Day<input class="form-control" type="checkbox" ng-model="currentEvent.allday"></label>
+                                            <button ng-click="saveEvent();">Save</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         <!-- /widget -->
-                    </div>
-                    <!-- /span6 -->
-                    <div class="col-lg-7">
-                        <div class="panel panel-primary">
-                            <span class="panel-heading"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Calendar</span>
-                            <div class="panel-body">
-                                
-                                <iframe src="https://www.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=en.mexican%23holiday%40group.v.calendar.google.com&amp;color=%23182C57&amp;ctz=America%2FTijuana" style=" border-width:0 " width="640" height="480" frameborder="0" scrolling="no"></iframe>
-                    
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- /row -->
