@@ -1,20 +1,6 @@
 <!DOCTYPE html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<!--
-A view is a collection of workflows tasks, workflows tasks, also called partials, are collections of widgets,
-widgets are dynamic data controls
-
-A view is similar to a partial, but includes menu common, custom CSS etc
-
-A view wraps it's self top to bottom and can be thought of in context as an SPA
-
-A view should be driven by the view controller for the view
-e.g. The provider view is this file, plus framework/controllers/providerViewController.js
-However the parent is /controllers/viewController.js styling for the common is provided by the view.partials CSS and the provider.view.css file
-
-A provider is anyone who interacts with the patient in a "consultation", if your job entails "encounters" this is the view you should see upon login.
--->
         <title>&copy; Medicaxess.com </title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -25,69 +11,61 @@ A provider is anyone who interacts with the patient in a "consultation", if your
 
 
         <!-- Bootstrap -->
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="/bower_components/fullcalendar/fullcalendar.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/navigation.css">
-    <link rel="stylesheet" href="css/provider.view.css">
+        <link rel="stylesheet" href="/bower_components/fullcalendar/fullcalendar.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/navigation.css">
+        <link rel="stylesheet" href="css/provider.view.css">
 
-    <!--
+        <script src="/bower_components/jquery/dist/jquery.js"></script>
+        <script src="/bower_components/jquery-ui/ui/jquery-ui.js"></script>
+        <script src="/bower_components/moment/moment.js"></script>
 
-<script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
-
-<script type="text/javascript" src="bower_components/angular/angular.js"></script>
-<script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
-<script type="text/javascript" src="bower_components/fullcalendar/fullcalendar.js"></script>
-<script type="text/javascript" src="bower_components/fullcalendar/gcal.js"></script>
-
-    -->
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/jquery-ui/ui/jquery-ui.js"></script>
-    <script src="/bower_components/moment/moment.js"></script>
-
-    <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="/bower_components/fullcalendar/fullcalendar.js"></script>
-    <script src="/bower_components/fullcalendar/gcal.js"></script>
-    <script src="/bower_components/angular-ui-calendar/src/calendar.js"></script>
+        <script src="/bower_components/angular/angular.min.js"></script>
+        <script src="/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+        <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="/bower_components/fullcalendar/fullcalendar.js"></script>
+        <script src="/bower_components/fullcalendar/gcal.js"></script>
+        <script src="/bower_components/angular-ui-calendar/src/calendar.js"></script>
 
 
-    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+        <script src="/bower_components/angular-animate/angular-animate.js"></script>
 
-    <script src="/common/navigation/navigation-controller.js"></script>
-    <script src="/common/login/login-controller.js"></script>
-    <script src="/common/forms/form-controller.js"></script>
-    <script src="/common/workflows/workflow-controller.js"></script>
-    <script src="angular/controllers/provider-dashboard-controller.js"></script>
-    <script src="angular/modules/app.js"></script>
+        <script src="/common/navigation/navigation-controller.js"></script>
+        <script src="/common/login/login-controller.js"></script>
+        <script src="/common/forms/form-controller.js"></script>
+        <script src="/common/workflows/workflow-controller.js"></script>
+        <script src="angular/controllers/provider-dashboard-controller.js"></script>
+        <script src="angular/modules/app.js"></script>
     </head>
     <body>
     <main ng-app="myApp">
         <div ng-controller="NavigationController">
             <header-area></header-area>
-            <navigation-area></navigation-area>
         </div>
-        <div id="page-content" class="container" ng-class="{'content-narrow': navShowing, 'content-wide': !navShowing}">
-            <div class="row">
-                <login-area></login-area>
-                <signup-area></signup-area>
-                <section ng-controller="DashboardController">
-                    <dashboard-area></dashboard-area>
-                    <profile-area></profile-area>
-                    <custom-forms-area></custom-forms-area>
-                    <patient-area></patient-area>
-                    <charts-area></charts-area>
-                    <conference-area></conference-area>
-                </section>
+        <div id="page-content" class="container content-wide">
+            <div class="main">
+                <div class="main-inner">
+                    <div class="container">
+                        <login-area></login-area>
+                        <!--<signup-area></signup-area>-->
+                        <div ng-controller="DashboardController">
+                            <dashboard-area></dashboard-area>
+                            <agenda-area></agenda-area>
+                            <estudios-area></estudios-area>
+                            <custom-forms-area></custom-forms-area>
+                            <patient-area></patient-area>
+                            <charts-area></charts-area>
+                            <conference-area></conference-area>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
-        <footer>&copy; 2015 - Medicaxess.com</footer>
     </body>
 </html>
 

@@ -1,9 +1,11 @@
-<header class="navbar navbar-inverse navbar-fixed-top gradient-area" role="navigation">
-    <div class="navbar-header">
-        <button style="float: left;" class="gradient-area flat-btn nav-btn" type="button" ng-mouseover="toggleNav()">
+<header>
+    <!-- Fixed navbar -->
+    <h1>Medicaxess by IMAXESS</h1>
+    <div class="navbar-header navbar-fixed">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
-            <h1>Medicaxess by IMAXESS</h1>
+            <span class="glyphicon glyphicon-menu-hamburger">#</span>
         </button>
-        <h1 style="float: right;">{{page.name}}</h1>
     </div>
+    <navigation-area></navigation-area>
 </header>

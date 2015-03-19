@@ -45,7 +45,7 @@ var loginController = function($rootScope, $scope, $http) {
                 }else{
                     //
                     $rootScope.setForm('displayname',"Profile",'currentForm'); //Just so something is set there because it's alarming to have it blank
-                    $rootScope.app.state = 'defaultview';
+                    $rootScope.app.state = 'dashboard-view';
                     window.document.title = $rootScope.currentUser.displayname + "'s Dashboard";
                 }
 

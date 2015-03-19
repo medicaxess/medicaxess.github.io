@@ -1,0 +1,55 @@
+<section ng-show="app.state=='agenda-view'">
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="row">
+                    <!-- /span6 -->
+                    <div ng-class="{'col-md-9': currentEvent, 'col-md-12 content-wide': !currentEvent}">
+                        <div class="panel panel-primary">
+                            <span class="panel-heading">
+                                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;&nbsp;Appointments&nbsp;&nbsp;
+                                <button class="btn btn-default btn-xs" ng-click="newEvent();"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                            </span>
+                            <!-- /widget-header -->
+                            <div class="panel-body">
+                                <span>
+                                    <i class="glyphicon glyphicon-bell"></i> {{currentUser.displayname}}'s Agenda
+                                </span>
+                                <span>
+                                    <button class="btn btn-sm" ng-click="changeView('month', 'bigCalendar')">Month</button>&nbsp;
+                                    <button class="btn btn-sm" ng-click="changeView('agendaWeek', 'bigCalendar')">Week</button>&nbsp;
+                                    <button class="btn btn-sm" ng-click="changeView('agendaDay', 'bigCalendar')">Day</button>&nbsp;
+                                </span>
+                             </div>
+                            <div ui-calendar="uiConfig.calendar" class=" calendar fc" ng-class="{'span8': currentEvent, 'span12': !currentEvent}" calendar="bigCalendar" ng-model="eventSources"></div>
+                        </div>
+                    </div>
+                    <div ng-show="currentEvent" ng-class="{'col-md-3': currentEvent}">
+                        <div class="panel panel-primary">
+                            <!--<span class="panel-heading"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Calendar</span>-->
+                            <div class="panel-body">
+
+                                <div ng-if="currentEvent">
+                                    <form>
+                                        <div class="form-group">
+                                            <label>Name<input class="form-control" type="text" ng-model="currentEvent.title"></label></label>
+                                            <label>Start Date<input class="form-control" type="date" ng-model="currentEvent.start"></label>
+                                            <label>End Date<input class="form-control" type="date" ng-model="currentEvent.end"></label>
+                                            <label>All Day<input class="form-control" type="checkbox" ng-model="currentEvent.allday"></label>
+                                            <button ng-click="saveEvent();">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /widget -->
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /main-inner -->
+    </div>
+    <!-- /main -->
+</section>

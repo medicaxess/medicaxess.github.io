@@ -12,7 +12,13 @@ var dashboardController = function($rootScope, $scope, $http, $compile, uiCalend
     };
 
     console.log("Loading dashboard controller");
-
+    $scope.setState = function(state){
+        if(!$rootScope.app){
+            $rootScope.app ={};
+        }
+        $rootScope.app.state = state;
+        console.log("Showing "+$rootScope.app.state);
+    };
     $scope.eventSource = {
         url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
         className: 'gcal-event',           // an option!
@@ -87,6 +93,7 @@ var dashboardController = function($rootScope, $scope, $http, $compile, uiCalend
 
     /* Change View */
     $scope.changeView = function(view,calendar) {
+        //$scope.saveEvent();
         uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);
     };
     $scope.renderCalendar = function(calendar) {
@@ -105,6 +112,9 @@ var dashboardController = function($rootScope, $scope, $http, $compile, uiCalend
         };
     };
     $scope.saveEvent = function(){
+        if(!$scope.currentEvent){
+            return;
+        }
         if($scope.currentEvent.new){
             delete $scope.currentEvent.new;
             $scope.events.events.push($scope.currentEvent);
@@ -296,6 +306,7 @@ var dashboardController = function($rootScope, $scope, $http, $compile, uiCalend
 
     $rootScope.onLogin.push($scope.fetchAllPatients);
     $rootScope.onLogin.push($scope.setDefaultCalendar);
+
 };
 
 angular.module('dashboard',[])
@@ -306,6 +317,22 @@ angular.module('dashboard',[])
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/partials/dashboard-area.html'
+        }
+    })
+    .directive('agendaArea',function(){
+        console.log("Loading directive agenda-area");
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: '/views/partials/agenda-area.html'
+        }
+    })
+    .directive('estudiosArea',function(){
+        console.log("Loading directive estudios-area");
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: '/views/partials/estudios-area.html'
         }
     })
     .directive('profileArea',function(){

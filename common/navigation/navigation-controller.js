@@ -4,15 +4,6 @@
 
 var navigationController =  function($rootScope, $scope, $http, $timeout) {
 
-
-    $scope.doUiTease = function(){
-        $scope.toggleNav();
-        $timeout(function(){
-            alert("Welcome to Medicaxess!\nTo show/hide the navigation bar, hover your mouse (or press your finger) to the left of the window, or click on our logo.");
-            $scope.toggleNav();
-        }, 2100);
-    };
-
     $scope.toggleNav = function(){
         //console.log("toggleNav was called!");
         if(!$rootScope.navShowing){
@@ -25,20 +16,22 @@ var navigationController =  function($rootScope, $scope, $http, $timeout) {
 
     $scope.showNav = function(){
         $rootScope.navShowing = true;
-        $scope.navClass = "oneHundredPxWide";
+        $scope.navClass = "oneHundredPxHigh";
     };
 
     $scope.hideNav = function(){
         $rootScope.navShowing = false;
-        $scope.navClass = "onePxWide";
+        $scope.navClass = "onePxHigh";
     };
 
-    function showMessage(msg){
-        console.log("showMessage was called!");
-        window.alert(msg);
-    }
+    $scope.setState = function(state){
+        if(!$rootScope.app){
+            $rootScope.app ={};
+        }
+        $rootScope.app.state = state;
+       console.log("Showing "+$rootScope.app.state);
+    };
 
-    $scope.doUiTease();
 };
 
 angular.module('navigation',[])
@@ -56,7 +49,7 @@ angular.module('navigation',[])
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: '/views/partials/navigation-area.html'
+            templateUrl: '/views/partials/navigation-area-new.html'
         }
     });
 
