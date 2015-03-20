@@ -1,3 +1,8 @@
-<div ng-show="app.state=='estudios-view'">
+<div ng-show="app.state=='estudios-view'" ng-controller="SearchController">
+    <!--Estudios - Search for any record and all related info by
+patient, dr, location is was done, location of referal, dates, by modality, observation
+(will need a multifield search)-->
+
+    <global-search-widget></global-search-widget>
     <patient-search-widget></patient-search-widget>
 </div>
