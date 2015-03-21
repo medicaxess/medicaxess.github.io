@@ -10,4 +10,5 @@ angular.module('myApp', [
     ,'dashboard'
     ,'customforms'
     ,'workflows'
+    ,'search'
 ]);

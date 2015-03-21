@@ -5,7 +5,12 @@
  * @param $http
  */
 
-var dashboardController = function($rootScope, $scope, $http, $compile, uiCalendarConfig){
+var dashboardController = function($rootScope
+                                   ,$scope
+                                   ,$http
+                                   ,$compile
+                                   ,uiCalendarConfig
+){
     Date.prototype.addHours= function(h){
         this.setHours(this.getHours()+h);
         return this;
@@ -21,8 +26,7 @@ var dashboardController = function($rootScope, $scope, $http, $compile, uiCalend
     };
     $scope.eventSource = {
         url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-        className: 'gcal-event',           // an option!
-        currentTimezone: 'America/Chicago' // an option!
+        className: 'gcal-event'           // an option!
     };
 
     /* Render Tooltip */
@@ -77,7 +81,7 @@ var dashboardController = function($rootScope, $scope, $http, $compile, uiCalend
             eventRender: $scope.eventRender
         }
     };
-    console.log("uiCalendarConfig: ",uiCalendarConfig);
+    //console.log("uiCalendarConfig: ",uiCalendarConfig);
     $scope.currentTime = function(){
         return new Date();
     };
@@ -310,7 +314,14 @@ var dashboardController = function($rootScope, $scope, $http, $compile, uiCalend
 };
 
 angular.module('dashboard',[])
-    .controller('DashboardController', ['$rootScope','$scope', '$http','$compile','uiCalendarConfig', dashboardController])
+    .controller('DashboardController', [
+        '$rootScope'
+        ,'$scope'
+        ,'$http'
+        ,'$compile'
+        ,'uiCalendarConfig'
+        , dashboardController
+    ])
     .directive('dashboardArea',function(){
         console.log("Loading directive dashboard-area");
         return {
@@ -325,6 +336,14 @@ angular.module('dashboard',[])
             restrict: 'E',
             replace: 'true',
             templateUrl: '/views/partials/agenda-area.html'
+        }
+    })
+    .directive('buscarArea',function(){
+        console.log("Loading directive buscar-area");
+        return {
+            restrict: 'E',
+            replace: 'true',
+            templateUrl: '/views/partials/buscar-area.html'
         }
     })
     .directive('estudiosArea',function(){

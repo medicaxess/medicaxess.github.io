@@ -1,0 +1,19 @@
+<div ng-controller="SearchController">
+    <accordion close-others="oneAtATime" class="fade-in">
+        <accordion-group ng-repeat="result in currentResults" is-open="status.open" is-disabled="status.isFirstDisabled">
+            <accordion-heading class="panel-primary">{{result[0].collection.toUpperCase()}}</accordion-heading>
+                <table class="table table-responsive table-striped">
+                    <thead>
+                        <th>Nombre</th><th>Fecha</th><th>Mas Informes</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="record in result">
+                            <td>{{record.displayname}}</td>
+                            <td>{{record.created * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>
+                            <td><button class="btn btn-default" ng-click="viewRecord(record)"><i class="glyphicon glyphicon-zoom-in"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+        </accordion-group>
+    </accordion>
+</div>
