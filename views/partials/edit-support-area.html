@@ -1,0 +1,48 @@
+<div ng-controller="RecordController">
+    <div class="row" ng-if="app.state=='edit-support-view' || app.state=='edit-catalogs-view'">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <span class="panel-heading" ng-if="currentRecord.collection=='support'">
+                    <span class="glyphicon glyphicon-wrench" ></span>&nbsp;&nbsp;New Support Entry
+                </span>
+                <span class="panel-heading" ng-if="currentRecord.collection=='catalogs'">
+                    <span class="glyphicon glyphicon-book" ></span>&nbsp;&nbsp;New Catalog Entry
+                </span>
+                <div class="panel-body">
+
+                    <form>
+                        <input type="text" ng-model="currentRecord.displayname" placeholder="Entry Name" class="form-control" required="true">
+                        <input type="text" ng-model="currentRecord.synopsis" placeholder="Brief Description" class="form-control" required="true">
+
+                        <div ng-if="currentRecord.collection=='catalogs'" class="form-group">
+                            <input type="text" ng-model="currentRecord.address" placeholder="Address" ng-change="updateMap()" class="form-control" required="true" ng-model-options="{ debounce: 1000 }">
+                            <input type="tel" ng-model="currentRecord.tel" placeholder="+52 664 12 234" class="form-control">
+                            <input type="email" ng-model="currentRecord.email" placeholder="someone@someplace.com"  class="form-control">
+                        </div>
+
+                        <textarea ng-model="currentRecord.fullText" class="form-control well" aria-multiline="true" placeholder="Detailed Information" rows="10"></textarea>
+                        <button ng-click="currentRecord.links.push({url:'',desc:''})"><span class="glyphicon glyphicon-link"></span>&nbsp;Add External Link</button>
+                        <div ng-repeat="link in currentRecord.links" class="input-group">
+                            <input type="text" ng-model="link.desc" placeholder="description of link" required="true">
+                            <input type="url" ng-model="link.url" required="true">
+                        </div>
+                        <button ng-click="saveRecord()"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Save</button>
+                    </form>
+
+                    <iframe ng-if="currentRecord.mapURL"
+                            width="100%"
+                            height="450"
+                            frameborder="0" style="border:0"
+                            ng-src={{getMapURL()}}>
+                    </iframe>
+
+                </div>
+                <div class="panel-footer">
+                    <span class="label label-info">Info</span>&nbsp;&nbsp;|
+                    <span>Author: {{currentRecord.createdby}}&nbsp;&nbsp;|
+                    Collection: {{currentRecord.collection}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

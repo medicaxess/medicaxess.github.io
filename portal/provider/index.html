@@ -38,6 +38,7 @@
         <script src="/common/login/login-controller.js"></script>
         <script src="/common/forms/form-controller.js"></script>
         <script src="/common/search/search-controller.js"></script>
+        <script src="/common/records/record-controller.js"></script>
         <script src="/common/workflows/workflow-controller.js"></script>
         <script src="angular/controllers/provider-dashboard-controller.js"></script>
         <script src="angular/modules/app.js"></script>
@@ -47,7 +48,7 @@
         <div ng-controller="NavigationController">
             <header-area></header-area>
         </div>
-        <div id="page-content" class="container content-wide">
+        <div id="page-content" class="container">
             <div class="main">
                 <div class="main-inner">
                     <div class="container">
@@ -60,6 +61,9 @@
                             <patient-area></patient-area>
                             <charts-area></charts-area>
                             <custom-forms-area></custom-forms-area>
+                            <support-area></support-area>
+                            <edit-support-area></edit-support-area>
+                            <edit-catalog-area></edit-catalog-area>
                             <conference-area></conference-area>
                         </div>
                     </div>

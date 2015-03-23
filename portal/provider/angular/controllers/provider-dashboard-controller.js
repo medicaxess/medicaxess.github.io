@@ -9,7 +9,7 @@ var dashboardController = function($rootScope
                                    ,$scope
                                    ,$http
                                    ,$compile
-                                   //,uiCalendarConfig
+                                   ,uiCalendarConfig
 ){
     Date.prototype.addHours= function(h){
         this.setHours(this.getHours()+h);
@@ -342,7 +342,7 @@ angular.module('dashboard',[])
         ,'$scope'
         ,'$http'
         ,'$compile'
-        //,'uiCalendarConfig'
+        ,'uiCalendarConfig'
         , dashboardController
     ])
     .directive('dashboardArea',function(){

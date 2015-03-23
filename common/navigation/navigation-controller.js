@@ -28,6 +28,7 @@ var navigationController =  function($rootScope, $scope, $http, $timeout) {
         if(!$rootScope.app){
             $rootScope.app ={};
         }
+        $rootScope.currentRecord = null;
         $rootScope.app.state = state;
        console.log("Showing "+$rootScope.app.state);
     };

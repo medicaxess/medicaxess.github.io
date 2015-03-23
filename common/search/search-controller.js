@@ -5,9 +5,35 @@ var searchController = function($rootScope, $scope, $http, $parse) {
         $scope.currentRecord = record;//Do more here
     };
 
+    $scope.newRecord = function(){
+        var collection = "";
+        switch ($rootScope.app.state)
+        {
+            case 'supporte-view' :
+                collection = "support";
+                break;
+            case 'catalogos-view' :
+                collection = "catalogs";
+                break;
+        }
+        if(collection !="") {
+            var record = {};
+            record.collection = collection;
+            record.createdby = $rootScope.currentUser.displayname;
+            record.createdby_id = $rootScope.currentUser.displayname;
+            record.links = [];
+            $rootScope.currentRecord = record;
+            $rootScope.app.prev = $rootScope.app.state;
+            $rootScope.app.state = "edit-" + collection + "-view";
+            window.alert("You are creating a new entry in " + collection + "\nPlease hit the 'save' button when done, to persist it to the database.");
+        }else{
+            window.alert("Records of this type cannot be created from this screen.\nIf you see this error, you should notify support.");
+        }
+    };
+
     $scope.doSearch = function(){
         console.log("search triggered for: ",$scope.search.Txt);
-        if($scope.search.Txt.length < 4){
+        if($scope.search.Txt.length < 3){
             return
         }
         var collection = "*"
@@ -48,6 +74,20 @@ var searchController = function($rootScope, $scope, $http, $parse) {
             .error(function(error){
                 console.error(error);
             })
+    };
+
+    $scope.viewRecord = function(record){
+        console.log("setting view state for: ",record.collection);
+        switch(record.collection){
+            case  'support' :
+                $rootScope.currentRecord = record;
+                $rootScope.app.state = 'supporte-view';
+            break;
+            case  'catalogs' :
+                $rootScope.currentRecord = record;
+                $rootScope.app.state = 'supporte-view';
+            break;
+        }
     }
 };
 

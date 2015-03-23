@@ -1,5 +1,5 @@
 <div ng-show="app.state=='buscar-view' || app.state=='estudios-view' || app.state=='reportes-view' || app.state=='supporte-view' || app.state=='catalogos-view'">
-    <div ng-controller="SearchController">
+    <div ng-controller="SearchController" ng-if="!currentRecord">
 
         <div class="row">
             <div class="col-lg-12">
