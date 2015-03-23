@@ -9,7 +9,7 @@ var dashboardController = function($rootScope
                                    ,$scope
                                    ,$http
                                    ,$compile
-                                   ,uiCalendarConfig
+                                   //,uiCalendarConfig
 ){
     Date.prototype.addHours= function(h){
         this.setHours(this.getHours()+h);
@@ -87,6 +87,11 @@ var dashboardController = function($rootScope
     };
     var now = $scope.currentTime();
 
+    $scope.isDate = function(val) {
+        var d = new Date(val);
+        return !isNaN(d.valueOf());
+    };
+
     $scope.events = {
         color: 'yellow',
         textColor: 'black',
@@ -131,59 +136,70 @@ var dashboardController = function($rootScope
     $scope.patient = {};
 
     $scope.fetchAllPatients = function(){
-        $rootScope.patients = {};
-        $http.get($rootScope.baseUrl+"/patients")
-            .success(function(data){
-                console.log("patients: ",data);
-                data.forEach(function(element, index, array){
-                   $http.get($rootScope.baseUrl+"/patients/"+element._id)
-                       .success(function(patient){
-                           console.log("patient: ",patient[0]);
-                           $rootScope.patients[element._id] = patient[0];
-                       })
-                });
-            })
+      $http.get($rootScope.baseUrl+"/find/patients/*/*")
+          .success(function(data){
+              console.log("patients: ",data);
+              var patients = {};
+              for(var patient in data){
+                  patients[data[patient]._id] = data[patient];
+              }
+              $rootScope.patients = patients;
+              $rootScope.matches = patients;
+          })
     };
 
-    $scope.searchPatients = function(){
+    $scope.searchPatients = function() {
 
-        delete($rootScope.matches);
         $rootScope.matches = {};
-        if($rootScope.patients){
-            console.log("rootScope.patients: ",$rootScope.patients);
-            var patients = Object.keys($rootScope.patients);
-            patients.forEach(function(id, idx, arr){
-                console.log("Looking at: ",id);
-                var patient = $rootScope.patients[id];
-                console.log("patient: ",patient);
-                var keys = Object.keys($scope.patient);
-                console.log("keys: ",keys);
+        if ($rootScope.patients) {
 
-                if(keys) {
-                    keys.forEach(function (fieldname, index, array) {
-                        console.log("Searching on: ",fieldname);
-                        if(patient[fieldname]) {
-                            var field = patient[fieldname].toLowerCase();
-                            console.log("field: ",field);
-                            var field2 = $scope.patient[fieldname].toLowerCase();
-                            console.log("field2: ",field2);
-                            if(field && field2) {
-                                if (field.contains(field2)) {
-                                    $rootScope.matches[patient._id] = patient;
-                                }
-                            }
+            console.log("rootScope.patients: ", $rootScope.patients);
+            for(var person in $rootScope.patients ){
+                person = $rootScope.patients[person];
+                console.log("patient: ",person);
+                var matched = 0;
+                for(var field in $scope.patient){
+                    if(!$scope.patient.hasOwnProperty(field) || !person.hasOwnProperty(field)){
+                        continue;
+                    }
+                    console.log("comparing field: ",field);
+                    var data = $scope.patient[field];
+                    if($scope.isDate(data) && $scope.isDate(person[field])){
+                        var searchDate = new Date(data);
+                        var recordDate = new Date(person[field]);
+
+                        if(searchDate.getUTCFullYear() == recordDate.getUTCFullYear()){
+                            matched++;
+                        }else{
+                            matched--;
                         }
-                    })
+                        if(searchDate.getUTCMonth() == recordDate.getUTCMonth()){
+                            matched++;
+                        }else{
+                            matched--;
+                        }
+                        continue;
+                    }
+
+                    if(person[field].toLowerCase().contains(data)){
+                        matched++;
+                    }else{
+                        matched--;
+                    }
                 }
-            });
+                if(matched > 0){
+                    $rootScope.matches[person._id] = person;
+                }
+            }
         }else{
             $scope.fetchAllPatients();
         }
     };
 
+
+
     $scope.setCurrentPatient = function(id){
 
-        $scope.app.state = 'providerview-patient';
         $scope.currentPatient = $rootScope.patients[id];
         $rootScope.currentPatient = $scope.currentPatient;
         //drawChart();
@@ -226,11 +242,18 @@ var dashboardController = function($rootScope
         //drawChart();
     };
 
+    $scope.hidePatient = function(){
+        delete $scope.currentPatient;
+        delete $rootScope.currentPatient;
+
+    };
     $scope.newPatient = function(){
         if($scope.patient.displayname){
             console.log("creating: ",$scope.patient);
             $scope.patient.createdby = $rootScope.currentUser.displayname;
             $scope.patient.createdby_id = $rootScope.currentUser._id;
+            $scope.patient.collection = "patients";
+
             delete($scope.patient._id);
             $http.post($rootScope.baseUrl+"/patients",$scope.patient)
                 .success(function(data){
@@ -319,7 +342,7 @@ angular.module('dashboard',[])
         ,'$scope'
         ,'$http'
         ,'$compile'
-        ,'uiCalendarConfig'
+        //,'uiCalendarConfig'
         , dashboardController
     ])
     .directive('dashboardArea',function(){

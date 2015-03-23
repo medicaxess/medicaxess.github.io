@@ -1,11 +1,11 @@
-<div ng-show="app.state=='buscar-view' || app.state=='estudios-view' || app.state=='reportes-view' || app.state=='supporte-view' || app.state=='catalogos-view' || app.state=='pacientes-view'">
+<div ng-show="app.state=='buscar-view' || app.state=='estudios-view' || app.state=='reportes-view' || app.state=='supporte-view' || app.state=='catalogos-view'">
     <div ng-controller="SearchController">
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-primary">
                     <span class="panel-heading" ng-if="app.state=='buscar-view'">Buscar Todos</span>
-                    <span class="panel-heading" ng-if="app.state=='pacientes-view'">Buscar Pacientes</span>
+                    <!--<span class="panel-heading" ng-if="app.state=='pacientes-view'">Buscar Pacientes</span>-->
                     <span class="panel-heading" ng-if="app.state=='estudios-view'">Buscar Estudios</span>
                     <span class="panel-heading" ng-if="app.state=='reportes-view'">Buscar Reportes</span>
                     <span class="panel-heading" ng-if="app.state=='supporte-view'">Buscar Supporte</span>

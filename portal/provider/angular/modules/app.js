@@ -3,7 +3,7 @@
 // Declare app level module which depends on views, and common
 angular.module('myApp', [
     'ui.bootstrap'
-    ,'ui.calendar'
+    //,'ui.calendar'
     ,'ngAnimate'
     ,'login'
     ,'navigation'
