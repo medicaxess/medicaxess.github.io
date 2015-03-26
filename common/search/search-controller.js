@@ -31,12 +31,16 @@ var searchController = function($rootScope, $scope, $http, $parse) {
         }
     };
 
-    $scope.doSearch = function(){
+    $scope.doSearch = function(src){
         console.log("search triggered for: ",$scope.search.Txt);
+        if(src == 'btn'){
+            window.alert("Results are displayed below");
+        }
         if($scope.search.Txt.length < 3){
             return
         }
-        var collection = "*"
+
+        var collection = "*";
         switch ($rootScope.app.state)
         {
             case 'pacientes-view' :

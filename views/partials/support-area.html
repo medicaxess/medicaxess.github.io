@@ -5,6 +5,10 @@
                 <span class="panel-heading">
                     <span class="panel-heading">
                         <span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;{{currentRecord.displayname}}
+                         <span>
+                            <button class="btn btn-default btn-sm" onClick="window.print()"><span class="glyphicon glyphicon-print"></span></button>
+                            <button class="btn btn-default btn-sm" ng-click="editRecord()"><span class="glyphicon glyphicon-edit"></span></button>
+                        </span>
                     </span>
                 </span>
                 <div class="panel-body">
@@ -26,7 +30,7 @@
                         <section ng-if="currentRecord.links.length > 0">
                             <i style="color: #808080;">Mas Informes</i><br>
                             <span ng-repeat="link in currentRecord.links">
-                                <a ng-href="{{link.url}}">{{link.desc}}</a>
+                                <a ng-href="{{link.url}}" target="_blank">{{link.desc}}</a>
                             </span>
                         </section>
 
@@ -35,9 +39,7 @@
                     </article>
                 </div>
                 <div class="panel-footer">
-                    <span>
-                        <button class="btn btn-default btn-sm" onClick="window.print()"><span class="glyphicon glyphicon-print"></span></button>
-                    </span>
+
                     <span>
                         Author: {{currentRecord.createdby}}&nbsp;&nbsp;|&nbsp;&nbsp;Collection: {{currentRecord.collection}}</span>
                     </span>

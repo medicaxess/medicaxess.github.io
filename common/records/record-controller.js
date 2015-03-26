@@ -9,6 +9,12 @@ var recordController = function($rootScope, $scope, $http, $parse, $sce) {
 
         return  $sce.trustAsResourceUrl($scope.currentRecord.mapURL);
     };
+
+    $scope.editRecord = function(){
+        $rootScope.app.prev = $rootScope.app.state;
+        $rootScope.app.state ='edit-support-view';
+    };
+
     $scope.saveRecord = function(){
         var record = $rootScope.currentRecord;
         var url = $rootScope.baseUrl+"/"+record.collection;
@@ -18,6 +24,8 @@ var recordController = function($rootScope, $scope, $http, $parse, $sce) {
                     console.log("data: ",data);
                     $rootScope.currentRecord = data[0];
                     $rootScope.app.state = $rootScope.app.prev;
+                    window.alert("Record was saved");
+
                 })
                 .error(function(err){
                    console.error(err);
@@ -30,6 +38,7 @@ var recordController = function($rootScope, $scope, $http, $parse, $sce) {
                     console.log("data: ",data);
                     $rootScope.currentRecord = data[0];
                     $rootScope.app.state = $rootScope.app.prev;
+                    window.alert("Record was updated");
                 })
                 .error(function(err){
                     console.error(err);

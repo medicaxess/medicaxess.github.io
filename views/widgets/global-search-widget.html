@@ -1,9 +1,9 @@
 <div ng-controller="SearchController">
     <form>
         <div class="input-group">
-            <input type="search" name="searchTxt" ng-model="search.Txt" ng-change="doSearch()" class="form-control" placeholder="texto para buscar" aria-describedby="search-addon">
-            <span class="input-group-addon" id="search-addon">
-                <span class="glyphicon glyphicon-search"></span>&nbsp;Buscar
+            <input type="search" name="searchTxt" ng-model="search.Txt" ng-change="doSearch('key')" class="form-control" placeholder="texto para buscar" aria-describedby="search-addon">
+            <span class="input-group-btn" id="search-addon">
+                <button class="btn btn-default" type="submit" ng-click="doSearch('btn')"><span class="glyphicon glyphicon-search"></span>&nbsp;Buscar</button>
             </span>
         </div>
         <div ng-if="app.state=='supporte-view' || app.state=='catalogos-view'">
