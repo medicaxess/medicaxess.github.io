@@ -26,9 +26,9 @@
                     <td class="col-md-1">{{item.recordtype}}</td>
                     <td class="col-md-1">{{item.fields.length}}</td>
                     <!--<td class="col-md-1">{{item._id}}</td>-->
-                    <td class="col-md-1"><button ng-click="editForm(item)" class="btn btn-default btn-block" ng-if="item.owner_id == currentUser._id"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Edit</button>
+                    <td class="col-md-1"><button ng-click="editForm(item)" class="btn btn-default btn-block"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Edit</button>
                     <button ng-click="cloneForm(item)" class="btn btn-default btn-block"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Clone</button>
-                    <button ng-if="item.owner_id == currentUser._id" ng-click="deleteForm(item)" class="btn btn-default btn-block"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;Delete</button></td>
+                    <button ng-click="deleteForm(item)" class="btn btn-default btn-block"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;Delete</button></td>
                 </tr>
             </tbody>
         </table>
