@@ -91,6 +91,15 @@ var searchController = function($rootScope, $scope, $http, $parse) {
                 $rootScope.currentRecord = record;
                 $rootScope.app.state = 'supporte-view';
             break;
+            case  'workflows' :
+                $rootScope.currentRecord = null;
+                $rootScope.currentWorkflow = record;
+                $rootScope.app.state = 'customize-forms-view';
+            break;
+            default:
+                window.alert("Apologies, but you lack the permission required to access records of type '"+record.collection+"'\nPlease contact support if you need access.");
+
+            break;
         }
     }
 };
